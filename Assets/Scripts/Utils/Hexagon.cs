@@ -23,8 +23,8 @@ public class Hexagon : MonoBehaviour
             ring[k] = new Vector3(Mathf.Cos(a) * radius, 0f, Mathf.Sin(a) * radius);
         }
 
-        var verts = new System.Collections.Generic.List<Vector3>();
-        var tris  = new System.Collections.Generic.List<int>();
+        System.Collections.Generic.List<Vector3> verts = new System.Collections.Generic.List<Vector3>();
+        System.Collections.Generic.List<int> tris = new System.Collections.Generic.List<int>();
 
         int topCenter = verts.Count; verts.Add(new Vector3(0f, t, 0f));
         int topStart = verts.Count;
@@ -59,7 +59,7 @@ public class Hexagon : MonoBehaviour
             tris.Add(i); tris.Add(i + 2); tris.Add(i + 3);
         }
 
-        var mesh = new Mesh { name = "ProceduralHex" };
+        Mesh mesh = new Mesh { name = "ProceduralHex" };
         mesh.SetVertices(verts);
         mesh.SetTriangles(tris, 0);
         mesh.RecalculateNormals();
@@ -67,7 +67,7 @@ public class Hexagon : MonoBehaviour
 
         GetComponent<MeshFilter>().sharedMesh = mesh;
 
-        var col = GetComponent<MeshCollider>();
+        MeshCollider col = GetComponent<MeshCollider>();
         if (col == null) col = gameObject.AddComponent<MeshCollider>();
         col.sharedMesh = mesh;
     }

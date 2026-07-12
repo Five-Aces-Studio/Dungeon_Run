@@ -8,8 +8,8 @@ public class CellWFC
     public TileWFC selectedTile;
 
     [Header("Position")]
-    public int row;
-    public int col;
+    public int q; // column
+    public int r; // row
 
     [Header("State")]
     public bool collapsed;
@@ -19,8 +19,8 @@ public class CellWFC
 [Serializable]
 public class CellWFCData
 {
-    public int row;
-    public int col;
+    public int q;
+    public int r;
     public bool collapsed;
     public bool instantiated;
     public int selectedTileIndex;

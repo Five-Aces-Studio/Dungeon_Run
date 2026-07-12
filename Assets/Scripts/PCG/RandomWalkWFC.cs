@@ -14,20 +14,21 @@ public class ForbiddenPair
 }
 
 [Serializable]
-public class TypeCap
+public class ForbiddenMax
 {
     public CellType type;
     public int max;
-    public TypeCap(CellType t, int m) { type = t; max = m; }
+    public ForbiddenMax(CellType t, int m) { type = t; max = m; }
 }
 
 public class RandomWalkWFC : MonoBehaviour
 {
     [Header("General Parameters")]
-    [SerializeField] private int steps = 60;         
-    [SerializeField, Range(0, 2)] private int brushRadius = 1;  
-    [SerializeField, Range(0f, 0.3f)] private float holeChance = 0.08f; 
-    [SerializeField] private float triangleSide = 1f;
+    [SerializeField] private int steps = 60;
+    [SerializeField, Range(0, 2)] private int brushRadius = 1;
+    [SerializeField, Range(0f, 0.3f)] private float holeChance = 0.08f;
+    [SerializeField, Range(0f, 1f)] private float wormness = 0f;
+    [SerializeField] private float radius = 1f;
     [SerializeField] private bool progressive = true;
 
     [Header("Tiles")]
@@ -36,75 +37,81 @@ public class RandomWalkWFC : MonoBehaviour
     [Header("Forbidden neighbors")]
     public List<ForbiddenPair> forbidden = new List<ForbiddenPair>
     {
-        new ForbiddenPair(CellType.Shop,  CellType.Shop),  
-        new ForbiddenPair(CellType.Shop,  CellType.Combat), 
-        new ForbiddenPair(CellType.Item,  CellType.Item), 
+        new ForbiddenPair(CellType.Shop,  CellType.Shop),
+        new ForbiddenPair(CellType.Shop,  CellType.Combat),
+        new ForbiddenPair(CellType.Item,  CellType.Item),
         new ForbiddenPair(CellType.Event, CellType.Event),
     };
 
     [Header("Max cells")]
-    public List<TypeCap> max = new List<TypeCap>
+    public List<ForbiddenMax> max = new List<ForbiddenMax>
     {
-        new TypeCap(CellType.Shop, 2),
-        new TypeCap(CellType.Event, 4),
+        new ForbiddenMax(CellType.Shop, 2),
+        new ForbiddenMax(CellType.Event, 4),
     };
 
     [SerializeField] private int maxRetries = 20;
 
-    private Dictionary<Vector2Int, CellWFC> grid;
+    private Dictionary<Vector2Int, CellWFC> grid; 
     private HashSet<Vector2Int> domain;
-    private TileWFC[] upTiles;
-    private TileWFC[] downTiles;
-    private bool[,] compatible;                
+    private TileWFC[] allTiles;
+    private bool[,] compatible;
     private Dictionary<CellType, int> typeCount;
     private Dictionary<CellType, int> typeMax;
     private Queue<CellWFC> propagationQueue = new Queue<CellWFC>();
     private bool IsGenerating;
     private int Iteration, MaxIteration, retries;
+    private bool sizeChecked;
 
     public event Action OnGenerationComplete;
+
+    private static readonly Vector2Int[] HexDirs =
+    {
+        new Vector2Int( 1,  0), new Vector2Int(-1,  0),
+        new Vector2Int( 0,  1), new Vector2Int( 0, -1),
+        new Vector2Int( 1, -1), new Vector2Int(-1,  1),
+    };
 
     private void Start()
     {
         Generate();
     }
 
-    [ContextMenu("Generar")]
     public void Generate()
     {
         retries = 0;
+        sizeChecked = false;
         BuildRules();
-        BuildTileSets();
-        domain = CarveDomain();  
-        StartWave();             
+        BuildTileSet();
+        domain = RandomWalk();
+        StartWave();
     }
 
-    private static bool PointingUp(Vector2Int p) => ((p.x + p.y) & 1) == 0;
-
-    private static IEnumerable<Vector2Int> NeighborCoords(Vector2Int p)
+    private static Vector2Int[] NeighborCoords(Vector2Int p)
     {
-        yield return new Vector2Int(p.x, p.y - 1);
-        yield return new Vector2Int(p.x, p.y + 1);
-        yield return PointingUp(p) ? new Vector2Int(p.x + 1, p.y)
-                                   : new Vector2Int(p.x - 1, p.y);
+        Vector2Int[] neighbors = new Vector2Int[6];
+        for (int i = 0; i < 6; i++)
+            neighbors[i] = p + HexDirs[i];
+        return neighbors;
     }
 
-    private HashSet<Vector2Int> CarveDomain()
+    private HashSet<Vector2Int> RandomWalk()
     {
-        var cells = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> cells = new HashSet<Vector2Int>();
         Vector2Int head = Vector2Int.zero;
+        int lastDir = -1;
 
         for (int s = 0; s < steps; s++)
         {
-            CarveBrush(cells, head);
-            var options = NeighborCoords(head).ToList();
-            head = options[Random.Range(0, options.Count)]; 
+            RandomWalkPaint(cells, head);
+            lastDir = NextRandomWalkDirection(lastDir);
+            head += HexDirs[lastDir];
         }
-        CarveBrush(cells, head);
+        RandomWalkPaint(cells, head);
 
         if (holeChance > 0f)
         {
-            foreach (var c in cells.ToList())
+            foreach (Vector2Int c in cells.ToList())
             {
                 bool interior = NeighborCoords(c).All(cells.Contains);
                 if (interior && Random.value < holeChance)
@@ -112,24 +119,37 @@ public class RandomWalkWFC : MonoBehaviour
             }
         }
 
-        Debug.Log($"Dominio tallado: {cells.Count} celdas");
         return cells;
     }
 
-    private void CarveBrush(HashSet<Vector2Int> cells, Vector2Int center)
+    private int NextRandomWalkDirection(int lastDir)
     {
-        var frontier = new Queue<(Vector2Int p, int d)>();
-        var seen = new HashSet<Vector2Int> { center };
-        frontier.Enqueue((center, 0));
+        if (lastDir < 0 || wormness <= 0f)
+            return Random.Range(0, 6);
 
-        while (frontier.Count > 0)
+        if (Random.value < wormness)
+            return lastDir;
+
+        int opposite = lastDir ^ 1;
+        int dir = Random.Range(0, 5);
+        if (dir >= opposite) dir++;
+        return dir;
+    }
+
+    private void RandomWalkPaint(HashSet<Vector2Int> cells, Vector2Int brushCenter)
+    {
+        Queue<(Vector2Int position, int distanceFromCenter)> pendingCells = new Queue<(Vector2Int position, int distanceFromCenter)>();
+        HashSet<Vector2Int> visited = new HashSet<Vector2Int> { brushCenter };
+        pendingCells.Enqueue((brushCenter, 0));
+
+        while (pendingCells.Count > 0)
         {
-            var (p, d) = frontier.Dequeue();
-            cells.Add(p);
-            if (d == brushRadius) continue;
-            foreach (var n in NeighborCoords(p))
-                if (seen.Add(n))
-                    frontier.Enqueue((n, d + 1));
+            (Vector2Int position, int distanceFromCenter) = pendingCells.Dequeue();
+            cells.Add(position);
+            if (distanceFromCenter == brushRadius) continue;
+            foreach (Vector2Int neighbor in NeighborCoords(position))
+                if (visited.Add(neighbor))
+                    pendingCells.Enqueue((neighbor, distanceFromCenter + 1));
         }
     }
 
@@ -141,25 +161,22 @@ public class RandomWalkWFC : MonoBehaviour
             for (int j = 0; j < n; j++)
                 compatible[i, j] = true;
 
-        foreach (var f in forbidden)
+        foreach (ForbiddenPair f in forbidden)
         {
             compatible[(int)f.a, (int)f.b] = false;
-            compatible[(int)f.b, (int)f.a] = false; 
+            compatible[(int)f.b, (int)f.a] = false;
         }
 
         typeMax = new Dictionary<CellType, int>();
-        foreach (var c in max)
+        foreach (ForbiddenMax c in max)
             if (c.max > 0) typeMax[c.type] = c.max;
     }
 
-    private void BuildTileSets()
+    private void BuildTileSet()
     {
-        var tiles = AvailableTiles.Where(t => t != null).ToArray();
-        upTiles   = tiles.Where(t => t.orientation == TriOrientation.Up).ToArray();
-        downTiles = tiles.Where(t => t.orientation == TriOrientation.Down).ToArray();
-
-        if (upTiles.Length == 0 || downTiles.Length == 0)
-            Debug.LogError("Faltan teselas de una orientación (▲ o ▼).");
+        allTiles = AvailableTiles.Where(t => t != null).ToArray();
+        if (allTiles.Length == 0)
+            Debug.LogError("AvailableTiles está vacío.");
     }
 
     private void StartWave()
@@ -169,14 +186,14 @@ public class RandomWalkWFC : MonoBehaviour
         typeCount = new Dictionary<CellType, int>();
 
         grid = new Dictionary<Vector2Int, CellWFC>();
-        foreach (var p in domain)
+        foreach (Vector2Int p in domain)
         {
             grid[p] = new CellWFC
             {
-                row = p.x,
-                col = p.y,
+                q = p.x,
+                r = p.y,
                 collapsed = false,
-                tileOptions = PointingUp(p) ? upTiles : downTiles,
+                tileOptions = allTiles,
                 selectedTile = null
             };
         }
@@ -201,7 +218,7 @@ public class RandomWalkWFC : MonoBehaviour
         if (progressive) InstantiateCollapsedCells();
 
         Propagate();
-        if (!IsGenerating) return; 
+        if (!IsGenerating) return;
 
         CellWFC nextCell = FindLowestEntropy();
 
@@ -213,17 +230,19 @@ public class RandomWalkWFC : MonoBehaviour
         else
         {
             IsGenerating = false;
-            InstantiateCollapsedCells(); 
+            InstantiateCollapsedCells();
             Debug.Log("Generación completa");
             OnGenerationComplete?.Invoke();
         }
     }
 
-    private IEnumerable<CellWFC> GetNeighbors(CellWFC cell)
+    private List<CellWFC> GetNeighbors(CellWFC cell)
     {
-        foreach (var n in NeighborCoords(new Vector2Int(cell.row, cell.col)))
-            if (grid.TryGetValue(n, out var c))
-                yield return c;
+        List<CellWFC> neighbors = new List<CellWFC>();
+        foreach (Vector2Int coord in NeighborCoords(new Vector2Int(cell.q, cell.r)))
+            if (grid.TryGetValue(coord, out CellWFC neighbor))
+                neighbors.Add(neighbor);
+        return neighbors;
     }
 
     private bool Compatible(TileWFC a, TileWFC b) =>
@@ -234,7 +253,7 @@ public class RandomWalkWFC : MonoBehaviour
         CellWFC best = null;
         float lowest = float.PositiveInfinity;
 
-        foreach (var cell in grid.Values)
+        foreach (CellWFC cell in grid.Values)
         {
             if (cell.collapsed) continue;
             float entropy = CalculateEntropy(cell.tileOptions) + Random.value * 1e-4f;
@@ -263,15 +282,20 @@ public class RandomWalkWFC : MonoBehaviour
         cell.tileOptions = new[] { tile };
         cell.collapsed = true;
         propagationQueue.Enqueue(cell);
-        typeCount.TryGetValue(tile.type, out int count);
-        typeCount[tile.type] = ++count;
-        if (typeMax.TryGetValue(tile.type, out int max) && count >= max)
-            BanTypeEverywhere(tile.type);
+
+        int count;
+        typeCount.TryGetValue(tile.type, out count);
+        count = count + 1;
+        typeCount[tile.type] = count;
+
+        int max;
+        if (typeMax.TryGetValue(tile.type, out max) && count >= max)
+            BanType(tile.type);
     }
 
-    private void BanTypeEverywhere(CellType t)
+    private void BanType(CellType t)
     {
-        foreach (var cell in grid.Values)
+        foreach (CellWFC cell in grid.Values)
         {
             if (cell.collapsed) continue;
             int before = cell.tileOptions.Length;
@@ -290,10 +314,10 @@ public class RandomWalkWFC : MonoBehaviour
         int random = Random.Range(0, totalWeight);
         int acumulative = 0;
 
-        foreach (var tile in tiles)
+        foreach (TileWFC tile in tiles)
         {
             acumulative += tile.Weight;
-            if (random < acumulative) 
+            if (random < acumulative)
                 return tile;
         }
         return tiles[tiles.Length - 1];
@@ -305,7 +329,7 @@ public class RandomWalkWFC : MonoBehaviour
         {
             CellWFC cell = propagationQueue.Dequeue();
 
-            foreach (var neighbor in GetNeighbors(cell))
+            foreach (CellWFC neighbor in GetNeighbors(cell))
             {
                 if (neighbor.collapsed) continue;
 
@@ -337,9 +361,10 @@ public class RandomWalkWFC : MonoBehaviour
     {
         propagationQueue.Clear();
 
-        if (retries++ < maxRetries)
+        retries = retries + 1;
+        if (retries <= maxRetries)
         {
-            Debug.LogWarning($"Contradicción en ({cell.row},{cell.col}). Reintento {retries}/{maxRetries}");
+            Debug.LogWarning($"Contradicción en ({cell.q},{cell.r}). Reintento {retries}/{maxRetries}");
             StartWave();
         }
         else
@@ -349,46 +374,71 @@ public class RandomWalkWFC : MonoBehaviour
         }
     }
 
-    private Vector3 BandCenter(int row, int col)
+    private Vector3 HexCenter(int q, int r)
     {
-        float s = triangleSide;
-        float h = s * 0.8660254f;
-        return new Vector3(col * (s * 0.5f), 0f, -(row + 0.5f) * h);
+        float w = radius * 1.7320508f;
+        return new Vector3(w * (q + r * 0.5f), 0f, -1.5f * radius * r);
     }
 
     private void InstantiateCollapsedCells()
     {
-        foreach (var kv in grid)
+        foreach (KeyValuePair<Vector2Int, CellWFC> kv in grid)
         {
             CellWFC cell = kv.Value;
             if (!cell.collapsed || cell.instantiated) continue;
 
-            bool up = PointingUp(kv.Key);
-            Quaternion rot = up ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
+            TileWFC inst = Instantiate(cell.selectedTile, Vector3.zero, Quaternion.identity, transform);
 
-            var inst = Instantiate(cell.selectedTile, Vector3.zero, rot, transform);
-
-            var r = inst.GetComponentInChildren<Renderer>();
-            Vector3 delta = BandCenter(cell.row, cell.col) - r.bounds.center;
-            delta.y = 0f; 
+            Renderer rend = inst.GetComponentInChildren<Renderer>();
+            Vector3 delta = HexCenter(cell.q, cell.r) - rend.bounds.center;
+            delta.y = 0f;
             inst.transform.position += delta;
 
-            var tc = inst.gameObject.GetComponent<TriangleCell3D>();
-            if (tc == null) tc = inst.gameObject.AddComponent<TriangleCell3D>();
-            tc.row = cell.row;
-            tc.col = cell.col;
-            tc.pointingUp = up;
-            tc.type = cell.selectedTile.type;
+            if (!sizeChecked)
+            {
+                sizeChecked = true;
+                Vector3 sz = rend.bounds.size;
+                float expX = radius * 1.7320508f, expZ = radius * 2f;
+                if (Mathf.Abs(sz.x - expX) > 0.02f || Mathf.Abs(sz.z - expZ) > 0.02f)
+                    Debug.LogWarning($"Hex mal dimensionado: size={sz}, esperado ({expX:F2}, *, {expZ:F2}). ¿radius desincronizado entre HexWFC y ProceduralHexVisual?");
+            }
+
+            HexCell hc = inst.gameObject.GetComponent<HexCell>();
+            if (hc == null) hc = inst.gameObject.AddComponent<HexCell>();
+            hc.q = cell.q;
+            hc.r = cell.r;
+            hc.type = cell.selectedTile.type;
 
             cell.instantiated = true;
-
-            Debug.Log($"({cell.row},{cell.col}) up={up} size={r.bounds.size}");
         }
     }
 
     private void ClearGridObjects()
     {
-        while (transform.childCount > 0)
-            DestroyImmediate(transform.GetChild(transform.childCount - 1).gameObject);
+        for (int i = transform.childCount - 1; i >= 0; i--)
+        {
+            Transform child = transform.GetChild(i);
+            if (child.GetComponent<TileWFC>() != null)
+                DestroyImmediate(child.gameObject);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (grid == null) return;
+        Gizmos.color = Color.green;
+
+        foreach (KeyValuePair<Vector2Int, CellWFC> kv in grid)
+        {
+            Vector3 c = HexCenter(kv.Key.x, kv.Key.y);
+            for (int k = 0; k < 6; k++)
+            {
+                float a0 = (60f * k + 30f) * Mathf.Deg2Rad;
+                float a1 = (60f * (k + 1) + 30f) * Mathf.Deg2Rad;
+                Vector3 p0 = c + new Vector3(Mathf.Cos(a0), 0f, Mathf.Sin(a0)) * radius;
+                Vector3 p1 = c + new Vector3(Mathf.Cos(a1), 0f, Mathf.Sin(a1)) * radius;
+                Gizmos.DrawLine(p0, p1);
+            }
+        }
     }
 }
