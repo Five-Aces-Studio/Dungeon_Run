@@ -24,8 +24,8 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.03137255, g: 0.039215688, b: 0.07058824, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -119,6 +119,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &153856622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 153856624}
+  - component: {fileID: 153856623}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &153856623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153856622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
+--- !u!4 &153856624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153856622}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.039843, y: -53.896656, z: 33.98405}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508390965
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +180,7 @@ GameObject:
   - component: {fileID: 508390967}
   - component: {fileID: 508390966}
   - component: {fileID: 508390969}
+  - component: {fileID: 508390970}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -155,8 +205,8 @@ Camera:
   m_GameObject: {fileID: 508390965}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.019607844, g: 0.023529412, b: 0.039215688, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -226,6 +276,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollowNode
   offset: {x: 0, y: 12, z: -9}
   smoothTime: 0.35
+--- !u!114 &508390970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508390965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &537071906
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +331,6 @@ GameObject:
   - component: {fileID: 537071907}
   - component: {fileID: 537071908}
   - component: {fileID: 537071909}
-  - component: {fileID: 537071910}
   - component: {fileID: 537071911}
   m_Layer: 0
   m_Name: RandomWalkWFC
@@ -276,7 +369,7 @@ MonoBehaviour:
   steps: 250
   brushRadius: 1
   holeChance: 0.03
-  momentum: 0
+  wormness: 0.276
   radius: 1
   progressive: 1
   AvailableTiles:
@@ -331,24 +424,6 @@ MonoBehaviour:
     color: {r: 0.5, g: 0.4, b: 1, a: 1}
   - type: 4
     color: {r: 0.2, g: 1, b: 0.6, a: 1}
---- !u!114 &537071910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537071906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05003a04954548f78b5667ecc6e85654, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NightSceneSetup
-  backgroundColor: {r: 0.02, g: 0.024, b: 0.04, a: 1}
-  ambientColor: {r: 0.03, g: 0.04, b: 0.07, a: 1}
-  directionalIntensity: 0.05
-  directionalColor: {r: 0.55, g: 0.65, b: 1, a: 1}
-  bloomIntensity: 1.2
-  bloomThreshold: 0.9
 --- !u!114 &537071911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,12 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52088d20266e4a11bc2a394279f2cf5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FogParticles
-  fogColor: {r: 0.55, g: 0.6, b: 0.75, a: 0.4}
-  puffSize: 2.2
-  height: 0.9
-  emitInterval: 0.45
-  emitChance: 0.35
-  lifetime: 4
+  fogColor: {r: 0.55, g: 0.6, b: 0.75, a: 0.101960786}
+  puffSize: 1.7
+  height: 0.7
+  emitInterval: 0.3
+  emitChance: 0.25
+  lifetime: 3
 --- !u!1 &921493541
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,8 +502,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.54901963, g: 0.6509804, b: 1, a: 1}
+  m_Intensity: 0.05
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -533,3 +608,4 @@ SceneRoots:
   - {fileID: 508390968}
   - {fileID: 1288182243}
   - {fileID: 921493542}
+  - {fileID: 153856624}
