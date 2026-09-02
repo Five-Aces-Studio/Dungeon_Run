@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54497d250df0dd4cb5225fc8237f09a, type: 3}
   m_Name: Poisoned Knife
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Armor
-  description: Gain 5 Armor
+  cardName: Poisoned Knife
+  description: 'Add 5 poison to the enemy during 3 turns '
   actionCost: 1
   illustration: {fileID: 0}
+  multipleTurns: 1
+  remainingTurns: 0
   attackPower: 0
   healPower: 0
-  poisonPower: 0
-  poisonTurns: 0
-  defensePower: 5
+  poisonPower: 5
+  poisonTurns: 3
+  defensePower: 0

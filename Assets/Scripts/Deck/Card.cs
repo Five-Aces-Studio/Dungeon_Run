@@ -12,8 +12,8 @@ public class Card : MonoBehaviour
     [SerializeField] private TextMeshPro descriptionText;
     [SerializeField] private TextMeshPro actionsText;
 
-    [SerializeField] private float hoverScale = 2f;
-    [SerializeField] private float hoverOffset = 2f;
+    [SerializeField] private float hoverScale = 1.5f;
+    [SerializeField] private float hoverOffset = 1.5f;
 
     private Vector3 originalScale;
     private Vector3 originalPosition;
@@ -22,12 +22,12 @@ public class Card : MonoBehaviour
     private int originalSortingOrder;
     private static bool isBeingDragged = false;
     private CardData cardData;
-    private Collider2D cardCollider;
+    private Collider cardCollider;
 
     private void Awake()
     {
         sortingGroup = GetComponent<SortingGroup>();
-        cardCollider = GetComponent<Collider2D>();
+        cardCollider = GetComponent<Collider>();
     }
 
     private void Start()

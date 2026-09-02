@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayZone : MonoBehaviour
 {
     [SerializeField] private PlayerHand playerHand;
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.TryGetComponent(out Card card))
         {
@@ -12,7 +12,7 @@ public class PlayZone : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
         if(collision.TryGetComponent(out Card card))
         {

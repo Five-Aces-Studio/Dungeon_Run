@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject playerSprite;
+    //[SerializeField] private GameObject playerSprite;
+    [SerializeField] private CameraShake cameraShake;
+    [SerializeField] private float shakeDuration;
+    [SerializeField] private float shakeMagnitude;
     private Vector3 originalPosition;
-    private Animator playerAnimator;
+    //private Animator playerAnimator;
 
     private Health playerHealth;
-    private ParticleSystem VFX;
+    //private ParticleSystem VFX;
 
     private void OnEnable() 
     {
@@ -24,9 +27,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        playerAnimator = playerSprite.GetComponent<Animator>();
+        //playerAnimator = playerSprite.GetComponent<Animator>();
         playerHealth = GetComponent<Health>();
-        VFX = playerSprite.GetComponentInChildren<ParticleSystem>();
+        //VFX = playerSprite.GetComponentInChildren<ParticleSystem>();
     }
 
     private void Start()
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
     private void PlayerHit(int damage)
     {
         playerHealth.TakeDamage(damage);
+        cameraShake.Shake(shakeDuration, shakeMagnitude);
         if (!playerHealth.IsAlive())
         {
             Die();
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        playerAnimator.Play("Die");
+        //playerAnimator.Play("Die");
         PlayerEvents.PlayerDeath();
     }
 
@@ -65,7 +69,7 @@ public class Player : MonoBehaviour
     private void Heal(CardData cardData)
     {
         playerHealth.HealDamage(cardData.healPower);
-        VFX.Play();
+        //VFX.Play();
     }
 
     private void Attack(CardData cardData)
@@ -89,7 +93,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        playerAnimator.Play("Attack");
+        //playerAnimator.Play("Attack");
         BossEvents.BossHit(cardData);
         yield return new WaitForSeconds(0.5f);
         timeElapsed = 0f;

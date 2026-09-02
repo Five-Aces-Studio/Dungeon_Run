@@ -10,12 +10,12 @@ public class Boss : MonoBehaviour
 
     private Vector3 originalPosition;
 
-    [SerializeField] private GameObject bossSprite;
+    [SerializeField] private GameObject bossParent;
 
     private void Awake()
     {
         bossHealth = GetComponent<Health>();
-        animationController = bossSprite.GetComponent<Animator>();
+        animationController = bossParent.GetComponent<Animator>();
     }
 
     private void Start()
@@ -53,7 +53,9 @@ public class Boss : MonoBehaviour
 
     private void Attack()
     {
-        StartCoroutine(BossAttackAnimation());
+        animationController.Play("Attack");
+        PlayerEvents.PlayerHit(attackDamage);
+        //StartCoroutine(BossAttackAnimation());
     }
 
     private IEnumerator BossAttackAnimation()
@@ -64,7 +66,7 @@ public class Boss : MonoBehaviour
         float duration = 0.5f;
         float timeElapsed = 0f;
 
-        Debug.Log(bossSprite.transform.position);
+        Debug.Log(bossParent.transform.position);
         
         while (timeElapsed < duration)
         {
