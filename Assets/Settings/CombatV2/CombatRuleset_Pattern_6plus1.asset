@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515bc7b4c61aa8f4aafa05c4fd41ba57, type: 3}
+  m_Name: CombatRuleset_Pattern_6plus1
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRun.Combat.CombatRulesetDefinition
+  handSize: 5
+  playerActionsPerTurn: 2
+  requireExactActionCount: 1
+  baseBlock: 0
+  cardsDrawnAfterTurn: 2
+  refillHandAfterResolution: 1
+  shuffleInitialPlayerDeck: 1
+  drawPileRecycleMode: 0
+  enemyActionRevealMode: 0
+  defaultEnemyPattern: {fileID: 11400000, guid: adc02075d85372644b950d475c497342, type: 2}

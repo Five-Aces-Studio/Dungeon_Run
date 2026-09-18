@@ -1,0 +1,438 @@
+{
+  "canonical_source": "build_stage.py",
+  "original_blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\TrigonalAbyssStage.blend",
+  "variants": {
+    "Chain15": {
+      "parameters": {
+        "wire": 0.124,
+        "groups": [
+          "ENV_Chains_0",
+          "ENV_Chains_1"
+        ]
+      },
+      "objects": {
+        "ENV_Chains_0": {
+          "triangles": 2800,
+          "vertices": 1400,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            -6.5,
+            11.0,
+            7.47370719909668
+          ]
+        },
+        "ENV_Chains_1": {
+          "triangles": 2800,
+          "vertices": 1400,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            6.0,
+            12.5,
+            7.47370719909668
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.124,
+          "unity_center": [
+            -6.5,
+            8,
+            11
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        },
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.124,
+          "unity_center": [
+            6,
+            8,
+            12.5
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\Chain15.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\Chain15.blend"
+    },
+    "Chain20": {
+      "parameters": {
+        "wire": 0.165,
+        "groups": [
+          "ENV_Chains_0",
+          "ENV_Chains_1"
+        ]
+      },
+      "objects": {
+        "ENV_Chains_0": {
+          "triangles": 2800,
+          "vertices": 1400,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            -6.5,
+            11.0,
+            7.47370719909668
+          ]
+        },
+        "ENV_Chains_1": {
+          "triangles": 2800,
+          "vertices": 1400,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            6.0,
+            12.5,
+            7.47370719909668
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.165,
+          "unity_center": [
+            -6.5,
+            8,
+            11
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        },
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.165,
+          "unity_center": [
+            6,
+            8,
+            12.5
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\Chain20.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\Chain20.blend"
+    },
+    "Chain30": {
+      "parameters": {
+        "wire": 0.248,
+        "groups": [
+          "ENV_Chains_0",
+          "ENV_Chains_1"
+        ]
+      },
+      "objects": {
+        "ENV_Chains_0": {
+          "triangles": 2800,
+          "vertices": 1400,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            -6.5,
+            11.0,
+            7.47370719909668
+          ]
+        },
+        "ENV_Chains_1": {
+          "triangles": 2800,
+          "vertices": 1400,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            6.0,
+            12.5,
+            7.47370719909668
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.248,
+          "unity_center": [
+            -6.5,
+            8,
+            11
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        },
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.248,
+          "unity_center": [
+            6,
+            8,
+            12.5
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\Chain30.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\Chain30.blend"
+    },
+    "ChainSparse20": {
+      "parameters": {
+        "wire": 0.165,
+        "links": 23,
+        "ring": 0.255,
+        "groups": [
+          "ENV_Chains_0",
+          "ENV_Chains_1"
+        ]
+      },
+      "objects": {
+        "ENV_Chains_0": {
+          "triangles": 1840,
+          "vertices": 920,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            -6.5,
+            11.0,
+            7.47370719909668
+          ]
+        },
+        "ENV_Chains_1": {
+          "triangles": 1840,
+          "vertices": 920,
+          "materials": [
+            "MetalDark"
+          ],
+          "origin_blender": [
+            6.0,
+            12.5,
+            7.47370719909668
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.165,
+          "unity_center": [
+            -6.5,
+            8,
+            11
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        },
+        {
+          "feature": "chain_wire_nominal_diameter",
+          "width": 0.165,
+          "unity_center": [
+            6,
+            8,
+            12.5
+          ],
+          "note": "Circular wire nominal diameter; actual projected facets depend on link orientation."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\ChainSparse20.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\ChainSparse20.blend"
+    },
+    "Staff20": {
+      "parameters": {
+        "shaft": 0.121,
+        "terminal": 0.121,
+        "groups": [
+          "CHR_Player"
+        ]
+      },
+      "objects": {
+        "CHR_Player": {
+          "triangles": 344,
+          "vertices": 188,
+          "materials": [
+            "TravelerCloth",
+            "MetalDark",
+            "StoneWorn",
+            "ArcaneCool"
+          ],
+          "origin_blender": [
+            -5.884987831115723,
+            0.03598400950431824,
+            0.0
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "staff_shaft",
+          "width": 0.121,
+          "unity_center": [
+            -5.1,
+            1.55,
+            -0.05
+          ],
+          "mesh_world_x_extent": 0.10478878021240234,
+          "mesh_world_z_extent": 0.1210000067949295
+        },
+        {
+          "feature": "staff_tip_terminal",
+          "width": 0.121,
+          "unity_center": [
+            -5.1,
+            2.9,
+            -0.05
+          ],
+          "note": "Four-sided terminal nominal diameter; orientation-dependent projected width."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\Staff20.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\Staff20.blend"
+    },
+    "Staff30": {
+      "parameters": {
+        "shaft": 0.181,
+        "terminal": 0.181,
+        "groups": [
+          "CHR_Player"
+        ]
+      },
+      "objects": {
+        "CHR_Player": {
+          "triangles": 344,
+          "vertices": 188,
+          "materials": [
+            "TravelerCloth",
+            "MetalDark",
+            "StoneWorn",
+            "ArcaneCool"
+          ],
+          "origin_blender": [
+            -5.884987831115723,
+            0.03598400950431824,
+            0.0
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "staff_shaft",
+          "width": 0.181,
+          "unity_center": [
+            -5.1,
+            1.55,
+            -0.05
+          ],
+          "mesh_world_x_extent": 0.15675067901611328,
+          "mesh_world_z_extent": 0.1809999905526638
+        },
+        {
+          "feature": "staff_tip_terminal",
+          "width": 0.181,
+          "unity_center": [
+            -5.1,
+            2.9,
+            -0.05
+          ],
+          "note": "Four-sided terminal nominal diameter; orientation-dependent projected width."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\Staff30.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\Staff30.blend"
+    },
+    "FloorSimple": {
+      "parameters": {
+        "groups": [
+          "ENV_FloorTiles_0",
+          "ENV_FloorTiles_1",
+          "ENV_FloorTiles_2",
+          "ENV_FloorTiles_3",
+          "ENV_FloorTiles_4"
+        ]
+      },
+      "objects": {
+        "ENV_FloorTiles_0": {
+          "triangles": 108,
+          "vertices": 68,
+          "materials": [
+            "StoneFloor"
+          ],
+          "origin_blender": [
+            0.0021381378173828125,
+            -7.057279586791992,
+            -0.2199999988079071
+          ]
+        },
+        "ENV_FloorTiles_1": {
+          "triangles": 132,
+          "vertices": 80,
+          "materials": [
+            "StoneFloor"
+          ],
+          "origin_blender": [
+            0.002238750457763672,
+            -3.732978582382202,
+            -0.2199999988079071
+          ]
+        },
+        "ENV_FloorTiles_2": {
+          "triangles": 132,
+          "vertices": 80,
+          "materials": [
+            "StoneFloor"
+          ],
+          "origin_blender": [
+            0.002875804901123047,
+            0.18571031093597412,
+            -0.2199999988079071
+          ]
+        },
+        "ENV_FloorTiles_3": {
+          "triangles": 132,
+          "vertices": 80,
+          "materials": [
+            "StoneFloor"
+          ],
+          "origin_blender": [
+            -0.002003192901611328,
+            4.072343349456787,
+            -0.2199999988079071
+          ]
+        },
+        "ENV_FloorTiles_4": {
+          "triangles": 108,
+          "vertices": 68,
+          "materials": [
+            "StoneFloor"
+          ],
+          "origin_blender": [
+            -0.0007081031799316406,
+            7.451533317565918,
+            -0.2199999988079071
+          ]
+        }
+      },
+      "probes": [
+        {
+          "feature": "floor_bevel",
+          "width": 0,
+          "unity_center": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "feature": "floor_joint",
+          "slab_count": 35,
+          "contour_scale": 0.985,
+          "note": "Variable Voronoi joint width; no fixed world or pixel-width claim."
+        }
+      ],
+      "fbx": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\Assets\\Meshes\\TrigonalAbyss\\PixelAware\\FloorSimple.fbx",
+      "blend": "C:\\FiveAcesStudio\\proyecto\\Dungeon_Run\\docsBlender\\TrigonalAbyss\\PixelAware\\FloorSimple.blend"
+    }
+  }
+}

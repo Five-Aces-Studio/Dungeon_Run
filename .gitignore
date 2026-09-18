@@ -104,3 +104,16 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# ==========================================
+# AI Agents & New Documentation (Local / Draft)
+# ==========================================
+.serena/
+AGENTS.md
+CLAUDE.md
+README_AI_SETUP.md
+docs/*.md
+/Captures/
+/.atl/
+/.codegraph/
+/docsBlender/**/*.md
