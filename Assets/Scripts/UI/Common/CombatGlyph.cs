@@ -7,7 +7,7 @@ namespace DungeonRun.UI
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class CombatGlyph : MaskableGraphic
     {
-        public enum Kind { Attack, Defence, Dodge, Heal, Piercing, Deck, Discard, Diamond }
+        public enum Kind { Attack, Defence, Dodge, Heal, Piercing, Deck, Discard, Diamond, Miss, Charge }
         public Kind kind;
         protected override void OnPopulateMesh(VertexHelper vh)
         {
@@ -15,14 +15,26 @@ namespace DungeonRun.UI
             switch (kind)
             {
                 case Kind.Defence: Shield(vh); break;
+                case Kind.Miss: Box(vh, -.35f, -.045f, .35f, .045f); break;
+                case Kind.Charge:
+                    Box(vh, -.35f, .37f, .35f, .44f); Box(vh, -.35f, -.44f, .35f, -.37f);
+                    Polygon(vh, new Vector2(-.28f,.32f), new Vector2(.28f,.32f), new Vector2(0,0));
+                    Polygon(vh, new Vector2(-.28f,-.32f), new Vector2(.28f,-.32f), new Vector2(0,0)); break;
                 case Kind.Dodge:
                     Polygon(vh, new Vector2(-.2f,-.1f), new Vector2(.08f,-.1f), new Vector2(.16f,.43f), new Vector2(-.22f,.43f));
                     Polygon(vh, new Vector2(-.24f,-.4f), new Vector2(.43f,-.4f), new Vector2(.42f,-.22f), new Vector2(.08f,-.1f), new Vector2(-.2f,-.1f)); break;
                 case Kind.Heal:
                     Polygon(vh, new Vector2(0,-.43f), new Vector2(.43f,.07f), new Vector2(.4f,.31f), new Vector2(.19f,.43f),
                         new Vector2(0,.25f), new Vector2(-.19f,.43f), new Vector2(-.4f,.31f), new Vector2(-.43f,.07f)); break;
-                case Kind.Deck: case Kind.Discard:
-                    Box(vh,-.4f,-.3f,.32f,.3f); Box(vh,-.3f,-.4f,.42f,.23f); break;
+                case Kind.Deck:
+                    Box(vh,-.38f,-.27f,-.31f,.39f); Box(vh,-.28f,-.35f,-.21f,.31f);
+                    Box(vh,-.16f,-.42f,.36f,.23f);
+                    Polygon(vh,new Vector2(.1f,.4f),new Vector2(.24f,.27f),new Vector2(.1f,.14f),new Vector2(-.04f,.27f)); break;
+                case Kind.Discard:
+                    Polygon(vh,new Vector2(-.3f,.08f),new Vector2(-.3f,.35f),new Vector2(0,.46f),new Vector2(.3f,.35f),new Vector2(.3f,.08f),new Vector2(.15f,-.08f),new Vector2(-.15f,-.08f));
+                    Box(vh,-.17f,-.22f,-.07f,-.08f); Box(vh,.07f,-.22f,.17f,-.08f);
+                    Polygon(vh,new Vector2(-.38f,-.3f),new Vector2(-.32f,-.4f),new Vector2(.38f,-.15f),new Vector2(.32f,-.05f));
+                    Polygon(vh,new Vector2(.38f,-.3f),new Vector2(.32f,-.4f),new Vector2(-.38f,-.15f),new Vector2(-.32f,-.05f)); break;
                 case Kind.Diamond: Polygon(vh,new Vector2(0,.5f),new Vector2(.4f,0),new Vector2(0,-.5f),new Vector2(-.4f,0)); break;
                 default:
                     if (kind == Kind.Piercing) Shield(vh);

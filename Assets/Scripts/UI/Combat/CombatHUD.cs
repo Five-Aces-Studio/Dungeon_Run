@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using DungeonRun.Combat;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +30,8 @@ namespace DungeonRun.UI
         private ICombatHUDSource source;
         private bool bound;
         private MonoBehaviour startupSource;
+        public CombatFeedbackPresenter feedback;
+        private bool previousReady;
 
         private void OnEnable()
         {
@@ -49,7 +53,7 @@ namespace DungeonRun.UI
             EnsureEnemyViews(source.Snapshot.Enemies.Count);
             var resolveRect = (RectTransform)resolveButton.transform;
             var lastSlot = hand.actionSlots[source.Snapshot.Slots.Count - 1].Rect;
-            resolveRect.anchoredPosition = new Vector2(Mathf.Max(235,
+            if (resolveRect.anchorMax.x < .75f) resolveRect.anchoredPosition = new Vector2(Mathf.Max(235,
                 lastSlot.anchoredPosition.x + lastSlot.sizeDelta.x * .5f + resolveRect.sizeDelta.x * .5f + 20), resolveRect.anchoredPosition.y);
             hand.Bind(source);
             hand.SetInstantAnimations(instantAnimations);
@@ -58,6 +62,11 @@ namespace DungeonRun.UI
             resolveButton.onClick.AddListener(Resolve);
             endTurnButton.onClick.AddListener(EndTurn);
             bound = true; Refresh();
+            if (Application.isPlaying && selectedSource is LiveCombatHUDSource live)
+            {
+                if (!feedback && !TryGetComponent(out feedback)) feedback = gameObject.AddComponent<CombatFeedbackPresenter>();
+                feedback.Bind(this, live.battle);
+            }
         }
         public void Refresh()
         {
@@ -67,13 +76,23 @@ namespace DungeonRun.UI
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemies[i].gameObject.SetActive(i < state.Enemies.Count);
-                if (i < state.Enemies.Count) enemies[i].Render(state.Enemies[i], state.Enemies[i].Id == state.SelectedTarget);
+                if (i < state.Enemies.Count)
+                {
+                    enemies[i].SetPresentation(!state.IsResolving && !state.IsTerminal, instantAnimations);
+                    enemies[i].Render(state.Enemies[i], state.Enemies[i].Id == state.SelectedTarget);
+                }
             }
             resolveButton.interactable = state.CanResolve;
             endTurnButton.interactable = state.CanEndTurn;
             endTurnButton.gameObject.SetActive(state.IsPreview);
             var resolveLabel = resolveButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (resolveLabel) resolveLabel.text = state.IsPreview ? "RESOLVE" : "COMMIT";
+            if (resolveLabel)
+            {
+                resolveLabel.text = state.IsPreview ? "RESOLVE" : state.IsTerminal ? "COMPLETE" : state.IsResolving ? "LOCKED" : "COMMIT";
+                resolveLabel.color = state.CanResolve ? theme.gold : new Color(.65f, .66f, .61f);
+            }
+            if (state.CanResolve && !previousReady) UIAnimationHelpers.Pulse((RectTransform)resolveButton.transform, instantAnimations);
+            previousReady = state.CanResolve;
             statusText.text = state.Status;
             previewLabel.text = state.IsPreview ? "LAB PREVIEW  /  PRESENTATION ONLY" : "LIVE COMBAT";
         }
@@ -90,7 +109,11 @@ namespace DungeonRun.UI
                 enemies[i].name = "EnemyHUD" + i;
             }
         }
-        private void Resolve() => source.TryResolve();
+        private void Resolve()
+        {
+            UIAnimationHelpers.Pulse((RectTransform)resolveButton.transform, instantAnimations);
+            source.TryResolve();
+        }
         private void EndTurn() => source.TryEndTurn();
         public void SetInstantAnimations(bool value)
         { instantAnimations = value; hand.SetInstantAnimations(value); Refresh(); }
@@ -102,6 +125,8 @@ namespace DungeonRun.UI
         {
             if (!bound) return;
             source.Changed -= Refresh;
+            if (feedback) feedback.Unbind();
+            if (resolveButton) resolveButton.transform.DOKill();
             resolveButton.onClick.RemoveListener(Resolve); endTurnButton.onClick.RemoveListener(EndTurn);
             hand.Cleanup(); source = null; bound = false;
         }

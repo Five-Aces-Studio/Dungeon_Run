@@ -124,7 +124,7 @@ namespace DungeonRun.Combat
                     if (!ResolveTargets(i, action, selection, out int[] targets, out string reason))
                         throw new InvalidOperationException("Validated enemy action cannot target: " + reason);
                     planned.Add(new Planned { ActorId = i, Action = action, Targets = targets });
-                    Emit(BattleEventKind.EnemyRevealed, i, 0, 0, 0, action.Name);
+                    Emit(BattleEventKind.EnemyRevealed, i, 0, 0, 0, action.Name, action.Id);
                 }
             }
             Emit(BattleEventKind.Committed); SetPhase(BattlePhase.EnemyReveal); Publish(); return true;
@@ -217,14 +217,14 @@ namespace DungeonRun.Combat
                     foreach (int id in targets)
                     {
                         var target = actors[id]; int amount = action.Damage * multiplier;
-                        if (target.Dodge > 0) { target.Dodge--; Emit(BattleEventKind.Dodged, item.ActorId, id, item.CardId, 1); continue; }
+                        if (target.Dodge > 0) { target.Dodge--; Emit(BattleEventKind.Dodged, item.ActorId, id, item.CardId, 1, definition: action.Id); continue; }
                         if (action.Piercing == PiercingMode.Normal)
                         {
                             int blocked = Math.Min(target.Block, amount); target.Block -= blocked; amount -= blocked;
-                            if (blocked > 0) Emit(BattleEventKind.Blocked, item.ActorId, id, item.CardId, blocked);
+                            if (blocked > 0) Emit(BattleEventKind.Blocked, item.ActorId, id, item.CardId, blocked, definition: action.Id);
                         }
                         damage[id] += amount;
-                        if (amount > 0) Emit(BattleEventKind.Damage, item.ActorId, id, item.CardId, amount);
+                        if (amount > 0) Emit(BattleEventKind.Damage, item.ActorId, id, item.CardId, amount, definition: action.Id);
                     }
                 }
             }
@@ -244,7 +244,7 @@ namespace DungeonRun.Combat
                 {
                     var target = actors[id]; if (target.Health == 0) continue;
                     int amount = Math.Min(action.Heal, target.Maximum - target.Health); target.Health += amount;
-                    if (amount > 0) Emit(BattleEventKind.Healed, item.ActorId, id, item.CardId, amount);
+                    if (amount > 0) Emit(BattleEventKind.Healed, item.ActorId, id, item.CardId, amount, definition: action.Id);
                 }
                 // Bounded next-turn charge, strongest active multiplier wins (never multiplicative stacking).
                 if (action.ChargeMultiplier > 1) actors[item.ActorId].Charges.Add(new Charge
@@ -267,8 +267,8 @@ namespace DungeonRun.Combat
             }
         }
         private void SetPhase(BattlePhase value) { phase = value; Emit(BattleEventKind.PhaseChanged, message: value.ToString()); }
-        private void Emit(BattleEventKind kind, int actor = 0, int target = 0, int card = 0, int amount = 0, string message = "")
-            => events.Add(new BattleEvent(kind, actor, target, card, amount, message));
+        private void Emit(BattleEventKind kind, int actor = 0, int target = 0, int card = 0, int amount = 0, string message = "", int definition = 0)
+            => events.Add(new BattleEvent(kind, actor, target, card, amount, message, definition));
         private void Publish()
         {
             busy = true;

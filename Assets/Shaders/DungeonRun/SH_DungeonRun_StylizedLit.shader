@@ -18,6 +18,20 @@ Shader "DungeonRun/SH_DungeonRun_StylizedLit"
         _Smoothness("Highlight Tightness", Range(0,1)) = 0.18
         _SpecularStrength("Stylized Specular Strength", Range(0,2)) = 0.05
         _SpecularThreshold("Specular Threshold", Range(0.1,0.95)) = 0.5
+
+        [Header(Acrylic V3)]
+        [Toggle(_DR_ACRYLIC)] _DRAcrylic("Acrylic Painterly Response", Float) = 0
+        [NoScaleOffset] _BrushMap("Paint Stroke Map (linear RGBA: value, hue id, bristle, blotch)", 2D) = "grey" {}
+        [Enum(World Triplanar,0,Object Triplanar,1,UV0,2)] _BrushMapping("Brush Mapping", Float) = 0
+        _BrushStrength("Brush Strength", Range(0,1)) = 0
+        _BrushScale("Brush Scale (tiles per metre or UV unit)", Range(0.05,8)) = 0.5
+        _LightWrap("Light Wrap (soft terminator)", Range(0,1)) = 0
+        _ShadowBreakup("Shadow Edge Breakup", Range(0,1)) = 0
+        _RimStrength("Rim Strength", Range(0,1)) = 0
+        _TouchColorA("Colour Touch A", Color) = (0.55,0.47,0.26,1)
+        _TouchColorB("Colour Touch B", Color) = (0.26,0.30,0.42,1)
+        _TouchAmount("Colour Touch (A fraction, B fraction, strength)", Vector) = (0,0,0,0)
+        [HideInInspector] _PaintVersion("Paint Version", Float) = 0
     }
     SubShader
     {
@@ -45,6 +59,7 @@ Shader "DungeonRun/SH_DungeonRun_StylizedLit"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
             #pragma shader_feature_local_fragment _EMISSION
+            #pragma shader_feature_local_fragment _DR_ACRYLIC
             #include "DungeonRunStylizedForward.hlsl"
             ENDHLSL
         }

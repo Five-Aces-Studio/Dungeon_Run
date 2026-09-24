@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac9b706c62fb404bb5d7acdc2fc5a90, type: 3}
+  m_Name: DungeonRun_World_AcrylicPixel_Target
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRunWorldStyleProfile
+  sceneLook: 1
+  painterlyInfluence: 1
+  pixelInfluence: 0.35
+  pixelScale: 2.5
+  pixelEdgeStrength: 0.7
+  cellFilter: 0.5
+  glowProtection: 0.7
+  stage: 0
+  edgeDepthThreshold: 0.5
+  paletteStrength: 0.4
+  saturation: 1.05
+  contrast: 1.1
+  shadowLift: 0.14
+  coolShadowColor: {r: 0.14, g: 0.24, b: 0.28, a: 1}
+  quantizationStrength: 0.2
+  colorLevels: 40
+  ditherStrength: 0.12
+  distanceDesaturation: 0.3
+  hazeStrength: 0.32
+  albedoVariation: 0.4
+  colorVariation: 0.85
+  terminatorBreakup: 0.58
+  shadowEdgeBreakup: 0.27
+  lightingSmoothness: 0.82
+  warmLightInfluence: 0.75
+  ambientCoolness: 0.35
+  lightHeadroom: 1
+  paintStrength: 0.9
+  paintRadius: 2.5
+  paintSharpness: 8
+  paintAnisotropy: 1
+  paintDepthSigma: 0.5
+  focusStrength: 0.7
+  focusCentreY: 0.42
+  focusRadius: {x: 0.62, y: 0.55}
+  focusSoftness: 0.45
+  rimStrength: 0.18
+  rimWidth: 2
+  rimDepthThreshold: 0.2
+  rimFullDistance: 28
+  rimMaxDistance: 33
+  rimDirection: {x: -1, y: 1}
+  rimColor: {r: 0.35, g: 0.75, b: 0.8, a: 1}
+  poolStrength: 1
+  poolBreakup: 0.5
+  poolSteps: 3
+  warmPoolColor: {r: 1, g: 0.6, b: 0.3, a: 1}
+  warmPoolIntensity: 1.2
+  warmPoolRadius: 4.5
+  coldPoolColor: {r: 0.35, g: 0.8, b: 1, a: 1}
+  coldPoolIntensity: 0.9
+  coldPoolRadius: 6
+  flameFlicker: 0.6
+  flameFlickerSpeed: 1
+  fogStart: 18
+  fogEnd: 80
+  fogColor: {r: 0.07, g: 0.13, b: 0.15, a: 1}
+  ambientSky: {r: 0.16, g: 0.24, b: 0.27, a: 1}
+  ambientEquator: {r: 0.12, g: 0.17, b: 0.19, a: 1}
+  ambientGround: {r: 0.1, g: 0.12, b: 0.14, a: 1}
+  keyShadowStrength: 0.75
+  keyIntensityScale: 1.133
+  combatPoolRangeScale: 1.5
+  combatPoolIntensityScale: 1.34
+  coolVistaIntensityScale: 1.3
+  torchColor: {r: 1, g: 0.56, b: 0.24, a: 1}
+  torchIntensity: 34
+  torchRange: 13.5
+  coldTorchColor: {r: 0.4, g: 0.85, b: 1, a: 1}
+  coldTorchIntensity: 20
+  coldTorchRange: 11
+  paintSchemaVersion: 2

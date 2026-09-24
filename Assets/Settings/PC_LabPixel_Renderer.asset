@@ -29,6 +29,7 @@ MonoBehaviour:
   - {fileID: 7781189656452311096}
   - {fileID: 6968945073586043950}
   - {fileID: 2935237405139778132}
+  - {fileID: 4514122863537434913}
   m_RendererFeatureMap: ad6b866f10d7b46c
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
@@ -72,6 +73,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonRunPaletteFeature
   m_Active: 1
   material: {fileID: 2100000, guid: c4335e41e330a734a99151be8a0abd6a, type: 2}
+--- !u!114 &4514122863537434913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f457f85c8b639409e60d3b158fe171, type: 3}
+  m_Name: DungeonRunWorldStyleFeature
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRunWorldStyleFeature
+  m_Active: 1
+  material: {fileID: 2100000, guid: 496280d0aa612d647a451c043077d20e, type: 2}
 --- !u!114 &6968945073586043950
 MonoBehaviour:
   m_ObjectHideFlags: 0

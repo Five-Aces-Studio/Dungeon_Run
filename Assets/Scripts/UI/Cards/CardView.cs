@@ -17,6 +17,7 @@ namespace DungeonRun.UI
         public CardInteractionState State { get; private set; }
         public RectTransform Rect => (RectTransform)transform;
         private CardHandController owner;
+        private Image categoryAccent;
 
         public void Bind(CombatCardItem item, CombatHUDTheme theme, CardHandController controller)
         {
@@ -35,21 +36,40 @@ namespace DungeonRun.UI
             var icon = item.Definition.illustration ? item.Definition.illustration : theme.Icon(item.Kind);
             illustration.sprite = icon; illustration.enabled = icon;
             fallbackGlyph.gameObject.SetActive(!icon);
-            fallbackGlyph.kind = item.Kind == PreviewCardKind.Miss || item.Kind == PreviewCardKind.Charge ? CombatGlyph.Kind.Diamond :
+            fallbackGlyph.kind = item.Kind == PreviewCardKind.Miss ? CombatGlyph.Kind.Miss :
+                item.Kind == PreviewCardKind.Charge ? CombatGlyph.Kind.Charge :
                 item.Kind == PreviewCardKind.Combo ? CombatGlyph.Kind.Attack : item.Kind == PreviewCardKind.Counterattack ? CombatGlyph.Kind.Dodge : (CombatGlyph.Kind)item.Kind;
             fallbackGlyph.SetVerticesDirty();
             if (theme.cardFrame) { frame.sprite = theme.cardFrame; frame.color = Color.white; }
             foreach (var text in new[] { title, category }) if (theme.displayFont) text.font = theme.displayFont;
             foreach (var text in new[] { description, cost }) if (theme.bodyFont) text.font = theme.bodyFont;
+            if (!categoryAccent)
+            {
+                var accent = CardDetailPanel.Rect("CategoryAccent", transform, new Vector2(180, 3));
+                accent.anchoredPosition = new Vector2(0, 84);
+                categoryAccent = accent.gameObject.AddComponent<Image>(); categoryAccent.raycastTarget = false;
+            }
+            categoryAccent.color = item.Kind == PreviewCardKind.Heal ? new Color(.2f,.42f,.29f) :
+                item.Kind == PreviewCardKind.Defence ? new Color(.3f,.4f,.49f) :
+                item.Kind == PreviewCardKind.Dodge || item.Kind == PreviewCardKind.Counterattack ? new Color(.48f,.37f,.2f) :
+                item.Kind == PreviewCardKind.Charge || item.Kind == PreviewCardKind.Miss ? new Color(.4f,.34f,.45f) : new Color(.52f,.22f,.17f);
+            title.fontStyle = FontStyles.Bold;
             SetState(CardInteractionState.Idle);
         }
 
         public void SetState(CardInteractionState state)
         {
             State = state;
+            focus.color = new Color(.82f, .7f, .38f, .7f);
             focus.enabled = state == CardInteractionState.Selected || state == CardInteractionState.Hovered || state == CardInteractionState.Dragging;
             group.alpha = state == CardInteractionState.Disabled ? .67f : 1;
             group.blocksRaycasts = state != CardInteractionState.Dragging && state != CardInteractionState.Playing && state != CardInteractionState.Discarding;
+        }
+
+        public void SetDropFeedback(bool valid)
+        {
+            if (State != CardInteractionState.Dragging) return;
+            focus.enabled = true; focus.color = valid ? new Color(.3f, .85f, .55f, .8f) : new Color(.9f, .3f, .22f, .8f);
         }
 
         private bool InHand => State == CardInteractionState.Idle || State == CardInteractionState.Hovered || State == CardInteractionState.Selected;
@@ -57,6 +77,7 @@ namespace DungeonRun.UI
         public void OnPointerExit(PointerEventData e) { if (InHand) owner.Hover(this, false); }
         public void OnPointerClick(PointerEventData e)
         {
+            if (e.button == PointerEventData.InputButton.Middle) { owner.Inspect(this); return; }
             if (e.button == PointerEventData.InputButton.Right) { owner.Cancel(this); return; }
             if (State == CardInteractionState.Queued) owner.Cancel(this);
             else if (InHand) owner.Select(Item.Id);
@@ -73,6 +94,7 @@ namespace DungeonRun.UI
             if (State != CardInteractionState.Dragging) return;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(owner.handRoot, e.position, e.pressEventCamera, out var p);
             Rect.anchoredPosition = p;
+            owner.DragFeedback(this, e.position, e.pressEventCamera);
         }
         public void OnEndDrag(PointerEventData e)
         {

@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ArcaneWarmTorch_AcrylicV3
+  m_Shader: {fileID: 4800000, guid: 3d3b046d183cd094f890335b27560cb1, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _DR_ACRYLIC
+  - _EMISSION
+  m_InvalidKeywords: []
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BrushMap:
+        m_Texture: {fileID: 2800000, guid: e8967abdd7cd3544f93b8e327eb33b78, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AdditionalLightStrength: 1
+    - _AmbientStrength: 1.15
+    - _BandSoftness: 0.045
+    - _BrushMapping: 0
+    - _BrushScale: 1
+    - _BrushStrength: 0.1
+    - _DRAcrylic: 1
+    - _LightWrap: 0
+    - _Metallic: 0
+    - _PaintVersion: 2
+    - _RimStrength: 0
+    - _ShadowBreakup: 0
+    - _Smoothness: 0.18
+    - _SpecularStrength: 0.05
+    - _SpecularThreshold: 0.5
+    m_Colors:
+    - _BandLevels: {r: 0.06, g: 0.28, b: 0.62, a: 1.1}
+    - _BandThresholds: {r: 0.12, g: 0.4, b: 0.8, a: 0}
+    - _BaseColor: {r: 0.8, g: 0.31999996, b: 0.06999998, a: 1}
+    - _EmissionColor: {r: 0.76000005, g: 0.23104002, b: 0.04560001, a: 0.60800004}
+    - _HighlightTint: {r: 1, g: 0.96999997, b: 0.9, a: 1}
+    - _LightTint: {r: 1, g: 1, b: 1, a: 1}
+    - _MidTint: {r: 0.94, g: 0.96999997, b: 1, a: 1}
+    - _ShadowTint: {r: 0.72, g: 0.8, b: 0.94, a: 1}
+    - _TouchAmount: {r: 0, g: 0, b: 0, a: 0}
+    - _TouchColorA: {r: 0.55, g: 0.47, b: 0.26, a: 1}
+    - _TouchColorB: {r: 0.26, g: 0.3, b: 0.42, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

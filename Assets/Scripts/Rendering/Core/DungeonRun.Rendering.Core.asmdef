@@ -1,0 +1,14 @@
+{
+    "name": "DungeonRun.Rendering.Core",
+    "rootNamespace": "DungeonRun.Rendering",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

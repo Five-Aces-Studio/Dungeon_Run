@@ -7,7 +7,7 @@ using UnityEngine;
 namespace DungeonRun.UI
 {
     /// <summary>Read-only presentation projection and command translation. No combat arithmetic lives here.</summary>
-    public sealed class LiveCombatHUDSource : MonoBehaviour, ICombatHUDSource
+    public sealed class LiveCombatHUDSource : MonoBehaviour, ICombatHUDSource, ICombatTargetingSource
     {
         public CombatBattleController battle;
         [Tooltip("Roster order: enemy actor IDs start at 1. Presentation anchors only.")]
@@ -18,6 +18,10 @@ namespace DungeonRun.UI
         private readonly Dictionary<int, CardData> presentationDefinitions = new Dictionary<int, CardData>();
         private bool initialized;
         private int selectedTarget = -1;
+        private int targetingCardId = -1, targetingSlot = -1;
+        private bool perHit;
+        private readonly List<int> assignedTargets = new List<int>();
+        private string targetingError = "";
 
         public CombatHUDSnapshot Snapshot
         {
@@ -27,6 +31,11 @@ namespace DungeonRun.UI
                 var state = battle.Session.Snapshot;
                 return new CombatHUDSnapshot
                 {
+                    Phase = state.Phase, IsTerminal = state.IsTerminal,
+                    TargetingCardId = targetingCardId, TargetingHitCount = PendingAction()?.HitCount ?? 0,
+                    TargetingPerHit = perHit, TargetingTargets = assignedTargets.ToArray(),
+                    TargetingPrompt = TargetingPrompt(),
+                    SlotTargets = state.Slots.Select(x => x == null ? "" : TargetSummary(x.Targets)).ToArray(),
                     Health = state.Player.Health, MaxHealth = state.Player.MaxHealth,
                     Actions = state.ActionsRemaining, MaxActions = state.Slots.Count, Floor = dungeonFloor,
                     DrawCount = state.DrawCount, DiscardCount = state.DiscardCount,
@@ -42,6 +51,7 @@ namespace DungeonRun.UI
                     {
                         Id = x.Id, Name = x.Name, Health = x.Health, MaxHealth = x.MaxHealth,
                         Intent = x.Intent, Block = x.Block, Dodge = x.Dodge,
+                        IsValidTarget = targetingCardId >= 0 && x.Alive && state.Phase == BattlePhase.Planning,
                         Anchor = i < enemyAnchors.Length ? enemyAnchors[i] : null
                     }).ToArray()
                 };
@@ -112,28 +122,102 @@ namespace DungeonRun.UI
         private static string PhaseLabel(BattlePhase phase)
             => phase == BattlePhase.EnemyReveal ? "ENEMY REVEAL" : phase.ToString().ToUpperInvariant();
 
+        private ActionDefinition PendingAction()
+        {
+            var card = battle.Session.Snapshot.Hand.FirstOrDefault(x => x.Id == targetingCardId);
+            return card == null ? null : battle.Session.GetDefinition(card.DefinitionId);
+        }
+        private string TargetSummary(IReadOnlyList<int> targets)
+        {
+            var state = battle.Session.Snapshot;
+            return string.Join(" / ", targets.Select(id => id == 0 ? "Self" : state.Enemies.FirstOrDefault(x => x.Id == id)?.Name ?? "Unknown"));
+        }
+        private string TargetingPrompt()
+        {
+            if (!string.IsNullOrEmpty(targetingError)) return targetingError;
+            var action = PendingAction();
+            if (action == null) return "";
+            if (!perHit) return action.Name + " — choose an enemy" + (action.HitCount > 1 ? " (all " + action.HitCount + " hits)" : "");
+            return action.Name + " — choose hit " + (assignedTargets.Count + 1) + " / " + action.HitCount +
+                (assignedTargets.Count > 0 ? "\nAssigned: " + TargetSummary(assignedTargets) : "");
+        }
+        public bool BeginTargeting(int cardId, int slot = -1)
+        {
+            EnsureInitialized();
+            var state = battle.Session.Snapshot;
+            if (state.Phase != BattlePhase.Planning) return false;
+            var card = state.Hand.FirstOrDefault(x => x.Id == cardId);
+            if (card == null) return false;
+            if (slot < 0) for (int i = 0; i < state.Slots.Count; i++) if (state.Slots[i] == null) { slot = i; break; }
+            if (slot < 0 || slot >= state.Slots.Count || state.Slots[slot] != null)
+            { targetingCardId = targetingSlot = -1; assignedTargets.Clear(); perHit = false;
+              targetingError = "Return a queued card to free an action slot."; Changed?.Invoke(); return false; }
+            var action = battle.Session.GetDefinition(card.DefinitionId);
+            if (action.Targeting != TargetMode.SingleOpponent)
+                return TryQueueTargets(cardId, slot, action.Targeting == TargetMode.Self || action.Targeting == TargetMode.FriendlyTarget ? new[] { 0 } : Array.Empty<int>());
+            if (targetingCardId != cardId) { assignedTargets.Clear(); perHit = false; }
+            targetingCardId = cardId; targetingSlot = slot; selectedTarget = -1; targetingError = "";
+            Changed?.Invoke(); return true;
+        }
+        public void CancelTargeting()
+        {
+            targetingCardId = targetingSlot = selectedTarget = -1; perHit = false; assignedTargets.Clear(); targetingError = "";
+            Changed?.Invoke();
+        }
+        public void SetPerHitTargeting(bool enabled)
+        {
+            EnsureInitialized();
+            var action = PendingAction();
+            if (action == null || action.HitCount < 2 || battle.Session.Snapshot.Phase != BattlePhase.Planning) return;
+            perHit = enabled; assignedTargets.Clear(); selectedTarget = -1; Changed?.Invoke();
+        }
+        public bool TryQueueTargets(int cardId, int slot, IReadOnlyList<int> targets)
+        {
+            EnsureInitialized();
+            bool queued = battle.TryQueue(cardId, slot, new TargetSelection(targets?.ToArray() ?? Array.Empty<int>()));
+            if (queued) CancelTargeting();
+            return queued;
+        }
         public bool TryQueue(int cardId, int slot)
         {
             EnsureInitialized();
             var card = battle.Session.Snapshot.Hand.FirstOrDefault(x => x.Id == cardId);
-            if (card == null) return battle.TryQueue(cardId, slot, new TargetSelection());
+            if (card == null) return false;
             var target = battle.Session.GetDefinition(card.DefinitionId).Targeting;
-            var selection = target == TargetMode.Self || target == TargetMode.FriendlyTarget
-                ? new TargetSelection(0) : target == TargetMode.SingleOpponent
-                    ? new TargetSelection(selectedTarget) : new TargetSelection();
-            return battle.TryQueue(cardId, slot, selection);
+            if (target == TargetMode.SingleOpponent)
+            {
+                // An already selected target remains supported for scripted V2 clients.
+                if (targetingCardId < 0 && selectedTarget >= 0) return TryQueueTargets(cardId, slot, new[] { selectedTarget });
+                BeginTargeting(cardId, slot); return false;
+            }
+            return TryQueueTargets(cardId, slot, target == TargetMode.Self || target == TargetMode.FriendlyTarget ? new[] { 0 } : Array.Empty<int>());
         }
-        public bool TryCancel(int slot) { EnsureInitialized(); return battle.TryUnqueue(slot); }
-        public bool TryResolve() { EnsureInitialized(); return battle.TryCommit(); }
+        public bool TryCancel(int slot) { EnsureInitialized(); CancelTargeting(); return battle.TryUnqueue(slot); }
+        public bool TryResolve() { EnsureInitialized(); CancelTargeting(); return battle.TryCommit(); }
         public bool TryEndTurn() => false;
         public bool TrySelectTarget(int enemyId)
         {
             EnsureInitialized();
             var state = battle.Session.Snapshot;
-            if (state.Phase != BattlePhase.Planning || !state.Enemies.Any(x => x.Id == enemyId && x.Alive)) return false;
-            selectedTarget = enemyId; Changed?.Invoke(); return true;
+            if (state.Phase != BattlePhase.Planning || !state.Enemies.Any(x => x.Id == enemyId && x.Alive))
+            { targetingError = "Invalid target — choose a living enemy."; Changed?.Invoke(); return false; }
+            selectedTarget = enemyId; targetingError = "";
+            if (targetingCardId < 0) { Changed?.Invoke(); return true; }
+            var action = PendingAction();
+            if (action == null) return false;
+            if (!perHit) return TryQueueTargets(targetingCardId, targetingSlot, new[] { enemyId });
+            if (assignedTargets.Count >= action.HitCount) assignedTargets.Clear();
+            assignedTargets.Add(enemyId);
+            if (assignedTargets.Count >= action.HitCount) return TryQueueTargets(targetingCardId, targetingSlot, assignedTargets);
+            Changed?.Invoke(); return true;
         }
-        private void OnChanged() => Changed?.Invoke();
+        private void OnChanged()
+        {
+            var state = battle.Session.Snapshot;
+            if (state.Phase != BattlePhase.Planning || !state.Hand.Any(x => x.Id == targetingCardId))
+            { targetingCardId = targetingSlot = -1; assignedTargets.Clear(); perHit = false; }
+            Changed?.Invoke();
+        }
         private void OnEvent(BattleEvent value)
         {
             if (value.Kind == BattleEventKind.Committed)

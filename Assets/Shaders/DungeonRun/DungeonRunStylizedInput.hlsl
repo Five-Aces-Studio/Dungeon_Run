@@ -20,7 +20,18 @@ CBUFFER_START(UnityPerMaterial)
     float _Smoothness;
     float _SpecularStrength;
     float _SpecularThreshold;
+    float _BrushMapping;
+    float _BrushStrength;
+    float _BrushScale;
+    float _LightWrap;
+    float _ShadowBreakup;
+    float _RimStrength;
+    half4 _TouchColorA;
+    half4 _TouchColorB;
+    float4 _TouchAmount; // x = fraction A, y = fraction B, z = strength, w unused
 CBUFFER_END
 TEXTURE2D(_BaseMap);
 SAMPLER(sampler_BaseMap);
+TEXTURE2D(_BrushMap);
+SAMPLER(sampler_BrushMap);
 #endif

@@ -1,0 +1,195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fd0fcdcf48e7949876bcfb73686704, type: 3}
+  m_Name: DungeonRun_AcrylicV3_LegacySnapshot
+  m_EditorClassIdentifier: Assembly-CSharp-Editor::DungeonRunAcrylicLegacySnapshot
+  renderers:
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/CHR_Enemy_01
+    sharedMaterials:
+    - {fileID: 2100000, guid: 9ad9881069e487144a82c6af56c698da, type: 2}
+    - {fileID: 2100000, guid: 0d1d44ee081f4d14cb1cc1baf11af7f0, type: 2}
+    - {fileID: 2100000, guid: 5c7cd969553dcee45b56e4b8c0a1d303, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/CHR_Enemy_02
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5e16b04f47ec6b6409fc7f1c2381f077, type: 2}
+    - {fileID: 2100000, guid: 9ad9881069e487144a82c6af56c698da, type: 2}
+    - {fileID: 2100000, guid: 0d409dd361609f74199f952af01e1acd, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/CHR_Enemy_03
+    sharedMaterials:
+    - {fileID: 2100000, guid: 0d409dd361609f74199f952af01e1acd, type: 2}
+    - {fileID: 2100000, guid: 902ceccab4e9d734e9cdb809a25e96f2, type: 2}
+    - {fileID: 2100000, guid: 10407e8980ce4f74d88ec68b96002860, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/CHR_Player
+    sharedMaterials:
+    - {fileID: 2100000, guid: 4e586859fd5c2914c9f739b5b044d3e1, type: 2}
+    - {fileID: 2100000, guid: 9ad9881069e487144a82c6af56c698da, type: 2}
+    - {fileID: 2100000, guid: 4fe4682b7c694ef4cb58d3b857aaee44, type: 2}
+    - {fileID: 2100000, guid: 6e5fe8d2805a9584eb9762a69e595abd, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_ArcaneFixture_0
+    sharedMaterials:
+    - {fileID: 2100000, guid: 1eb5261d234c3634c9753388e104fa82, type: 2}
+    - {fileID: 2100000, guid: 6e5fe8d2805a9584eb9762a69e595abd, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_ArcaneFixture_1
+    sharedMaterials:
+    - {fileID: 2100000, guid: 1eb5261d234c3634c9753388e104fa82, type: 2}
+    - {fileID: 2100000, guid: 10407e8980ce4f74d88ec68b96002860, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_ArcaneFixture_2
+    sharedMaterials:
+    - {fileID: 2100000, guid: 1eb5261d234c3634c9753388e104fa82, type: 2}
+    - {fileID: 2100000, guid: 10407e8980ce4f74d88ec68b96002860, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_BackgroundTower_A
+    sharedMaterials:
+    - {fileID: 2100000, guid: dc765bd831b45694d91ce9a7ae916cfe, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+    - {fileID: 2100000, guid: 92aea3afa9bc33248b15ea77d5d54901, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_BackgroundTower_B
+    sharedMaterials:
+    - {fileID: 2100000, guid: dc765bd831b45694d91ce9a7ae916cfe, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+    - {fileID: 2100000, guid: 92aea3afa9bc33248b15ea77d5d54901, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_BackgroundTower_C
+    sharedMaterials:
+    - {fileID: 2100000, guid: dc765bd831b45694d91ce9a7ae916cfe, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+    - {fileID: 2100000, guid: 92aea3afa9bc33248b15ea77d5d54901, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_BackWall_Crown
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_BackWall_LeftPier
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_BackWall_RightPier
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Chains_0
+    sharedMaterials:
+    - {fileID: 2100000, guid: 1eb5261d234c3634c9753388e104fa82, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Chains_1
+    sharedMaterials:
+    - {fileID: 2100000, guid: 1eb5261d234c3634c9753388e104fa82, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_DistantMass
+    sharedMaterials:
+    - {fileID: 2100000, guid: dc765bd831b45694d91ce9a7ae916cfe, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorFoundation
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorInlay
+    sharedMaterials:
+    - {fileID: 2100000, guid: 1eb5261d234c3634c9753388e104fa82, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorTiles_0
+    sharedMaterials:
+    - {fileID: 2100000, guid: 693a4fc330655ff4497d424bc35350ee, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorTiles_1
+    sharedMaterials:
+    - {fileID: 2100000, guid: 693a4fc330655ff4497d424bc35350ee, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorTiles_2
+    sharedMaterials:
+    - {fileID: 2100000, guid: 693a4fc330655ff4497d424bc35350ee, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorTiles_3
+    sharedMaterials:
+    - {fileID: 2100000, guid: 693a4fc330655ff4497d424bc35350ee, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_FloorTiles_4
+    sharedMaterials:
+    - {fileID: 2100000, guid: 693a4fc330655ff4497d424bc35350ee, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Foreground_Left
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Foreground_Right
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Pillar_BackRight
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5931efcb64569ea4fa599e4e56c81a7c, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Pillar_Divider
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5931efcb64569ea4fa599e4e56c81a7c, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Pillar_Left
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5931efcb64569ea4fa599e4e56c81a7c, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Pillar_Right
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5931efcb64569ea4fa599e4e56c81a7c, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_Pillar_Vista
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5931efcb64569ea4fa599e4e56c81a7c, type: 2}
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_PortalStonework
+    sharedMaterials:
+    - {fileID: 2100000, guid: 5931efcb64569ea4fa599e4e56c81a7c, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_PortalTunnel_Back
+    sharedMaterials:
+    - {fileID: 2100000, guid: dc765bd831b45694d91ce9a7ae916cfe, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_PortalTunnel_Floor
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_PortalTunnel_Sides
+    sharedMaterials:
+    - {fileID: 2100000, guid: c05e71b9be87d4a478a326265c05d3d5, type: 2}
+  - hierarchyPath: TrigonalAbyss_Prototype/TrigonalAbyssStage/ENV_WallCourses
+    sharedMaterials:
+    - {fileID: 2100000, guid: dc765bd831b45694d91ce9a7ae916cfe, type: 2}
+  lights:
+  - hierarchyPath: TrigonalAbyss_Prototype/LightingRig/Key_CoolMoon
+    enabled: 1
+    color: {r: 0.6, g: 0.78, b: 0.87, a: 1}
+    intensity: 0.75
+    range: 10
+    shadowStrength: 1
+    shadows: 2
+  - hierarchyPath: TrigonalAbyss_Prototype/LightingRig/Warm_PlayerPool
+    enabled: 1
+    color: {r: 1, g: 0.6, b: 0.28, a: 1}
+    intensity: 18
+    range: 10
+    shadowStrength: 1
+    shadows: 0
+  - hierarchyPath: TrigonalAbyss_Prototype/LightingRig/Warm_EnemyPool
+    enabled: 1
+    color: {r: 1, g: 0.64, b: 0.32, a: 1}
+    intensity: 20
+    range: 10
+    shadowStrength: 1
+    shadows: 0
+  - hierarchyPath: TrigonalAbyss_Prototype/LightingRig/Warm_DeepArchitecture
+    enabled: 1
+    color: {r: 1, g: 0.43, b: 0.15, a: 1}
+    intensity: 15
+    range: 14
+    shadowStrength: 1
+    shadows: 0
+  - hierarchyPath: TrigonalAbyss_Prototype/LightingRig/Cool_Vista
+    enabled: 1
+    color: {r: 0.22, g: 0.63, b: 0.7, a: 1}
+    intensity: 12
+    range: 14
+    shadowStrength: 1
+    shadows: 0
+  fog:
+    enabled: 1
+    mode: 1
+    color: {r: 0.038, g: 0.08, b: 0.095, a: 1}
+    start: 30
+    end: 75
+    density: 0.01
+  ambient:
+    mode: 1
+    sky: {r: 0.12, g: 0.19, b: 0.22, a: 1}
+    equator: {r: 0.07, g: 0.13, b: 0.15, a: 1}
+    ground: {r: 0.045, g: 0.055, b: 0.067, a: 1}
+    intensity: 1
+  cameraRenderPostProcessing: 0
+  pixelEnabled: 1
+  virtualResolution: {x: 480, y: 270}

@@ -104,8 +104,9 @@ namespace DungeonRun.Combat
         public int CardId { get; }
         public int Amount { get; }
         public string Message { get; }
-        public BattleEvent(BattleEventKind kind, int actorId = 0, int targetId = 0, int cardId = 0, int amount = 0, string message = "")
-        { Kind = kind; ActorId = actorId; TargetId = targetId; CardId = cardId; Amount = amount; Message = message; }
+        public int DefinitionId { get; }
+        public BattleEvent(BattleEventKind kind, int actorId = 0, int targetId = 0, int cardId = 0, int amount = 0, string message = "", int definitionId = 0)
+        { Kind = kind; ActorId = actorId; TargetId = targetId; CardId = cardId; Amount = amount; Message = message; DefinitionId = definitionId; }
     }
 
     public sealed class DebugPatternSnapshot
