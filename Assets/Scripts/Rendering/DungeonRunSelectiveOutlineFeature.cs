@@ -20,7 +20,7 @@ public sealed class DungeonRunSelectiveOutlineFeature : ScriptableRendererFeatur
         var camera = data.camera;
         if (!maskMaterial || !compositeMaterial || !maskMaterial.shader.isSupported || !compositeMaterial.shader.isSupported ||
             data.cameraType != CameraType.Game || data.renderType != CameraRenderType.Base || camera.stereoEnabled ||
-            camera.gameObject.scene.name != "SceneVictorLab" ||
+            !DungeonRun.Rendering.WorldStyleGate.IsStyledScene(camera.gameObject.scene.name) ||
             !camera.TryGetComponent<DungeonRunPixelRenderSettings>(out var pixel) || !pixel.isActiveAndEnabled ||
             !pixel.PixelEnabled || pixel.VirtualResolution != new Vector2Int(480, 270) ||
             !camera.TryGetComponent<DungeonRunSelectiveOutlineSettings>(out var settings) || !settings.isActiveAndEnabled ||

@@ -32,6 +32,9 @@ namespace DungeonRun.UI
         public int Health, MaxHealth, Actions, MaxActions, Floor, DrawCount, DiscardCount, SelectedTarget;
         public bool IsPreview, IsResolving, CanResolve, CanEndTurn;
         public string Status;
+        /// <summary>V4 projections of values already shown in <see cref="Status"/>; Error is the controller's last rejection.</summary>
+        public int Turn, PlayerBlock, PlayerDodge;
+        public string Error;
         public BattlePhase Phase;
         public bool IsTerminal;
         public int TargetingCardId = -1, TargetingHitCount;

@@ -1,0 +1,97 @@
+{
+  "status": "VISUAL_VALIDATION_REQUIRED",
+  "bones": 39,
+  "materials": 2,
+  "palette": [
+    256,
+    128
+  ],
+  "lods": {
+    "0": {
+      "triangles": 15188,
+      "skinned_meshes": 5,
+      "rigid_meshes": 2
+    },
+    "1": {
+      "triangles": 9570,
+      "skinned_meshes": 5,
+      "rigid_meshes": 2
+    },
+    "2": {
+      "triangles": 5484,
+      "skinned_meshes": 5,
+      "rigid_meshes": 2
+    }
+  },
+  "meshes": [
+    {
+      "name": "SnakeChieftainV11_Body_LOD0",
+      "vertices": 4056,
+      "unweighted": 0,
+      "max_weight_error": 2.9802322387695312e-08,
+      "rigid": false
+    },
+    {
+      "name": "SnakeChieftainV11_Face_LOD0",
+      "vertices": 576,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeChieftainV11_Jaw_LOD0",
+      "vertices": 792,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeChieftainV11_Hands_LOD0",
+      "vertices": 1480,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeChieftainV11_Armor_LOD0",
+      "vertices": 628,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeChieftainV11_Weapon_L_LOD0",
+      "vertices": 118,
+      "unweighted": 0,
+      "max_weight_error": 0,
+      "rigid": true
+    },
+    {
+      "name": "SnakeChieftainV11_Weapon_R_LOD0",
+      "vertices": 118,
+      "unweighted": 0,
+      "max_weight_error": 0,
+      "rigid": true
+    }
+  ],
+  "name": "SnakeChieftain",
+  "kind": "Chieftain",
+  "grips": {
+    "L": [
+      1.1749999523162842,
+      -0.32999998331069946,
+      1.465000033378601
+    ],
+    "R": [
+      -1.1749999523162842,
+      -0.32999998331069946,
+      1.465000033378601
+    ]
+  },
+  "actions": [
+    "Rig_SnakeChieftainV11|Idle",
+    "Rig_SnakeChieftainV11|Attack",
+    "Rig_SnakeChieftainV11|HitReaction",
+    "Rig_SnakeChieftainV11|Death"
+  ]
+}

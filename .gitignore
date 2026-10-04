@@ -105,14 +105,26 @@ InitTestScene*.unity*
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
+# OS generated files
+[Dd]esktop.ini
+Thumbs.db
+ehthumbs.db
+.DS_Store
+.DS_Store?
+._*
+
+# Python cache (Tools & asset scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+
 # ==========================================
-# AI Agents & New Documentation (Local / Draft)
+# AI Agents & Tools (Local / Draft)
 # ==========================================
 .serena/
-AGENTS.md
+.claude/
 CLAUDE.md
 README_AI_SETUP.md
-docs/*.md
 /Captures/
 /.atl/
 /.codegraph/

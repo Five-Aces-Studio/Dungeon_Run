@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0520d56607e251641b19bf5ffbed618c, type: 3}
+  m_Name: CombatHUDStyleV4
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRun.UI.CombatHUDStyleV4
+  displayFont: {fileID: 11400000, guid: 6a25c3e70a57b104486a4fd207410eea, type: 2}
+  displayHeavyFont: {fileID: 11400000, guid: 602ee36805980d941a4ce2edd558528e, type: 2}
+  bodyFont: {fileID: 11400000, guid: 0b0564cec3a8e7f4cb637fefa568e34b, type: 2}
+  bodyBoldFont: {fileID: 11400000, guid: 92d7a2a47053a644bb742916190b6685, type: 2}
+  displayOutline: {fileID: 2100000, guid: ccf764fe71c28974b8d1d4f53838aad7, type: 2}
+  numberOutline: {fileID: 2100000, guid: 1be3c198d220764428283010c6cd476b, type: 2}
+  engravedRune: {fileID: 2100000, guid: 9f48700271c8d5e4487fc43191db8fdc, type: 2}
+  labelOutline: {fileID: 2100000, guid: 0208cc1f0e4c92947b5baa373fa7a96c, type: 2}
+  cardFrames:
+  - {fileID: 21300000, guid: 10fde705f1b487445a42d02ae736e370, type: 3}
+  - {fileID: 21300000, guid: 847aa13715adcd14fbfc362537cd680d, type: 3}
+  - {fileID: 21300000, guid: d80dc9f6a4b98424eae05f02bf5c15c3, type: 3}
+  - {fileID: 21300000, guid: 54d61ebbea2a4aa46b76949bb589dc6c, type: 3}
+  - {fileID: 21300000, guid: fca695e1d70c39e449b8ca53520df5fb, type: 3}
+  socketCardFrames:
+  - {fileID: 21300000, guid: 29131a31e9e94a74d884302be4aab3f1, type: 3}
+  - {fileID: 21300000, guid: c24e168267ffe3a4db1a4262c2aa3e1a, type: 3}
+  - {fileID: 21300000, guid: a00a2d37c08c68b43b57103497b45ce8, type: 3}
+  - {fileID: 21300000, guid: 3139e61bfd1a34f47a2b8ff7f737aeb9, type: 3}
+  - {fileID: 21300000, guid: 7670e2e5005086c488437f7240e3ceea, type: 3}
+  cardShadow: {fileID: 21300000, guid: 6685536d73b266b42b3f351615d2362e, type: 3}
+  cardFocusRim: {fileID: 21300000, guid: 9ebfba7b31fe6d2499276017463862a8, type: 3}
+  detailFrame: {fileID: 21300000, guid: dd8f4ed15c296ab439fb435ba71d11ac, type: 3}
+  detailFrames:
+  - {fileID: 21300000, guid: b5233b45dc0ad864fa66b094bab8f458, type: 3}
+  - {fileID: 21300000, guid: 1760c524e99db6540a2e02d0d9c0f12b, type: 3}
+  - {fileID: 21300000, guid: 5b6dd1badf329d44c951c5eda84080ed, type: 3}
+  - {fileID: 21300000, guid: c2d6a7d923bf53b45a9f2651e2681ac5, type: 3}
+  - {fileID: 21300000, guid: b5ab0a5d03cd03949802f1982ea5a8b5, type: 3}
+  detailArt:
+  - {fileID: 21300000, guid: ab664d5a005cb454ca1004a44b24c93a, type: 3}
+  - {fileID: 21300000, guid: e18b1e2d39ee245448591dd1a1578b91, type: 3}
+  - {fileID: 21300000, guid: a62c0a990e05a51408d05d8b06bb4287, type: 3}
+  - {fileID: 21300000, guid: 3f59e9924921a8d4db1c643cf5826abf, type: 3}
+  - {fileID: 21300000, guid: 507aa28dcb3b84c45a1b8b4a4520f9d7, type: 3}
+  categoryGlyphs:
+  - {fileID: 21300000, guid: a92924907809b3746b5f8d51f98b691a, type: 3}
+  - {fileID: 21300000, guid: c8f0555d86d012341a767b9febccd1b2, type: 3}
+  - {fileID: 21300000, guid: ee57767a1f0fc694b9098190d60221fc, type: 3}
+  - {fileID: 21300000, guid: 6a76d8e36be371b45a874c8b39042acb, type: 3}
+  - {fileID: 21300000, guid: e8240de9d8cb94f42ac03f4deb7c128d, type: 3}
+  icons:
+  - {fileID: 21300000, guid: f984b78fd8274b9428a4a660a0ed2b25, type: 3}
+  - {fileID: 21300000, guid: d9888f5e3eff2ab4595f595baf3918d7, type: 3}
+  - {fileID: 21300000, guid: caf2b6b09372db34b878dbf5ad22fb6f, type: 3}
+  - {fileID: 21300000, guid: 2bf3c104aa5a260429013f0071c6c86e, type: 3}
+  - {fileID: 21300000, guid: 7c6c2f8c90a31c441979e2aae00fee56, type: 3}
+  - {fileID: 21300000, guid: ff45dac7a45139a42b862a527440bf0a, type: 3}
+  - {fileID: 21300000, guid: c8ce71f8a957b0e4e87180c7edcf2dbb, type: 3}
+  - {fileID: 21300000, guid: 6bc17f76a815bbb4c82aa0b5397c65d7, type: 3}
+  - {fileID: 21300000, guid: e4f86622c02e6e34a8467938d3443afd, type: 3}
+  smallIcons:
+  - {fileID: 21300000, guid: acfff27bd767c2944abac3749461bab7, type: 3}
+  - {fileID: 21300000, guid: 3d711572918875f4e9bc685b1c9d0305, type: 3}
+  - {fileID: 21300000, guid: ddd4c5084d01c534b8f65ff19b1f1f69, type: 3}
+  - {fileID: 21300000, guid: cbf4dec1b599f8142a95aacce18185a4, type: 3}
+  - {fileID: 21300000, guid: 943851119776bd34f87ed985397796dd, type: 3}
+  - {fileID: 21300000, guid: c9bd89f1db44ad140bb32d6ab13a63ba, type: 3}
+  - {fileID: 21300000, guid: e6b00b6976c5ea74d854805ac67faf3e, type: 3}
+  - {fileID: 21300000, guid: c4d716420c39d5c4fb712369e221bfe4, type: 3}
+  - {fileID: 21300000, guid: 63439f95619856248ae353f44083c8e6, type: 3}
+  titleInk: {r: 0.16470589, g: 0.11764706, b: 0.078431375, a: 1}
+  bodyInk: {r: 0.16470589, g: 0.11764706, b: 0.078431375, a: 1}
+  footerText: {r: 0.91764706, g: 0.8627451, b: 0.72156864, a: 1}
+  mutedGold: {r: 0.76862746, g: 0.61960787, b: 0.34117648, a: 1}
+  targetInk: {r: 0.3529412, g: 0.22745098, b: 0.15686275, a: 1}
+  focusHover: {r: 0.9098039, g: 0.7607843, b: 0.47843137, a: 1}
+  focusSelected: {r: 0.8509804, g: 0.70980394, b: 0.43137255, a: 1}
+  focusValid: {r: 0.43137255, g: 0.6039216, b: 0.5803922, a: 0.9019608}
+  focusInvalid: {r: 0.78431374, g: 0.33333334, b: 0.23921569, a: 0.9490196}
+  socketCardTitlePos: {x: 0, y: 116.5}
+  socketCardTitleSize: {x: 173, y: 43}
+  socketCardIconPos: {x: 0, y: -14}
+  socketCardIconSize: {x: 140, y: 140}
+  socketCardGlyphPos: {x: -75.5, y: -131}
+  socketCardGlyphSize: {x: 16, y: 16}
+  socketCardTitleFontMax: 34
+  denseSocketScale: 0.82
+  denseSlotSpacing: 112
+  denseSlotCenterX: -95
+  denseFromCount: 3
+  socket: {fileID: 21300000, guid: 3989fabf543e9e847bd718e063dfd63a, type: 3}
+  socketRim: {fileID: 21300000, guid: 3a2a87fed9229874db0a76379f1601a7, type: 3}
+  socketGlow: {fileID: 21300000, guid: 292d9e5422b50be4382d0150d2c524af, type: 3}
+  rimArmed: {r: 0.8509804, g: 0.70980394, b: 0.43137255, a: 1}
+  rimHoverValid: {r: 0.9098039, g: 0.7607843, b: 0.47843137, a: 1}
+  rimHoverInvalid: {r: 0.78431374, g: 0.33333334, b: 0.23921569, a: 1}
+  rimQueued: {r: 0.6627451, g: 0.5254902, b: 0.29803923, a: 1}
+  rimLocked: {r: 0.2901961, g: 0.21176471, b: 0.11764706, a: 0.8}
+  rimResolving: {r: 0.8784314, g: 0.6039216, b: 0.22745098, a: 1}
+  glowHoverValid: {r: 0.43137255, g: 0.6039216, b: 0.5803922, a: 1}
+  glowResolving: {r: 0.8784314, g: 0.6039216, b: 0.22745098, a: 1}
+  runeIdle: {r: 0.16470589, g: 0.11764706, b: 0.078431375, a: 1}
+  runeLit: {r: 0.47843137, g: 0.24313726, b: 0.07058824, a: 1}
+  socketInvalidTint: {r: 0.72, g: 0.72, b: 0.72, a: 1}
+  socketEmptyAlpha: 1
+  socketLockedAlpha: 0.5
+  socketTerminalAlpha: 0
+  runeUseEngravedMaterial: 1
+  commitDisabled: {fileID: 21300000, guid: dc3a2d0dd9cc471468d8f0d6f46cd276, type: 3}
+  commitReady: {fileID: 21300000, guid: eb919446eadfdb7409b8adf21f93c28c, type: 3}
+  commitHover: {fileID: 21300000, guid: 8b44459eba77eac43bc5267ea5a55d68, type: 3}
+  commitPressed: {fileID: 21300000, guid: 11c044221e7f50640b172a437162d91a, type: 3}
+  commitLocked: {fileID: 21300000, guid: 0153a67354d8d87499cd3c62154ab9e4, type: 3}
+  commitResolving: {fileID: 21300000, guid: d3ca0dc7d853ad9429764ac36eee8e6c, type: 3}
+  commitLabelReady: {r: 0.9529412, g: 0.9137255, b: 0.8235294, a: 1}
+  commitLabelIdle: {r: 0.5568628, g: 0.47843137, b: 0.33333334, a: 1}
+  commitLabelBusy: {r: 0.7254902, g: 0.64705884, b: 0.49411765, a: 1}
+  hoverScale: 1.03
+  pressedScale: 0.97
+  playerHPTrack: {fileID: 21300000, guid: 5ae6c4c2e723bb143bb4e7d2e0baa089, type: 3}
+  playerHPFill: {fileID: 21300000, guid: d05de738572dfdf449793080a5b45659, type: 3}
+  playerHPGhost: {fileID: 21300000, guid: e4bfd04652b28dd41a81b95cd54ca62b, type: 3}
+  chipBlock: {fileID: 21300000, guid: 6250140c27d9c664bb986001c700733e, type: 3}
+  chipDodge: {fileID: 21300000, guid: 949af7e330a836c4e88e5e072f342c16, type: 3}
+  floorPlaque: {fileID: 21300000, guid: 2784733f653219c4688e4e1572dcc147, type: 3}
+  actionMedallion: {fileID: 21300000, guid: 993e19619e0095546aedb08161c8c447, type: 3}
+  pipOn: {fileID: 21300000, guid: c37d865fb8023414ca243ba6ededc572, type: 3}
+  pipOff: {fileID: 21300000, guid: a057b2755c6f9fc4b97ef9f9f42d8e11, type: 3}
+  drawToken: {fileID: 21300000, guid: e4e1bcd3a8bed2a44af6adc2d97c318b, type: 3}
+  discardToken: {fileID: 21300000, guid: d987865d8d6d31f48910d11e1b8b41a4, type: 3}
+  banner: {fileID: 21300000, guid: 9624f5736aad8c54c862ffff87e40a02, type: 3}
+  terminalBanner: {fileID: 21300000, guid: 3cc067da07f1f9645b0c241b7be208ec, type: 3}
+  vignette: {fileID: 21300000, guid: 414b6fa85c1ff4b43b09bb42242beac0, type: 3}
+  textWash: {fileID: 21300000, guid: 0bea720a73d81214caf1df5f2926fb04, type: 3}
+  smallButton: {fileID: 21300000, guid: 542897afd57cea54ba9547702c516f37, type: 3}
+  targetMarker: {fileID: 21300000, guid: 155ecebc54d131e41a40ea85ddbb0f6c, type: 3}
+  targetMarkerValid: {r: 1, g: 1, b: 1, a: 1}
+  targetMarkerSelected: {r: 1, g: 0.9137255, b: 0.72156864, a: 1}
+  targetMarkerSelectedScale: 1.2
+  closeButton: {fileID: 21300000, guid: 723325261b65dd742becfc5d273a85c2, type: 3}
+  feedbackGlyphs:
+  - {fileID: 21300000, guid: 03debd85b4e365e4d88dd1f81a1579e1, type: 3}
+  - {fileID: 21300000, guid: fa0ef12b5fda9ff4da98aaf3b37870b5, type: 3}
+  - {fileID: 21300000, guid: c8f0555d86d012341a767b9febccd1b2, type: 3}
+  - {fileID: 21300000, guid: ee57767a1f0fc694b9098190d60221fc, type: 3}
+  - {fileID: 21300000, guid: 6a76d8e36be371b45a874c8b39042acb, type: 3}
+  - {fileID: 21300000, guid: 2da3a9ca59a07514e986d4077385229b, type: 3}
+  - {fileID: 21300000, guid: 03debd85b4e365e4d88dd1f81a1579e1, type: 3}
+  ghostColor: {r: 0.8784314, g: 0.627451, b: 0.5411765, a: 1}
+  victoryColor: {r: 0.8509804, g: 0.70980394, b: 0.43137255, a: 1}
+  defeatColor: {r: 0.65882355, g: 0.1882353, b: 0.16470589, a: 1}
+  parchmentText: {r: 0.91764706, g: 0.8627451, b: 0.72156864, a: 1}
+  hintText: {r: 0.8392157, g: 0.7607843, b: 0.6039216, a: 1}
+  floaterEnemyDamage: {r: 0.9372549, g: 0.8901961, b: 0.78431374, a: 1}
+  floaterPlayerDamage: {r: 0.7882353, g: 0.28235295, b: 0.18431373, a: 1}
+  enemyHPTrack: {fileID: 21300000, guid: 6f08a3d72f362ca49959c1c41bd3af30, type: 3}
+  enemyHPFill: {fileID: 21300000, guid: e98058ca63cee1b44b768b9fd0d21f30, type: 3}
+  intentSocket: {fileID: 21300000, guid: 03514468fa672474cbbc7092d5d2d6d9, type: 3}
+  intentUnknown: {fileID: 21300000, guid: 6b1cb2583dec00940aae37e3fa1f8e0b, type: 3}
+  revealFlash: {fileID: 21300000, guid: e20f45471b504d445ba86dc7b8319b05, type: 3}
+  historyEye: {fileID: 21300000, guid: 8b586281a3b79bc4eb1092d107b63b40, type: 3}
+  historyToken: {fileID: 21300000, guid: d65f743fc54598d40a6d1147961dbe9e, type: 3}
+  historyIconAlpha: 0.6
+  shadowIntensity: 0.55
+  highlightStrength: 0.85
+  shadowIdleOffset: {x: 0, y: 0}
+  shadowLiftedOffset: {x: 2, y: -8}
+  cardDisabledTint: {r: 0.6, g: 0.58, b: 0.56, a: 1}
+  revealFlipSeconds: 0.3
+  defeatSinkSeconds: 0.8
+  defeatSinkDepth: 0.45
+  defeatTiltDegrees: 10
+  defeatDarken: 0.55
+  defeatTint: {r: 0.15686275, g: 0.20392157, b: 0.22745098, a: 1}
+  detailPanel:
+    anchor: {x: 0, y: 1}
+    pivot: {x: 0, y: 1}
+    position: {x: 196, y: -146}
+    size: {x: 360, y: 480}
+  targetingBanner:
+    anchor: {x: 0.5, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    position: {x: 0, y: -196}
+    size: {x: 440, y: 46}
+  terminalPanel:
+    anchor: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.5}
+    position: {x: 0, y: 210}
+    size: {x: 560, y: 166}
+  inspectHint:
+    anchor: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0}
+    position: {x: 0, y: 12}
+    size: {x: 320, y: 26}
+  inspectWash:
+    anchor: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0}
+    position: {x: 0, y: 12}
+    size: {x: 340, y: 28}
+  vignetteAlpha: 0.35
+  terminalTitleSize: 54
+  terminalBodySize: 20
+  targetingButtonSize: {x: 110, y: 30}
+  targetingButtonGap: 8
+  detailTitlePos: {x: 0, y: 197}
+  detailTitleSize: {x: 264, y: 42}
+  detailArtPos: {x: 0, y: 68.5}
+  detailArtSize: {x: 296, y: 221}
+  detailIconPos: {x: 0, y: 61}
+  detailIconSize: {x: 200, y: 200}
+  detailTargetPos: {x: 0, y: -58}
+  detailTargetSize: {x: 300, y: 20}
+  detailEffectPos: {x: 0, y: -137}
+  detailEffectSize: {x: 300, y: 130}
+  detailFooterLabelPos: {x: 20, y: -217}
+  detailFooterLabelSize: {x: 200, y: 18}
+  detailFooterGlyphPos: {x: -136, y: -218}
+  detailFooterGlyphSize: {x: 24, y: 24}
+  detailClosePos: {x: 158, y: 232}

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using DungeonRun.UI.Presentation;
 using UnityEngine;
 
 namespace DungeonRun.UI
@@ -29,6 +30,12 @@ namespace DungeonRun.UI
         [Header("Presentation timing")]
         public float drawDuration = .32f, playDuration = .3f, discardDuration = .3f;
         public float playCardSpacing = 190, playCardScale = .6f;
+        [Header("Action slots (presentation; defaults reproduce V3)")]
+        public float queuedCardScale = .27f, slotCenterX = -127.5f, slotSpacing = 175;
+        [Tooltip("Queued card offset from the slot card anchor.")] public Vector2 queuedCardOffset;
+        /// <summary>V4 dense-row scale (style.denseSocketScale from denseFromCount slots); 1 for V1/V3 and the base 1-2 slot row.</summary>
+        private float denseMultiplier = 1;
+        [Tooltip("Optional pre-built V4 inspect hint; null creates one at runtime.")] public TMPro.TextMeshProUGUI inspectHintV4;
         public event System.Action<string> PresentationCue;
         private ICombatTargetingSource Targeting => source as ICombatTargetingSource;
         public int SelectedCardId => selected;
@@ -47,13 +54,21 @@ namespace DungeonRun.UI
                 slots.Add(slot);
             }
             actionSlots = slots.ToArray();
+            var style = theme ? theme.v4Style : null;
+            // For V1/V3 (no style) denseFromCount is unreachable, so this reproduces the plain base-row formula exactly.
+            var row = SlotRowLayout.Layout(count, slotCenterX, slotSpacing,
+                style ? style.denseSlotCenterX : 0, style ? style.denseSlotSpacing : 0,
+                style ? style.denseSocketScale : 1, style ? style.denseFromCount : int.MaxValue);
+            denseMultiplier = row.Scale;
             for (int i = 0; i < actionSlots.Length; i++)
             {
                 var slot = actionSlots[i];
                 slot.slotIndex = i;
                 slot.gameObject.SetActive(i < count);
-                // Preserve the V1 pair's center and spacing while accommodating bounded playtests.
-                slot.Rect.anchoredPosition = new Vector2(-127.5f + (i - (count - 1) * .5f) * 175, slot.Rect.anchoredPosition.y);
+                // Preserve the V1 pair's center and spacing while accommodating bounded playtests; dense (3-4 slots) tightens the row in V4.
+                // Slots beyond count (kept from a larger earlier configuration) are inactive; the row only lays out active ones.
+                if (i < row.Positions.Length) slot.Rect.anchoredPosition = new Vector2(row.Positions[i], slot.Rect.anchoredPosition.y);
+                slot.SetDenseScale(denseMultiplier);
                 slot.Bind(this);
             }
         }
@@ -68,6 +83,8 @@ namespace DungeonRun.UI
             if (!detail) detail = CardDetailPanel.Create(handRoot.GetComponentInParent<Canvas>().transform, theme);
             if (!targetingPanel) targetingPanel = CardTargetingPanel.Create(handRoot.GetComponentInParent<Canvas>().transform, theme);
             targetingPanel.Bind(enabled => Targeting?.SetPerHitTargeting(enabled), CancelSelection);
+            if (!inspectHint && theme && theme.v4Style)
+                inspectHint = inspectHintV4 ? inspectHintV4 : CreateInspectHintV4(handRoot.GetComponentInParent<Canvas>().transform, theme.v4Style);
             if (!inspectHint)
             {
                 inspectHint = CardDetailPanel.Text("CardInspectHintV3", handRoot.GetComponentInParent<Canvas>().transform,
@@ -108,6 +125,7 @@ namespace DungeonRun.UI
                 views.Add(item.Id, view); drawnIds.Add(item.Id);
             }
             if (!state.Hand.Any(x => x.Id == selected)) selected = -1;
+            for (int i = 0; i < state.Slots.Count; i++) actionSlots[i].SetContext(state.Phase, state.IsTerminal, state.IsResolving, instant);
             for (int i = 0; i < state.Slots.Count; i++) actionSlots[i].Show(state.Slots[i] != null, selected >= 0 && !state.IsResolving, state.IsResolving, i < state.SlotTargets.Count ? state.SlotTargets[i] : "");
             Layout();
         }
@@ -133,6 +151,7 @@ namespace DungeonRun.UI
                 var state = snapshot.IsResolving || snapshot.CanEndTurn ? CardInteractionState.Disabled :
                     isSelected ? CardInteractionState.Selected : isHovered ? CardInteractionState.Hovered : CardInteractionState.Idle;
                 view.SetState(state);
+                view.SetSocketedV4(false);
                 UIAnimationHelpers.Pose(view.Rect, p, new Vector3(isSelected || isHovered ? 0 : idleTilt, 0,
                     isSelected || isHovered ? 0 : -t * maxRotation), isSelected || isHovered ? hoverScale : 1,
                     instant ? 0 : drawnIds.Remove(item.Id) ? drawDuration : animationDuration);
@@ -144,7 +163,8 @@ namespace DungeonRun.UI
                 if (item == null || !views.TryGetValue(item.Id, out var view)) continue;
                 if (view.State == CardInteractionState.Playing || view.State == CardInteractionState.Discarding) continue;
                 view.SetState(snapshot.IsResolving ? CardInteractionState.Disabled : CardInteractionState.Queued);
-                UIAnimationHelpers.Pose(view.Rect, ToHand(actionSlots[i].cardAnchor), Vector3.zero, .27f,
+                view.SetSocketedV4(true);
+                UIAnimationHelpers.Pose(view.Rect, ToHand(actionSlots[i].cardAnchor) + queuedCardOffset, Vector3.zero, queuedCardScale * denseMultiplier,
                     instant ? 0 : animationDuration);
             }
             int focus = selected >= 0 ? selected : hovered;
@@ -185,19 +205,19 @@ namespace DungeonRun.UI
         public void Inspect(CardView view) { if (detail) detail.Show(view.Item, theme); }
         public void DragFeedback(CardView view, Vector2 screenPosition, Camera eventCamera)
         {
-            bool valid = false;
+            bool valid = false, overAny = false;
             foreach (var slot in actionSlots)
             {
                 if (!slot.gameObject.activeSelf || slot.slotIndex >= snapshot.Slots.Count) continue;
                 bool over = RectTransformUtility.RectangleContainsScreenPoint(slot.Rect, screenPosition, eventCamera);
                 bool canDrop = !snapshot.IsResolving && snapshot.Slots[slot.slotIndex] == null;
                 slot.SetDropFeedback(over, canDrop);
-                valid |= over && canDrop;
+                valid |= over && canDrop; overAny |= over;
             }
             foreach (var enemy in enemyViews)
                 if (enemy && enemy.gameObject.activeInHierarchy && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)enemy.transform, screenPosition, eventCamera))
-                    valid |= IsValidEnemy(enemy.ActorId);
-            view.SetDropFeedback(valid);
+                { valid |= IsValidEnemy(enemy.ActorId); overAny = true; }
+            view.SetDropFeedback(overAny, valid);
         }
         private bool IsValidEnemy(int actorId)
         {
@@ -251,15 +271,47 @@ namespace DungeonRun.UI
         {
             if (!views.TryGetValue(id, out var view)) return;
             view.SetState(motion == CardMotion.Playing ? CardInteractionState.Playing : CardInteractionState.Discarding);
+            view.SetSocketedV4(motion == CardMotion.Playing);
             view.transform.SetAsLastSibling();
             int slotIndex = 0;
             for (int i = 0; i < snapshot.Slots.Count; i++) if (snapshot.Slots[i]?.Id == id) { slotIndex = i; break; }
-            Vector2 target = motion == CardMotion.Playing
-                ? ToHand(playAnchor) + new Vector2((slotIndex - (snapshot.Slots.Count - 1) * .5f) * playCardSpacing, 0)
-                : ToHand(discardAnchor);
+            Vector2 target; float scale;
+            if (theme && theme.v4Style && motion == CardMotion.Playing && slotIndex < actionSlots.Length)
+            {
+                // V4: staged cards stay exactly in their socket (never grow), through reveal and resolution.
+                target = ToHand(actionSlots[slotIndex].cardAnchor) + queuedCardOffset; scale = playCardScale * denseMultiplier;
+            }
+            else
+            {
+                target = motion == CardMotion.Playing
+                    ? ToHand(playAnchor) + new Vector2((slotIndex - (snapshot.Slots.Count - 1) * .5f) * playCardSpacing, 0)
+                    : ToHand(discardAnchor);
+                scale = motion == CardMotion.Playing ? playCardScale : .18f;
+            }
             UIAnimationHelpers.Pose(view.Rect, target,
-                new Vector3(0, 0, motion == CardMotion.Playing ? 0 : 12), motion == CardMotion.Playing ? playCardScale : .18f,
+                new Vector3(0, 0, motion == CardMotion.Playing ? 0 : 12), scale,
                 instant ? 0 : motion == CardMotion.Playing ? playDuration : discardDuration);
+        }
+        /// <summary>V4 pointer hover over a socket while a card is selected: previews the drop result. No-op for V1/V3 themes.</summary>
+        public void SlotHover(int index, bool over)
+        {
+            if (!theme || !theme.v4Style || snapshot == null || snapshot.IsResolving || selected < 0) return;
+            if (index < 0 || index >= actionSlots.Length || index >= snapshot.Slots.Count) return;
+            actionSlots[index].SetDropFeedback(over, snapshot.Slots[index] == null);
+        }
+        private static TMPro.TextMeshProUGUI CreateInspectHintV4(Transform canvas, CombatHUDStyleV4 style)
+        {
+            if (style.textWash)
+            {
+                var wash = CardDetailPanel.Rect("CardInspectWashV4", canvas, Vector2.zero); style.inspectWash.Apply(wash);
+                var image = wash.gameObject.AddComponent<UnityEngine.UI.Image>(); image.sprite = style.textWash; image.raycastTarget = false;
+            }
+            var hint = CardDetailPanel.Text("CardInspectHintV4", canvas, Vector2.zero, Vector2.zero, style.bodyFont, 14);
+            style.inspectHint.Apply(hint.rectTransform);
+            CombatHUDStyleV4.SetFont(hint, style.bodyFont); hint.color = style.hintText;
+            hint.alignment = TMPro.TextAlignmentOptions.Center; hint.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
+            hint.text = "Middle-click a card: inspect";
+            return hint;
         }
         private static void DestroyView(CardView view)
         {

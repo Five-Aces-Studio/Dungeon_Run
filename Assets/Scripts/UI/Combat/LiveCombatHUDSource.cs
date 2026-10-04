@@ -45,6 +45,7 @@ namespace DungeonRun.UI
                         ? "TURN " + state.Turn + "  /  " + PhaseLabel(state.Phase) +
                           "  |  BLOCK " + state.Player.Block + "  DODGE " + state.Player.Dodge
                         : battle.LastError,
+                    Turn = state.Turn, PlayerBlock = state.Player.Block, PlayerDodge = state.Player.Dodge, Error = battle.LastError,
                     Hand = state.Hand.Select(Card).ToArray(),
                     Slots = state.Slots.Select(x => x == null ? null : Card(x.Card)).ToArray(),
                     Enemies = state.Enemies.Select((x, i) => new EnemyHUDSnapshot

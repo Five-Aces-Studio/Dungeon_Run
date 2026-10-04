@@ -1,0 +1,90 @@
+{
+  "status": "VISUAL_VALIDATION_REQUIRED",
+  "bones": 33,
+  "materials": 2,
+  "palette": [
+    256,
+    128
+  ],
+  "lods": {
+    "0": {
+      "triangles": 10472,
+      "skinned_meshes": 5,
+      "rigid_meshes": 1
+    },
+    "1": {
+      "triangles": 6638,
+      "skinned_meshes": 5,
+      "rigid_meshes": 1
+    },
+    "2": {
+      "triangles": 3828,
+      "skinned_meshes": 5,
+      "rigid_meshes": 1
+    }
+  },
+  "meshes": [
+    {
+      "name": "SnakeSoldierV11_Body_LOD0",
+      "vertices": 2624,
+      "unweighted": 0,
+      "max_weight_error": 2.9802322387695312e-08,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSoldierV11_Face_LOD0",
+      "vertices": 348,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSoldierV11_Jaw_LOD0",
+      "vertices": 264,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSoldierV11_Hands_LOD0",
+      "vertices": 1480,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSoldierV11_Armor_LOD0",
+      "vertices": 476,
+      "unweighted": 0,
+      "max_weight_error": 2.9802322387695312e-08,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSoldierV11_Weapon_R_LOD0",
+      "vertices": 158,
+      "unweighted": 0,
+      "max_weight_error": 0,
+      "rigid": true
+    }
+  ],
+  "name": "SnakeSoldier",
+  "kind": "Soldier",
+  "grips": {
+    "L": [
+      0.9300000071525574,
+      -0.32999998331069946,
+      1.375
+    ],
+    "R": [
+      -0.9300000071525574,
+      -0.32999998331069946,
+      1.375
+    ]
+  },
+  "actions": [
+    "Rig_SnakeSoldierV11|Idle",
+    "Rig_SnakeSoldierV11|Attack",
+    "Rig_SnakeSoldierV11|HitReaction",
+    "Rig_SnakeSoldierV11|Death"
+  ]
+}

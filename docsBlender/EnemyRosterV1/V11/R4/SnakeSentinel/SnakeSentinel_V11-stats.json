@@ -1,0 +1,90 @@
+{
+  "status": "VISUAL_VALIDATION_REQUIRED",
+  "bones": 33,
+  "materials": 2,
+  "palette": [
+    256,
+    128
+  ],
+  "lods": {
+    "0": {
+      "triangles": 10192,
+      "skinned_meshes": 5,
+      "rigid_meshes": 1
+    },
+    "1": {
+      "triangles": 6478,
+      "skinned_meshes": 5,
+      "rigid_meshes": 1
+    },
+    "2": {
+      "triangles": 3748,
+      "skinned_meshes": 5,
+      "rigid_meshes": 1
+    }
+  },
+  "meshes": [
+    {
+      "name": "SnakeSentinelV11_Body_LOD0",
+      "vertices": 2624,
+      "unweighted": 0,
+      "max_weight_error": 2.9802322387695312e-08,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSentinelV11_Face_LOD0",
+      "vertices": 366,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSentinelV11_Jaw_LOD0",
+      "vertices": 264,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSentinelV11_Hands_LOD0",
+      "vertices": 1480,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSentinelV11_Armor_LOD0",
+      "vertices": 322,
+      "unweighted": 0,
+      "max_weight_error": 0.0,
+      "rigid": false
+    },
+    {
+      "name": "SnakeSentinelV11_Weapon_R_LOD0",
+      "vertices": 158,
+      "unweighted": 0,
+      "max_weight_error": 0,
+      "rigid": true
+    }
+  ],
+  "name": "SnakeSentinel",
+  "kind": "Sentinel",
+  "grips": {
+    "L": [
+      0.9300000071525574,
+      -0.32999998331069946,
+      1.375
+    ],
+    "R": [
+      -0.9300000071525574,
+      -0.32999998331069946,
+      1.375
+    ]
+  },
+  "actions": [
+    "Rig_SnakeSentinelV11|Idle",
+    "Rig_SnakeSentinelV11|Attack",
+    "Rig_SnakeSentinelV11|HitReaction",
+    "Rig_SnakeSentinelV11|Death"
+  ]
+}

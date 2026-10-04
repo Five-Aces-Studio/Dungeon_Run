@@ -1,0 +1,74 @@
+{
+  "name": "SnakeSentinel",
+  "bones": 26,
+  "materials": 2,
+  "palette": [
+    256,
+    128
+  ],
+  "lods": {
+    "0": {
+      "triangles": 12608,
+      "renderers": 6
+    },
+    "1": {
+      "triangles": 6304,
+      "renderers": 6
+    },
+    "2": {
+      "triangles": 3146,
+      "renderers": 6
+    }
+  },
+  "meshes": [
+    {
+      "name": "SnakeSentinel_Body_LOD0",
+      "vertices": 2504,
+      "unweighted": 0,
+      "weightErrorMax": 2.9802322387695312e-08,
+      "uv": 1
+    },
+    {
+      "name": "SnakeSentinel_Head_LOD0",
+      "vertices": 800,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeSentinel_Arms_LOD0",
+      "vertices": 1864,
+      "unweighted": 0,
+      "weightErrorMax": 2.9802322387695312e-08,
+      "uv": 1
+    },
+    {
+      "name": "SnakeSentinel_Armor_LOD0",
+      "vertices": 450,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeSentinel_Details_LOD0",
+      "vertices": 736,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeSentinel_Weapon_R_LOD0",
+      "vertices": 110,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    }
+  ],
+  "clips": [
+    "Idle",
+    "Attack",
+    "HitReaction",
+    "Death"
+  ],
+  "status": "BLOCKOUT_NOT_PRODUCTION_READY"
+}

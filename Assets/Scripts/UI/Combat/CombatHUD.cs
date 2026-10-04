@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using DungeonRun.Combat;
+using DungeonRun.UI.Presentation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,6 +33,8 @@ namespace DungeonRun.UI
         private MonoBehaviour startupSource;
         public CombatFeedbackPresenter feedback;
         private bool previousReady;
+        [Tooltip("V4 Commit plate presenter (unused by V1/V3 themes).")] public CommitButtonPresenter commitPresenter;
+        [Tooltip("V4 enemy defeat staging; added at runtime in Live Play Mode when missing.")] public EnemyDefeatPresenter defeatPresenter;
 
         private void OnEnable()
         {
@@ -67,6 +70,11 @@ namespace DungeonRun.UI
                 if (!feedback && !TryGetComponent(out feedback)) feedback = gameObject.AddComponent<CombatFeedbackPresenter>();
                 feedback.Bind(this, live.battle);
             }
+            if (theme && theme.v4Style && Application.isPlaying && selectedSource is LiveCombatHUDSource liveV4)
+            {
+                if (!defeatPresenter && !TryGetComponent(out defeatPresenter)) defeatPresenter = gameObject.AddComponent<EnemyDefeatPresenter>();
+                defeatPresenter.Bind(this, liveV4.battle);
+            }
         }
         public void Refresh()
         {
@@ -85,16 +93,27 @@ namespace DungeonRun.UI
             resolveButton.interactable = state.CanResolve;
             endTurnButton.interactable = state.CanEndTurn;
             endTurnButton.gameObject.SetActive(state.IsPreview);
+            var style = theme ? theme.v4Style : null;
             var resolveLabel = resolveButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (resolveLabel)
+            if (style && commitPresenter) commitPresenter.Apply(state, style);
+            else if (resolveLabel)
             {
                 resolveLabel.text = state.IsPreview ? "RESOLVE" : state.IsTerminal ? "COMPLETE" : state.IsResolving ? "LOCKED" : "COMMIT";
                 resolveLabel.color = state.CanResolve ? theme.gold : new Color(.65f, .66f, .61f);
             }
             if (state.CanResolve && !previousReady) UIAnimationHelpers.Pulse((RectTransform)resolveButton.transform, instantAnimations);
             previousReady = state.CanResolve;
-            statusText.text = state.Status;
-            previewLabel.text = state.IsPreview ? "LAB PREVIEW  /  PRESENTATION ONLY" : "LIVE COMBAT";
+            if (style)
+            {
+                statusText.text = !string.IsNullOrEmpty(state.Error) ? state.Error :
+                    state.Turn > 0 ? HudStatusFormat.Status(state.Turn, (HudPhase)(int)state.Phase) : state.Status;
+                previewLabel.text = state.IsPreview ? "LAB PREVIEW  \u00B7  PRESENTATION ONLY" : string.Empty;
+            }
+            else
+            {
+                statusText.text = state.Status;
+                previewLabel.text = state.IsPreview ? "LAB PREVIEW  /  PRESENTATION ONLY" : "LIVE COMBAT";
+            }
         }
         private void EnsureEnemyViews(int count)
         {
@@ -126,7 +145,10 @@ namespace DungeonRun.UI
             if (!bound) return;
             source.Changed -= Refresh;
             if (feedback) feedback.Unbind();
+            if (defeatPresenter) defeatPresenter.Unbind();
             if (resolveButton) resolveButton.transform.DOKill();
+            // V4: never leave the Commit plate mid-pulse or hover-scaled across a rebind.
+            if (resolveButton && theme && theme.v4Style) { resolveButton.transform.localScale = Vector3.one; if (commitPresenter) commitPresenter.ResetPointer(); }
             resolveButton.onClick.RemoveListener(Resolve); endTurnButton.onClick.RemoveListener(EndTurn);
             hand.Cleanup(); source = null; bound = false;
         }

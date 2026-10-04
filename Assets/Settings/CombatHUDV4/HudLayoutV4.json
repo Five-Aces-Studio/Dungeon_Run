@@ -1,0 +1,1351 @@
+{
+  "version": 1,
+  "reference": [
+    1920,
+    1080
+  ],
+  "canvasScaler": {
+    "match": 0.5
+  },
+  "spriteRoot": "Assets/Art/UI/CombatHUDV4",
+  "spriteScale": 2,
+  "fonts": {
+    "display": "Assets/Art/UI/CombatHUDV4/Fonts/AlegreyaSCDR-{weight}.ttf",
+    "body": "Assets/Art/UI/CombatHUDV4/Fonts/AlegreyaSansDR-{weight}.ttf"
+  },
+  "elements": [
+    {
+      "id": "portrait",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        84,
+        -82
+      ],
+      "size": [
+        118,
+        118
+      ],
+      "asset": "Assets/Art/UI/CombatHUDV1/Portrait.png"
+    },
+    {
+      "id": "player_name",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0,
+        0.5
+      ],
+      "pos": [
+        148,
+        -60
+      ],
+      "size": [
+        260,
+        30
+      ],
+      "text": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 24,
+        "color": "#EADCB8",
+        "sample": "THE WAYFARER",
+        "align": "left"
+      }
+    },
+    {
+      "id": "player_hp_track",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0,
+        0.5
+      ],
+      "pos": [
+        132,
+        -94
+      ],
+      "size": [
+        250,
+        30
+      ],
+      "sprite": "Crest/PlayerHPTrack.png",
+      "slice_border_px": {
+        "left": 40,
+        "right": 40,
+        "top": 0,
+        "bottom": 0
+      }
+    },
+    {
+      "id": "player_hp_ghost",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0,
+        0.5
+      ],
+      "pos": [
+        142,
+        -94
+      ],
+      "size": [
+        232,
+        16
+      ],
+      "sprite": "Crest/PlayerHPGhost.png",
+      "image": "Filled Horizontal",
+      "tint": "#E0A08A"
+    },
+    {
+      "id": "player_hp_fill",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0,
+        0.5
+      ],
+      "pos": [
+        142,
+        -94
+      ],
+      "size": [
+        232,
+        16
+      ],
+      "sprite": "Crest/PlayerHPFill.png",
+      "image": "Filled Horizontal"
+    },
+    {
+      "id": "player_hp_text",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        257,
+        -94
+      ],
+      "size": [
+        150,
+        24
+      ],
+      "text": {
+        "role": "body",
+        "weight": "ExtraBold",
+        "size": 18,
+        "color": "#F3E9D2",
+        "sample": "10 / 10",
+        "outline": 1.5
+      }
+    },
+    {
+      "id": "player_chip_block",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        170,
+        -124
+      ],
+      "size": [
+        58,
+        28
+      ],
+      "sprite": "Crest/ChipBlock.png",
+      "text": {
+        "role": "body",
+        "weight": "ExtraBold",
+        "size": 15,
+        "color": "#F3E9D2",
+        "sample": "1",
+        "outline": 1.5
+      },
+      "number": {
+        "pos": [
+          12,
+          0
+        ],
+        "size": [
+          18,
+          14
+        ]
+      },
+      "visible_when": "block > 0"
+    },
+    {
+      "id": "player_chip_dodge",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        226,
+        -124
+      ],
+      "size": [
+        58,
+        28
+      ],
+      "sprite": "Crest/ChipDodge.png",
+      "text": {
+        "role": "body",
+        "weight": "ExtraBold",
+        "size": 15,
+        "color": "#F3E9D2",
+        "sample": "1",
+        "outline": 1.5
+      },
+      "number": {
+        "pos": [
+          12,
+          0
+        ],
+        "size": [
+          18,
+          14
+        ]
+      },
+      "visible_when": "dodge > 0"
+    },
+    {
+      "id": "floor_plaque",
+      "anchor": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -146,
+        -54
+      ],
+      "size": [
+        230,
+        64
+      ],
+      "sprite": "Static/FloorPlaque.png"
+    },
+    {
+      "id": "floor_text",
+      "anchor": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -146,
+        -47
+      ],
+      "size": [
+        170,
+        32
+      ],
+      "text": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 25,
+        "color": "#EADCB8",
+        "sample": "FLOOR 01"
+      }
+    },
+    {
+      "id": "floor_location",
+      "anchor": [
+        1,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -146,
+        -69
+      ],
+      "size": [
+        150,
+        14
+      ],
+      "text": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 12,
+        "color": "#C49E57",
+        "sample": "TRIGONAL ABYSS"
+      }
+    },
+    {
+      "id": "actions_medallion",
+      "anchor": [
+        0,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        24
+      ],
+      "size": [
+        132,
+        132
+      ],
+      "sprite": "Static/ActionMedallion.png"
+    },
+    {
+      "id": "actions_text",
+      "anchor": [
+        0,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        31
+      ],
+      "size": [
+        90,
+        46
+      ],
+      "text": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 34,
+        "color": "#EADCB8",
+        "sample": "2 / 2"
+      }
+    },
+    {
+      "id": "actions_pips",
+      "anchor": [
+        0,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        -5
+      ],
+      "size": [
+        16,
+        16
+      ],
+      "sprite_on": "Static/PipOn.png",
+      "sprite_off": "Static/PipOff.png",
+      "spacing": 22,
+      "max_visible": 6
+    },
+    {
+      "id": "actions_label",
+      "anchor": [
+        0,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        -60
+      ],
+      "size": [
+        110,
+        18
+      ],
+      "text": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 13,
+        "color": "#C49E57",
+        "sample": "ACTIONS"
+      }
+    },
+    {
+      "id": "draw_token",
+      "anchor": [
+        0,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        252
+      ],
+      "size": [
+        96,
+        112
+      ],
+      "sprite": "Static/DrawToken.png"
+    },
+    {
+      "id": "draw_count",
+      "anchor": [
+        0,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        236
+      ],
+      "size": [
+        60,
+        30
+      ],
+      "text": {
+        "role": "body",
+        "weight": "ExtraBold",
+        "size": 24,
+        "color": "#F3E9D2",
+        "sample": "16",
+        "outline": 1.5
+      }
+    },
+    {
+      "id": "draw_label",
+      "anchor": [
+        0,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        98,
+        184
+      ],
+      "size": [
+        90,
+        18
+      ],
+      "text": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 13,
+        "color": "#C49E57",
+        "sample": "DRAW"
+      }
+    },
+    {
+      "id": "discard_token",
+      "anchor": [
+        1,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -98,
+        252
+      ],
+      "size": [
+        96,
+        112
+      ],
+      "sprite": "Static/DiscardToken.png"
+    },
+    {
+      "id": "discard_count",
+      "anchor": [
+        1,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -98,
+        236
+      ],
+      "size": [
+        60,
+        30
+      ],
+      "text": {
+        "role": "body",
+        "weight": "ExtraBold",
+        "size": 24,
+        "color": "#F3E9D2",
+        "sample": "0",
+        "outline": 1.5
+      }
+    },
+    {
+      "id": "discard_label",
+      "anchor": [
+        1,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -98,
+        184
+      ],
+      "size": [
+        90,
+        18
+      ],
+      "text": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 13,
+        "color": "#C49E57",
+        "sample": "DISCARD"
+      }
+    },
+    {
+      "id": "commit",
+      "anchor": [
+        1,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -176,
+        122
+      ],
+      "size": [
+        260,
+        84
+      ],
+      "sprite": "Controls/Commit_Ready.png",
+      "states": {
+        "Disabled": "Controls/Commit_Disabled.png",
+        "Ready": "Controls/Commit_Ready.png",
+        "Hover": "Controls/Commit_Hover.png",
+        "Pressed": "Controls/Commit_Pressed.png",
+        "Locked": "Controls/Commit_Locked.png",
+        "Resolving": "Controls/Commit_Resolving.png"
+      }
+    },
+    {
+      "id": "commit_label",
+      "anchor": [
+        1,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        -176,
+        116
+      ],
+      "size": [
+        150,
+        36
+      ],
+      "text": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 26,
+        "color": "#EADCB8",
+        "sample": "COMMIT"
+      }
+    },
+    {
+      "id": "status_wash",
+      "anchor": [
+        0.5,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        0,
+        -112
+      ],
+      "size": [
+        460,
+        40
+      ],
+      "sprite": "Static/TextWash.png"
+    },
+    {
+      "id": "status_text",
+      "anchor": [
+        0.5,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        0,
+        -112
+      ],
+      "size": [
+        440,
+        28
+      ],
+      "text": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 17,
+        "color": "#EADCB8",
+        "sample": "TURN 1  ·  PLANNING"
+      }
+    },
+    {
+      "id": "inspect_wash",
+      "anchor": [
+        0.5,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0
+      ],
+      "pos": [
+        0,
+        12
+      ],
+      "size": [
+        340,
+        28
+      ],
+      "sprite": "Static/TextWash.png"
+    },
+    {
+      "id": "inspect_hint",
+      "anchor": [
+        0.5,
+        0
+      ],
+      "pivot": [
+        0.5,
+        0
+      ],
+      "pos": [
+        0,
+        12
+      ],
+      "size": [
+        320,
+        26
+      ],
+      "text": {
+        "role": "body",
+        "weight": "Medium",
+        "size": 14,
+        "color": "#D6C29A",
+        "sample": "Middle-click a card: inspect"
+      }
+    },
+    {
+      "id": "targeting_banner",
+      "anchor": [
+        0.5,
+        1
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        0,
+        -196
+      ],
+      "size": [
+        440,
+        46
+      ],
+      "sprite": "Static/Banner.png",
+      "text": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 18,
+        "color": "#2A1E14",
+        "sample": "CHOOSE A TARGET"
+      },
+      "slice_border_px": {
+        "left": 44,
+        "right": 44,
+        "top": 0,
+        "bottom": 0
+      },
+      "buttons": {
+        "size": [
+          110,
+          30
+        ],
+        "gap": 8,
+        "text": {
+          "role": "display",
+          "weight": "Bold",
+          "size": 14,
+          "color": "#2A1E14",
+          "sample": "CANCEL"
+        }
+      }
+    },
+    {
+      "id": "detail",
+      "anchor": [
+        0,
+        1
+      ],
+      "pivot": [
+        0,
+        1
+      ],
+      "pos": [
+        196,
+        -146
+      ],
+      "size": [
+        360,
+        480
+      ],
+      "sprite": "Cards/DetailFrame.png"
+    },
+    {
+      "id": "terminal",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        0,
+        210
+      ],
+      "size": [
+        560,
+        166
+      ],
+      "sprite": "Static/TerminalBanner.png",
+      "title": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 54,
+        "color": "#D9B56E",
+        "sample": "VICTORY",
+        "defeat_color": "#A8302A"
+      },
+      "body": {
+        "role": "body",
+        "weight": "Medium",
+        "size": 20,
+        "color": "#EADCB8",
+        "sample": "The abyss falls silent."
+      }
+    },
+    {
+      "id": "vignette",
+      "anchor": [
+        0.5,
+        0.5
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        1920,
+        1080
+      ],
+      "sprite": "Static/Vignette.png",
+      "stretch": true,
+      "alpha": 0.35
+    }
+  ],
+  "sockets": {
+    "anchor": [
+      0.5,
+      0
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "y": 440,
+    "size": [
+      118,
+      158
+    ],
+    "slotCenterX": -127.5,
+    "slotSpacing": 150,
+    "sprite": "Controls/Socket.png",
+    "rim": "Controls/SocketRim.png",
+    "glow": "Controls/SocketGlow.png",
+    "queuedCardScale": 0.5,
+    "queuedCardOffset": [
+      0,
+      6
+    ],
+    "rune": {
+      "role": "display",
+      "weight": "ExtraBold",
+      "size": 15,
+      "color": "#2A1E14",
+      "sample": "I",
+      "pos": [
+        0,
+        -63
+      ],
+      "box": [
+        38,
+        16
+      ]
+    },
+    "state_tints": {
+      "ARMED": "#D9B56E",
+      "HOVER_VALID": "#E8C27A",
+      "HOVER_INVALID": "#C8553D",
+      "QUEUED": "#A9864C",
+      "RESOLVING": "#E09A3A",
+      "VALID_GLOW": "#6E9A94"
+    }
+  },
+  "hand": {
+    "anchor": [
+      0.5,
+      0
+    ],
+    "pos": [
+      0,
+      200
+    ],
+    "fanWidth": 850,
+    "spacing": 185,
+    "curve": 27,
+    "maxRotation": 8,
+    "card": [
+      225,
+      300
+    ],
+    "hoverLift": 70,
+    "hoverScale": 1.075,
+    "cardText": {
+      "title": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 21,
+        "color": "#2A1E14",
+        "sample": "ATTACK",
+        "zone": [
+          30,
+          14,
+          195,
+          40
+        ]
+      },
+      "effect": {
+        "role": "body",
+        "weight": "Bold",
+        "size": 18,
+        "color": "#2A1E14",
+        "sample": "Deal 1 damage.",
+        "zone": [
+          26,
+          190,
+          199,
+          258
+        ],
+        "wrapWidth": 132
+      },
+      "label": {
+        "role": "display",
+        "weight": "Bold",
+        "size": 13,
+        "color": "#EADCB8",
+        "sample": "STRIKE",
+        "zone": [
+          54,
+          270,
+          199,
+          288
+        ]
+      },
+      "icon": {
+        "centre": [
+          112.5,
+          110
+        ],
+        "size": [
+          150,
+          150
+        ]
+      },
+      "glyph": {
+        "centre": [
+          37,
+          279
+        ],
+        "size": [
+          16,
+          16
+        ]
+      }
+    },
+    "socketCard": {
+      "title": {
+        "role": "display",
+        "weight": "ExtraBold",
+        "size": 34,
+        "color": "#2A1E14",
+        "sample": "ATTACK",
+        "zone": [
+          26,
+          12,
+          199,
+          55
+        ]
+      },
+      "icon": {
+        "centre": [
+          112.5,
+          164
+        ],
+        "size": [
+          140,
+          140
+        ]
+      },
+      "glyph": {
+        "centre": [
+          37,
+          281
+        ],
+        "size": [
+          16,
+          16
+        ]
+      }
+    },
+    "shadow": {
+      "sprite": "Cards/CardShadow.png",
+      "size": [
+        245,
+        320
+      ]
+    },
+    "focusRim": {
+      "sprite": "Cards/CardFocusRim.png",
+      "size": [
+        237,
+        312
+      ],
+      "order": "above_frame",
+      "tints": {
+        "hover": "#E8C27A",
+        "selected": "#D9B56E",
+        "valid": "#6E9A94E6",
+        "invalid": "#C8553DF2"
+      }
+    }
+  },
+  "enemy": {
+    "root": [
+      170,
+      80
+    ],
+    "elements": [
+      {
+        "id": "enemy_hp_track",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          0
+        ],
+        "size": [
+          136,
+          20
+        ],
+        "sprite": "Enemy/EnemyHPTrack.png"
+      },
+      {
+        "id": "enemy_hp_fill",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          0
+        ],
+        "size": [
+          128,
+          12
+        ],
+        "sprite": "Enemy/EnemyHPFill.png",
+        "image": "Filled Horizontal"
+      },
+      {
+        "id": "enemy_hp_text",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          0
+        ],
+        "size": [
+          120,
+          16
+        ],
+        "text": {
+          "role": "body",
+          "weight": "ExtraBold",
+          "size": 14,
+          "color": "#F3E9D2",
+          "sample": "6 / 6",
+          "outline": 1.5
+        }
+      },
+      {
+        "id": "intent_socket",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          -92,
+          6
+        ],
+        "size": [
+          52,
+          52
+        ],
+        "sprite": "Enemy/IntentSocket.png",
+        "unknown": "Enemy/IntentUnknown.png",
+        "icon_size": [
+          40,
+          40
+        ]
+      },
+      {
+        "id": "reveal_flash",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          -92,
+          6
+        ],
+        "size": [
+          76,
+          76
+        ],
+        "sprite": "Enemy/RevealFlash.png"
+      },
+      {
+        "id": "intent_label",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          22
+        ],
+        "size": [
+          150,
+          22
+        ],
+        "text": {
+          "role": "display",
+          "weight": "Bold",
+          "size": 15,
+          "color": "#E8C27A",
+          "sample": "Attack"
+        }
+      },
+      {
+        "id": "enemy_name",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          -19
+        ],
+        "size": [
+          160,
+          20
+        ],
+        "text": {
+          "role": "display",
+          "weight": "Bold",
+          "size": 14,
+          "color": "#D6C29A",
+          "sample": "Abyss Warden"
+        }
+      },
+      {
+        "id": "history",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          -38
+        ],
+        "size": [
+          70,
+          18
+        ],
+        "glyph": "Glyphs/GlyphEye.png",
+        "glyph_size": [
+          16,
+          16
+        ],
+        "token": "Enemy/HistoryToken.png",
+        "token_size": [
+          22,
+          22
+        ],
+        "icon_size": [
+          16,
+          16
+        ],
+        "icon_alpha": 0.6,
+        "spacing": 25
+      },
+      {
+        "id": "enemy_chip_block",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          106,
+          0
+        ],
+        "size": [
+          58,
+          28
+        ],
+        "sprite": "Crest/ChipBlock.png"
+      },
+      {
+        "id": "target_marker",
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "pos": [
+          6,
+          52
+        ],
+        "size": [
+          36,
+          30
+        ],
+        "sprite": "Enemy/TargetMarker.png"
+      }
+    ],
+    "mockAnchors": [
+      {
+        "name": "Abyss Warden",
+        "screen": [
+          1155,
+          500
+        ],
+        "hp": [
+          6,
+          6
+        ]
+      },
+      {
+        "name": "Ash Hound",
+        "screen": [
+          1354,
+          560
+        ],
+        "hp": [
+          4,
+          4
+        ]
+      },
+      {
+        "name": "Sentinel",
+        "screen": [
+          1555,
+          508
+        ],
+        "hp": [
+          7,
+          7
+        ]
+      }
+    ]
+  },
+  "detail": {
+    "zones": {
+      "title": [
+        48,
+        22,
+        312,
+        64
+      ],
+      "art": [
+        32,
+        61,
+        328,
+        282
+      ],
+      "icon": {
+        "centre": [
+          180,
+          179
+        ],
+        "size": [
+          200,
+          200
+        ]
+      },
+      "target": [
+        30,
+        288,
+        330,
+        308
+      ],
+      "effect": [
+        30,
+        312,
+        330,
+        442
+      ],
+      "footer_label": [
+        100,
+        448,
+        300,
+        466
+      ],
+      "footer_glyph": {
+        "centre": [
+          44,
+          458
+        ],
+        "size": [
+          24,
+          24
+        ]
+      },
+      "close": {
+        "centre": [
+          338,
+          8
+        ]
+      }
+    }
+  }
+}

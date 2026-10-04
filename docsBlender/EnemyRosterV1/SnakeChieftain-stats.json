@@ -1,0 +1,81 @@
+{
+  "name": "SnakeChieftain",
+  "bones": 32,
+  "materials": 2,
+  "palette": [
+    256,
+    128
+  ],
+  "lods": {
+    "0": {
+      "triangles": 17540,
+      "renderers": 7
+    },
+    "1": {
+      "triangles": 8770,
+      "renderers": 7
+    },
+    "2": {
+      "triangles": 4356,
+      "renderers": 7
+    }
+  },
+  "meshes": [
+    {
+      "name": "SnakeChieftain_Body_LOD0",
+      "vertices": 3032,
+      "unweighted": 0,
+      "weightErrorMax": 2.9802322387695312e-08,
+      "uv": 1
+    },
+    {
+      "name": "SnakeChieftain_Head_LOD0",
+      "vertices": 2016,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeChieftain_Arms_LOD0",
+      "vertices": 1864,
+      "unweighted": 0,
+      "weightErrorMax": 2.9802322387695312e-08,
+      "uv": 1
+    },
+    {
+      "name": "SnakeChieftain_Armor_LOD0",
+      "vertices": 636,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeChieftain_Details_LOD0",
+      "vertices": 1260,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeChieftain_Weapon_L_LOD0",
+      "vertices": 120,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    },
+    {
+      "name": "SnakeChieftain_Weapon_R_LOD0",
+      "vertices": 120,
+      "unweighted": 0,
+      "weightErrorMax": 0.0,
+      "uv": 1
+    }
+  ],
+  "clips": [
+    "Idle",
+    "Attack",
+    "HitReaction",
+    "Death"
+  ],
+  "status": "BLOCKOUT_NOT_PRODUCTION_READY"
+}

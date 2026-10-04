@@ -26,6 +26,7 @@ namespace DungeonRun.UI
         public Color gold = new Color(.77f, .62f, .34f);
         public Color panel = new Color(.065f, .083f, .09f, .93f);
         public Color text = new Color(.91f, .87f, .75f);
+        [Tooltip("Painted V4 presentation. Null = V1/V3 visuals.")] public CombatHUDStyleV4 v4Style;
         public Sprite Icon(PreviewCardKind kind)
         {
             switch (kind)

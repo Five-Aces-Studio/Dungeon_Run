@@ -23,7 +23,18 @@ public sealed class WorldStyleGateTests
     }
 
     [Test]
-    public void WrongScene_ReturnsFalse() => Assert.IsFalse(Call(sceneName: "SceneVictor"));
+    public void MainScene_ReturnsTrue() => Assert.IsTrue(Call(sceneName: "SceneVictor"));
+
+    [Test]
+    public void WrongScene_ReturnsFalse() => Assert.IsFalse(Call(sceneName: "Game"));
+
+    [TestCase("SceneVictorLab", true)]
+    [TestCase("SceneVictor", true)]
+    [TestCase("SceneVictor-back1", false)]
+    [TestCase("", false)]
+    [TestCase(null, false)]
+    public void IsStyledScene_OnlyMainAndLab(string sceneName, bool expected) =>
+        Assert.AreEqual(expected, WorldStyleGate.IsStyledScene(sceneName));
 
     [Test]
     public void NotGameCamera_ReturnsFalse() => Assert.IsFalse(Call(isGameCamera: false));
