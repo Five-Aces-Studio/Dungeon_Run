@@ -31,6 +31,29 @@ public class RandomWalkWFC : MonoBehaviour
     [SerializeField] private float radius = 1f;
     [SerializeField] private bool progressive = true;
 
+    [Header("Maze Mode")]
+    [SerializeField] private bool squareMaze;
+    [SerializeField, Min(1)] private int width = 12;
+    [SerializeField, Min(1)] private int height = 10;
+    [SerializeField, Min(3f)] private float cellSize = 3f;
+    [SerializeField] private int seed = 12345;
+    [SerializeField, Range(0f, 1f)]
+    private float extraPassageChance = 0.08f;
+
+    public MazeLayout Layout { get; private set; }
+    public bool IsSquareMaze => squareMaze;
+    public float CellSize => cellSize;
+    public bool HasGenerated { get; private set; }
+
+    public IEnumerable<CellWFC> GeneratedCells =>
+        grid == null ? Enumerable.Empty<CellWFC>() : grid.Values;
+
+    public event Action OnGenerationStarted;
+
+    private System.Random contentRandom;
+    private bool waveFailed;
+
+
     [Header("Tiles")]
     public List<TileWFC> AvailableTiles = new List<TileWFC>();
 
@@ -79,11 +102,58 @@ public class RandomWalkWFC : MonoBehaviour
 
     public void Generate()
     {
+        IsGenerating = false;
+        HasGenerated = false;
+        waveFailed = false;
+
+        OnGenerationStarted?.Invoke();
+
+        ClearGridObjects();
+        propagationQueue.Clear();
+        grid = null;
+        Layout = null;
+
         retries = 0;
         sizeChecked = false;
-        BuildRules();
+
+        if (squareMaze && (width < 1 || height < 1 || cellSize < 3f))
+        {
+            Debug.LogError("El laberinto necesita dimensiones positivas y Cell Size >= 3.");
+            return;
+        }
+
         BuildTileSet();
-        domain = RandomWalk();
+
+        if (allTiles.Length == 0 ||
+            allTiles.Any(t => t.Weight <= 0) ||
+            allTiles.Sum(t => (long)t.Weight) > int.MaxValue)
+        {
+            Debug.LogError("Revisa AvailableTiles: hacen falta opciones con pesos positivos.");
+            return;
+        }
+
+        if (squareMaze && !allTiles.Any(t => t.type == CellType.Normal))
+        {
+            Debug.LogError("El laberinto necesita al menos una opción Normal para el inicio.");
+            return;
+        }
+
+        BuildRules();
+
+        contentRandom = new System.Random(unchecked(seed ^ 0x5F3759DF));
+
+        if (squareMaze)
+        {
+            Layout = MazeLayout.Build(
+                width, height, seed, extraPassageChance);
+
+            domain = new HashSet<Vector2Int>(Layout.Cells);
+        }
+        else
+        {
+            domain = RandomWalk();
+        }
+
         StartWave();
     }
 
@@ -183,87 +253,232 @@ public class RandomWalkWFC : MonoBehaviour
     {
         ClearGridObjects();
         propagationQueue.Clear();
-        typeCount = new Dictionary<CellType, int>();
 
+        waveFailed = false;
+        typeCount = new Dictionary<CellType, int>();
         grid = new Dictionary<Vector2Int, CellWFC>();
-        foreach (Vector2Int p in domain)
+
+        foreach (Vector2Int p in domain.OrderBy(p => p.y).ThenBy(p => p.x))
         {
             grid[p] = new CellWFC
             {
                 q = p.x,
                 r = p.y,
                 collapsed = false,
+                instantiated = false,
                 tileOptions = allTiles,
                 selectedTile = null
             };
         }
 
-        Iteration = 0;
-        MaxIteration = grid.Count;
         IsGenerating = true;
 
-        Collapse(grid[grid.Keys.First()]);
+        CellWFC first = squareMaze
+            ? grid[Vector2Int.zero]
+            : grid.Values.First();
+
+        if (squareMaze)
+        {
+            first.tileOptions = allTiles
+                .Where(t => t.type == CellType.Normal)
+                .ToArray();
+        }
+
+        Collapse(first);
     }
+
+    //private void Update()
+    //{
+    //    if (IsGenerating) WaveStep();
+    //}
 
     private void Update()
     {
-        if (IsGenerating) WaveStep();
+        if (!IsGenerating)
+            return;
+
+        if (waveFailed)
+        {
+            retries++;
+
+            if (retries > maxRetries)
+            {
+                IsGenerating = false;
+                Debug.LogError(
+                    "WFC agotó sus reintentos. Revisa incompatibilidades y máximos.");
+                return;
+            }
+
+            Debug.LogWarning($"Reintento WFC {retries}/{maxRetries}");
+            StartWave();
+            return;
+        }
+
+        WaveStep();
     }
+
+    //private void WaveStep()
+    //{
+    //    if (Iteration >= MaxIteration) return;
+    //    Iteration++;
+
+    //    if (progressive) InstantiateCollapsedCells();
+
+    //    Propagate();
+    //    if (!IsGenerating) return;
+
+    //    CellWFC nextCell = FindLowestEntropy();
+
+    //    if (nextCell != null)
+    //    {
+    //        Collapse(nextCell);
+    //        Propagate();
+    //    }
+    //    else
+    //    {
+    //        IsGenerating = false;
+    //        InstantiateCollapsedCells();
+    //        Debug.Log("Generación completa");
+    //        OnGenerationComplete?.Invoke();
+    //    }
+    //}
 
     private void WaveStep()
     {
-        if (Iteration >= MaxIteration) return;
-        Iteration++;
-
-        if (progressive) InstantiateCollapsedCells();
-
         Propagate();
-        if (!IsGenerating) return;
 
-        CellWFC nextCell = FindLowestEntropy();
+        if (waveFailed)
+            return;
 
-        if (nextCell != null)
+        CellWFC next = FindLowestEntropy();
+
+        if (next != null)
         {
-            Collapse(nextCell);
+            Collapse(next);
+
+            if (waveFailed)
+                return;
+
             Propagate();
+
+            if (waveFailed)
+                return;
+
+            if (progressive && !squareMaze)
+                InstantiateCollapsedCells();
+
+            return;
         }
-        else
-        {
-            IsGenerating = false;
+
+        IsGenerating = false;
+
+        if (!squareMaze)
             InstantiateCollapsedCells();
-            Debug.Log("Generación completa");
-            OnGenerationComplete?.Invoke();
-        }
+
+        HasGenerated = true;
+
+        Debug.Log("Generación completa");
+        OnGenerationComplete?.Invoke();
     }
 
+    //private List<CellWFC> GetNeighbors(CellWFC cell)
+    //{
+    //    List<CellWFC> neighbors = new List<CellWFC>();
+    //    foreach (Vector2Int coord in NeighborCoords(new Vector2Int(cell.q, cell.r)))
+    //        if (grid.TryGetValue(coord, out CellWFC neighbor))
+    //            neighbors.Add(neighbor);
+    //    return neighbors;
+    //}
     private List<CellWFC> GetNeighbors(CellWFC cell)
     {
+        Vector2Int position = new Vector2Int(cell.q, cell.r);
+
+        IEnumerable<Vector2Int> coordinates = squareMaze
+            ? Layout.Neighbors(position)
+            : NeighborCoords(position);
+
         List<CellWFC> neighbors = new List<CellWFC>();
-        foreach (Vector2Int coord in NeighborCoords(new Vector2Int(cell.q, cell.r)))
-            if (grid.TryGetValue(coord, out CellWFC neighbor))
+
+        foreach (Vector2Int coordinate in coordinates)
+        {
+            if (grid.TryGetValue(coordinate, out CellWFC neighbor))
                 neighbors.Add(neighbor);
+        }
+
         return neighbors;
     }
 
     private bool Compatible(TileWFC a, TileWFC b) =>
         compatible[(int)a.type, (int)b.type];
 
+    //private CellWFC FindLowestEntropy()
+    //{
+    //    CellWFC best = null;
+    //    float lowest = float.PositiveInfinity;
+
+    //    foreach (CellWFC cell in grid.Values)
+    //    {
+    //        if (cell.collapsed) continue;
+    //        float entropy = CalculateEntropy(cell.tileOptions) + Random.value * 1e-4f;
+    //        if (entropy < lowest)
+    //        {
+    //            lowest = entropy;
+    //            best = cell;
+    //        }
+    //    }
+    //    return best;
+    //}
     private CellWFC FindLowestEntropy()
     {
         CellWFC best = null;
         float lowest = float.PositiveInfinity;
 
-        foreach (CellWFC cell in grid.Values)
+        foreach (CellWFC cell in grid.Values
+            .OrderBy(c => c.r)
+            .ThenBy(c => c.q))
         {
-            if (cell.collapsed) continue;
-            float entropy = CalculateEntropy(cell.tileOptions) + Random.value * 1e-4f;
+            if (cell.collapsed)
+                continue;
+
+            float randomTieBreak = squareMaze
+                ? (float)contentRandom.NextDouble()
+                : Random.value;
+
+            float entropy =
+                CalculateEntropy(cell.tileOptions) + randomTieBreak * 1e-4f;
+
             if (entropy < lowest)
             {
                 lowest = entropy;
                 best = cell;
             }
         }
+
         return best;
+    }
+
+    private TileWFC SelectTile(TileWFC[] tiles)
+    {
+        if (tiles.Length == 1)
+            return tiles[0];
+
+        int totalWeight = tiles.Sum(t => t.Weight);
+
+        int roll = squareMaze
+            ? contentRandom.Next(totalWeight)
+            : Random.Range(0, totalWeight);
+
+        int accumulated = 0;
+
+        foreach (TileWFC tile in tiles)
+        {
+            accumulated += tile.Weight;
+
+            if (roll < accumulated)
+                return tile;
+        }
+
+        return tiles[tiles.Length - 1];
     }
 
     private float CalculateEntropy(TileWFC[] tiles)
@@ -306,42 +521,78 @@ public class RandomWalkWFC : MonoBehaviour
         }
     }
 
-    private TileWFC SelectTile(TileWFC[] tiles)
-    {
-        if (tiles.Length == 1) return tiles[0];
+    //private TileWFC SelectTile(TileWFC[] tiles)
+    //{
+    //    if (tiles.Length == 1) return tiles[0];
 
-        int totalWeight = tiles.Sum(t => t.Weight);
-        int random = Random.Range(0, totalWeight);
-        int acumulative = 0;
+    //    int totalWeight = tiles.Sum(t => t.Weight);
+    //    int random = Random.Range(0, totalWeight);
+    //    int acumulative = 0;
 
-        foreach (TileWFC tile in tiles)
-        {
-            acumulative += tile.Weight;
-            if (random < acumulative)
-                return tile;
-        }
-        return tiles[tiles.Length - 1];
-    }
+    //    foreach (TileWFC tile in tiles)
+    //    {
+    //        acumulative += tile.Weight;
+    //        if (random < acumulative)
+    //            return tile;
+    //    }
+    //    return tiles[tiles.Length - 1];
+    //}
 
+    //private void Propagate()
+    //{
+    //    while (propagationQueue.Count > 0)
+    //    {
+    //        CellWFC cell = propagationQueue.Dequeue();
+
+    //        foreach (CellWFC neighbor in GetNeighbors(cell))
+    //        {
+    //            if (neighbor.collapsed) continue;
+
+    //            int before = neighbor.tileOptions.Length;
+    //            neighbor.tileOptions = FilterTiles(neighbor, cell);
+
+    //            if (neighbor.tileOptions.Length == 0) { Fail(neighbor); return; }
+
+    //            if (neighbor.tileOptions.Length == 1)
+    //                Collapse(neighbor);
+    //            else if (neighbor.tileOptions.Length < before)
+    //                propagationQueue.Enqueue(neighbor);
+    //        }
+    //    }
+    //}
     private void Propagate()
     {
-        while (propagationQueue.Count > 0)
+        while (propagationQueue.Count > 0 && !waveFailed)
         {
             CellWFC cell = propagationQueue.Dequeue();
 
             foreach (CellWFC neighbor in GetNeighbors(cell))
             {
-                if (neighbor.collapsed) continue;
+                TileWFC[] filtered = FilterTiles(neighbor, cell);
+
+                if (filtered.Length == 0)
+                {
+                    Fail(neighbor);
+                    return;
+                }
+
+                if (neighbor.collapsed)
+                    continue;
 
                 int before = neighbor.tileOptions.Length;
-                neighbor.tileOptions = FilterTiles(neighbor, cell);
+                neighbor.tileOptions = filtered;
 
-                if (neighbor.tileOptions.Length == 0) { Fail(neighbor); return; }
-
-                if (neighbor.tileOptions.Length == 1)
+                if (filtered.Length == 1)
+                {
                     Collapse(neighbor);
-                else if (neighbor.tileOptions.Length < before)
+
+                    if (waveFailed)
+                        return;
+                }
+                else if (filtered.Length < before)
+                {
                     propagationQueue.Enqueue(neighbor);
+                }
             }
         }
     }
@@ -357,21 +608,31 @@ public class RandomWalkWFC : MonoBehaviour
         return valid.ToArray();
     }
 
+    //private void Fail(CellWFC cell)
+    //{
+    //    propagationQueue.Clear();
+
+    //    retries = retries + 1;
+    //    if (retries <= maxRetries)
+    //    {
+    //        Debug.LogWarning($"Contradicción en ({cell.q},{cell.r}). Reintento {retries}/{maxRetries}");
+    //        StartWave();
+    //    }
+    //    else
+    //    {
+    //        IsGenerating = false;
+    //        Debug.LogError("WFC falló tras agotar los reintentos. Revisa reglas/topes.");
+    //    }
+    //}
     private void Fail(CellWFC cell)
     {
+        if (waveFailed)
+            return;
+
+        waveFailed = true;
         propagationQueue.Clear();
 
-        retries = retries + 1;
-        if (retries <= maxRetries)
-        {
-            Debug.LogWarning($"Contradicción en ({cell.q},{cell.r}). Reintento {retries}/{maxRetries}");
-            StartWave();
-        }
-        else
-        {
-            IsGenerating = false;
-            Debug.LogError("WFC falló tras agotar los reintentos. Revisa reglas/topes.");
-        }
+        Debug.LogWarning($"Contradicción WFC en ({cell.q}, {cell.r}).");
     }
 
     private Vector3 HexCenter(int q, int r)
@@ -382,6 +643,9 @@ public class RandomWalkWFC : MonoBehaviour
 
     private void InstantiateCollapsedCells()
     {
+        if (squareMaze)
+            return;
+
         foreach (KeyValuePair<Vector2Int, CellWFC> kv in grid)
         {
             CellWFC cell = kv.Value;
@@ -413,18 +677,65 @@ public class RandomWalkWFC : MonoBehaviour
         }
     }
 
+    //private void ClearGridObjects()
+    //{
+    //    for (int i = transform.childCount - 1; i >= 0; i--)
+    //    {
+    //        Transform child = transform.GetChild(i);
+    //        if (child.GetComponent<TileWFC>() != null)
+    //            DestroyImmediate(child.gameObject);
+    //    }
+    //}
     private void ClearGridObjects()
     {
         for (int i = transform.childCount - 1; i >= 0; i--)
         {
-            Transform child = transform.GetChild(i);
-            if (child.GetComponent<TileWFC>() != null)
-                DestroyImmediate(child.gameObject);
+            GameObject child = transform.GetChild(i).gameObject;
+
+            if (child.GetComponent<TileWFC>() == null)
+                continue;
+
+            child.SetActive(false);
+
+            if (Application.isPlaying)
+                Destroy(child);
+            else
+                DestroyImmediate(child);
         }
     }
 
     private void OnDrawGizmos()
     {
+        if (squareMaze)
+        {
+            if (Layout == null)
+                return;
+
+            Gizmos.color = Color.cyan;
+
+            foreach (Vector2Int cell in Layout.Cells)
+            {
+                Vector3 center = transform.TransformPoint(
+                    new Vector3(cell.x * cellSize, 0.1f, cell.y * cellSize));
+
+                foreach (Vector2Int neighbor in Layout.Neighbors(cell))
+                {
+                    // Dibujar cada conexión una sola vez.
+                    if (neighbor.y < cell.y ||
+                        (neighbor.y == cell.y && neighbor.x < cell.x))
+                        continue;
+
+                    Vector3 other = transform.TransformPoint(
+                        new Vector3(
+                            neighbor.x * cellSize, 0.1f, neighbor.y * cellSize));
+
+                    Gizmos.DrawLine(center, other);
+                }
+            }
+
+            return;
+        }
+
         if (grid == null) return;
         Gizmos.color = Color.green;
 
@@ -440,5 +751,36 @@ public class RandomWalkWFC : MonoBehaviour
                 Gizmos.DrawLine(p0, p1);
             }
         }
+    }
+
+    [ContextMenu("Comprobar conexiones del laberinto")]
+    private void CheckMazeLayout()
+    {
+        var layout = MazeLayout.Build(4, 4, 12345, 0f);
+
+        int reachable = layout.Distances(Vector2Int.zero, 16).Count;
+        int directedLinks = 0;
+
+        foreach (var cell in layout.Cells)
+        {
+            foreach (var neighbor in layout.Neighbors(cell))
+            {
+                directedLinks++;
+
+                Debug.Assert(layout.CanMove(neighbor, cell),
+                    "Hay una conexión sin camino de vuelta.");
+
+                var delta = neighbor - cell;
+                Debug.Assert(Mathf.Abs(delta.x) + Mathf.Abs(delta.y) == 1,
+                    "Hay una conexión entre celdas no cardinales.");
+            }
+        }
+
+        Debug.Assert(reachable == 16, "Hay celdas inaccesibles.");
+        Debug.Assert(directedLinks / 2 == 15,
+            "Sin pasos adicionales, debe haber 15 conexiones.");
+
+        Debug.Log($"Celdas accesibles: {reachable}/16. " +
+                  $"Conexiones: {directedLinks / 2}/15.");
     }
 }
