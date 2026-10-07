@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public sealed class MazeNavigator : MonoBehaviour
     [SerializeField] private Transform avatar;
     [SerializeField] private Camera inputCamera;
     [SerializeField] private CameraFollowNode cameraFollow;
+
+    [Header("Interaction")]
+    [SerializeField] private TMP_Text interactionLabel;
 
     [Header("Movement")]
     [SerializeField, Min(0.1f)] private float moveSpeed = 3.5f;
@@ -108,8 +112,38 @@ public sealed class MazeNavigator : MonoBehaviour
             cameraFollow.SetTarget(avatar);
     }
 
+    private bool TryGetInteractableCell(out MazeCellView cell)
+    {
+        cell = null;
+
+        return ready &&
+               !moving &&
+               map.Cells.TryGetValue(active, out cell) &&
+               cell.CanInteract;
+    }
+
+    private void LateUpdate()
+    {
+        if (interactionLabel == null)
+            return;
+
+        bool show = TryGetInteractableCell(out MazeCellView cell);
+        interactionLabel.gameObject.SetActive(show);
+
+        if (!show)
+            return;
+
+        interactionLabel.text = "E";
+        interactionLabel.transform.position = cell.InteractionPosition;
+
+        interactionLabel.transform.rotation = inputCamera.transform.rotation;
+    }
+
     private void ResetNavigation()
     {
+        if (interactionLabel != null)
+            interactionLabel.gameObject.SetActive(false);
+
         ready = false;
         moving = false;
 
@@ -133,6 +167,23 @@ public sealed class MazeNavigator : MonoBehaviour
     {
         if (!ready || moving)
             return;
+
+        Keyboard keyboard = Keyboard.current;
+
+        if (keyboard != null &&
+            keyboard.eKey.wasPressedThisFrame &&
+            TryGetInteractableCell(out MazeCellView cell))
+        {
+            if (cell.TryClearContent())
+            {
+                if (interactionLabel != null)
+                    interactionLabel.gameObject.SetActive(false);
+
+                moving = true;
+                movement = StartCoroutine(MoveToClearedCenter(cell));
+                return;
+            }
+        }
 
         Mouse mouse = Mouse.current;
 
@@ -179,17 +230,59 @@ public sealed class MazeNavigator : MonoBehaviour
         int exit = ExitIndex(direction);
         int entry = (exit + 4) % 8;
 
+        //List<Vector3> path = new List<Vector3>();
+        //source.AppendRingPath(path, 0, exit);
+        //path.Add(target.RingPoint(entry));
+        //target.AppendRingPath(path, entry, 0);
         List<Vector3> path = new List<Vector3>();
 
-        // Rodear el contenido de la celda actual.
-        source.AppendRingPath(path, 0, exit);
+        if (!source.HasCenterObstacle && !target.HasCenterObstacle)
+        {
+            // Ambas están vacías:
+            path.Add(target.ArrivalPosition);
+        }
+        else
+        {
+            if (source.HasCenterObstacle)
+            {
+                // Rodear 
+                source.AppendRingPath(path, 0, exit);
+            }
+            else
+            {
+                // Ir recto desde el centro hacia la salida.
+                path.Add(source.RingPoint(exit));
+            }
 
-        // Cruzar por el centro del paso abierto.
-        path.Add(target.RingPoint(entry));
+            // Cruzar el paso entre habitaciones.
+            path.Add(target.RingPoint(entry));
 
-        // Rodear el contenido de la celda de destino.
-        target.AppendRingPath(path, entry, 0);
+            if (target.HasCenterObstacle)
+            {
+                // Rodear el objeto de la habitación de destino.
+                target.AppendRingPath(path, entry, 0);
+            }
+            else
+            {
+                // Llegar directamente al centro.
+                path.Add(target.ArrivalPosition);
+            }
+        }
 
+        yield return WalkPath(path);
+
+        active = destination;
+        moving = false;
+        movement = null;
+
+        RefreshDiscovery();
+
+        // Todo: eventos
+        CellEntered?.Invoke(target.Type);
+    }
+
+    private IEnumerator WalkPath(List<Vector3> path)
+    {
         SetRunning(true);
 
         foreach (Vector3 waypoint in path)
@@ -222,16 +315,17 @@ public sealed class MazeNavigator : MonoBehaviour
         }
 
         SetRunning(false);
+    }
 
-        // Confirmar el cambio lógico únicamente al llegar.
-        active = destination;
+    private IEnumerator MoveToClearedCenter(MazeCellView cell)
+    {
+        yield return WalkPath(new List<Vector3>
+        {
+            cell.CenterPosition
+        });
+
         moving = false;
         movement = null;
-
-        RefreshDiscovery();
-
-        // Más adelante: combate, recompensa, tienda o evento.
-        CellEntered?.Invoke(target.Type);
     }
 
     private static int ExitIndex(Vector2Int direction)
@@ -264,14 +358,38 @@ public sealed class MazeNavigator : MonoBehaviour
 
         //    pair.Value.SetDiscovery(discovered, penumbra);
         //}
+        //revealed.Add(active);
+
+        //foreach (KeyValuePair<Vector2Int, MazeCellView> pair in map.Cells)
+        //{
+        //    bool discovered = revealed.Contains(pair.Key);
+
+        //    pair.Value.SetDiscovery(discovered, penumbra: false);
+        //}
         revealed.Add(active);
+
+        List<FogParticles.FogPoint> fogPoints =
+            new List<FogParticles.FogPoint>();
 
         foreach (KeyValuePair<Vector2Int, MazeCellView> pair in map.Cells)
         {
             bool discovered = revealed.Contains(pair.Key);
 
-            pair.Value.SetDiscovery(discovered, penumbra: false);
+            pair.Value.SetDiscovery(
+                discovered,
+                penumbra: false);
+
+            if (map.UseParticleFog && !discovered)
+            {
+                fogPoints.Add(new FogParticles.FogPoint
+                {
+                    position = pair.Value.CenterPosition,
+                    density = 1f
+                });
+            }
         }
+
+        map.SetParticleCoverage(fogPoints);
     }
 
     private void SetRunning(bool value)

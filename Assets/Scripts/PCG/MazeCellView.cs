@@ -20,11 +20,25 @@ public sealed class MazeCellView : MonoBehaviour
 
     public Vector2Int Coordinate { get; private set; }
     public CellType Type { get; private set; }
-    public Vector3 ArrivalPosition => RingPoint(0);
+    public bool HasCenterObstacle { get; private set; }
+
+    public Vector3 CenterPosition =>
+        transform.TransformPoint(new Vector3(0f, surfaceHeight, 0f));
+
+    public Vector3 ArrivalPosition =>
+        HasCenterObstacle ? RingPoint(0) : CenterPosition;
 
     private GameObject contentRoot;
     private Renderer fogRenderer;
     private MaterialPropertyBlock fogBlock;
+
+    public bool CanInteract =>
+        HasCenterObstacle &&
+        (Type == CellType.Combat || Type == CellType.Item) &&
+        targetCoverage == 0f &&
+        coverage == 0f;
+
+    public Vector3 InteractionPosition { get; private set; }
 
     private float cellSize;
     private float surfaceHeight;
@@ -43,10 +57,31 @@ public sealed class MazeCellView : MonoBehaviour
         Coordinate = coordinate;
         Type = type;
         contentRoot = content;
+        HasCenterObstacle = contentRoot.transform.childCount > 0;
         fogRenderer = fog;
 
         cellSize = size;
         surfaceHeight = 0.025f * size / 3f;
+
+        Renderer[] contentRenderers =
+            contentRoot.GetComponentsInChildren<Renderer>(true);
+
+        if (contentRenderers.Length > 0)
+        {
+            Bounds bounds = contentRenderers[0].bounds;
+
+            for (int i = 1; i < contentRenderers.Length; i++)
+                bounds.Encapsulate(contentRenderers[i].bounds);
+
+            InteractionPosition = new Vector3(
+                bounds.center.x,
+                bounds.max.y + 0.35f,
+                bounds.center.z);
+        }
+        else
+        {
+            InteractionPosition = CenterPosition + Vector3.up * 1.5f;
+        }
 
         fogBlock = new MaterialPropertyBlock();
 
@@ -54,6 +89,24 @@ public sealed class MazeCellView : MonoBehaviour
         targetCoverage = 1f;
 
         ApplyVisibility();
+    }
+
+    public bool TryClearContent()
+    {
+        if (!CanInteract)
+            return false;
+
+        HasCenterObstacle = false;
+        Type = CellType.Normal;
+
+        for (int i = contentRoot.transform.childCount - 1; i >= 0; i--)
+        {
+            GameObject child = contentRoot.transform.GetChild(i).gameObject;
+            child.SetActive(false);
+            Destroy(child);
+        }
+
+        return true;
     }
 
     public void SetDiscovery(bool discovered, bool penumbra)
@@ -75,18 +128,32 @@ public sealed class MazeCellView : MonoBehaviour
         ApplyVisibility();
     }
 
+    //private void ApplyVisibility()
+    //{
+    //    if (fogRenderer == null)
+    //        return;
+
+    //    fogRenderer.GetPropertyBlock(fogBlock);
+    //    fogBlock.SetFloat(CoverageId, coverage);
+    //    fogRenderer.SetPropertyBlock(fogBlock);
+
+    //    fogRenderer.enabled = coverage > 0f;
+
+    //    contentRoot.SetActive(targetCoverage == 0f && coverage == 0f);
+    //}
     private void ApplyVisibility()
     {
-        if (fogRenderer == null)
-            return;
+        if (fogRenderer != null)
+        {
+            fogRenderer.GetPropertyBlock(fogBlock);
+            fogBlock.SetFloat(CoverageId, coverage);
+            fogRenderer.SetPropertyBlock(fogBlock);
 
-        fogRenderer.GetPropertyBlock(fogBlock);
-        fogBlock.SetFloat(CoverageId, coverage);
-        fogRenderer.SetPropertyBlock(fogBlock);
+            fogRenderer.enabled = coverage > 0f;
+        }
 
-        fogRenderer.enabled = coverage > 0f;
-
-        contentRoot.SetActive(targetCoverage == 0f && coverage == 0f);
+        contentRoot.SetActive(
+            targetCoverage == 0f && coverage == 0f);
     }
 
     public Vector3 RingPoint(int index)

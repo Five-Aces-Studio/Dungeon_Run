@@ -10,6 +10,13 @@ public sealed class MazeMapView : MonoBehaviour
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject fogPrefab;
 
+    [Header("Fog")]
+    [SerializeField] private bool useParticleFog;
+
+    private FogParticles particleFog;
+
+    public bool UseParticleFog => useParticleFog;
+
     [Header("Contents")]
     [SerializeField] private GameObject combatPrefab;
     [SerializeField] private GameObject itemPrefab;
@@ -33,6 +40,7 @@ public sealed class MazeMapView : MonoBehaviour
     private void Awake()
     {
         Generator = GetComponent<RandomWalkWFC>();
+        particleFog = GetComponent<FogParticles>();
     }
 
     private void OnEnable()
@@ -53,6 +61,9 @@ public sealed class MazeMapView : MonoBehaviour
 
     private void Clear()
     {
+        if (useParticleFog && particleFog != null)
+            particleFog.ResetFog();
+
         IsReady = false;
         MapCleared?.Invoke();
         cells.Clear();
@@ -60,11 +71,15 @@ public sealed class MazeMapView : MonoBehaviour
         if (generatedRoot == null)
             return;
 
-        // Destroy se ejecuta al final del frame:
-        // desactivamos ahora los colliders y los renderers antiguos.
         generatedRoot.gameObject.SetActive(false);
         Destroy(generatedRoot.gameObject);
         generatedRoot = null;
+    }
+
+    public void SetParticleCoverage(List<FogParticles.FogPoint> points)
+    {
+        if (useParticleFog && particleFog != null)
+            particleFog.SetCoverage(points);
     }
 
     private void Build()
@@ -82,7 +97,21 @@ public sealed class MazeMapView : MonoBehaviour
             return;
         }
 
-        if (floorPrefab == null || wallPrefab == null || fogPrefab == null ||
+        //if (floorPrefab == null || wallPrefab == null || fogPrefab == null ||
+        //    combatPrefab == null || itemPrefab == null ||
+        //    eventPrefab == null || shopPrefab == null)
+        //{
+        //    Debug.LogError("Faltan prefabs en MazeMapView.");
+        //    return;
+        //}
+
+        //if (floorPrefab.GetComponentInChildren<Collider>(true) == null ||
+        //    fogPrefab.GetComponentInChildren<Renderer>(true) == null)
+        //{
+        //    Debug.LogError("El suelo necesita Collider y la niebla Renderer.");
+        //    return;
+        //}
+        if (floorPrefab == null || wallPrefab == null ||
             combatPrefab == null || itemPrefab == null ||
             eventPrefab == null || shopPrefab == null)
         {
@@ -90,11 +119,29 @@ public sealed class MazeMapView : MonoBehaviour
             return;
         }
 
-        if (floorPrefab.GetComponentInChildren<Collider>(true) == null ||
-            fogPrefab.GetComponentInChildren<Renderer>(true) == null)
+        if (floorPrefab.GetComponentInChildren<Collider>(true) == null)
         {
-            Debug.LogError("El suelo necesita Collider y la niebla Renderer.");
+            Debug.LogError("El suelo necesita un Collider.");
             return;
+        }
+
+        if (useParticleFog)
+        {
+            if (particleFog == null || !particleFog.isActiveAndEnabled)
+            {
+                Debug.LogError(
+                    "Añade y activa FogParticles en el mismo objeto que MazeMapView.");
+                return;
+            }
+        }
+        else
+        {
+            if (fogPrefab == null ||
+                fogPrefab.GetComponentInChildren<Renderer>(true) == null)
+            {
+                Debug.LogError("Asigna un prefab de niebla con Renderer.");
+                return;
+            }
         }
 
         generatedRoot = new GameObject("GeneratedMaze").transform;
@@ -140,22 +187,53 @@ public sealed class MazeMapView : MonoBehaviour
                 FitContent(prop, content.transform, size);
             }
 
-            GameObject fog = Instantiate(
-                fogPrefab, cellObject.transform, false);
+            //GameObject fog = Instantiate(
+            //    fogPrefab, cellObject.transform, false);
 
-            fog.transform.localPosition =
-                new Vector3(0f, 0.04f * modelScale, 0f);
+            //fog.transform.localPosition =
+            //    fogPrefab.transform.localPosition * modelScale;
 
-            fog.transform.localRotation = Quaternion.identity;
-            fog.transform.localScale *= modelScale;
+            //fog.transform.localRotation =
+            //    fogPrefab.transform.localRotation;
 
+            //fog.transform.localScale =
+            //    fogPrefab.transform.localScale * modelScale;
+            Renderer cellFogRenderer = null;
+
+            if (!useParticleFog)
+            {
+                GameObject fog = Instantiate(
+                    fogPrefab, cellObject.transform, false);
+
+                fog.transform.localPosition =
+                    fogPrefab.transform.localPosition * modelScale;
+
+                fog.transform.localRotation =
+                    fogPrefab.transform.localRotation;
+
+                fog.transform.localScale =
+                    fogPrefab.transform.localScale * modelScale;
+
+                cellFogRenderer = fog.GetComponentInChildren<Renderer>(true);
+            }
+
+            //MazeCellView view = cellObject.AddComponent<MazeCellView>();
+
+            //view.Initialize(
+            //    coordinate,
+            //    data.selectedTile.type,
+            //    content,
+            //    fog.GetComponentInChildren<Renderer>(true),
+            //    size);
+
+            //cells.Add(coordinate, view);
             MazeCellView view = cellObject.AddComponent<MazeCellView>();
 
             view.Initialize(
                 coordinate,
                 data.selectedTile.type,
                 content,
-                fog.GetComponentInChildren<Renderer>(true),
+                cellFogRenderer,
                 size);
 
             cells.Add(coordinate, view);

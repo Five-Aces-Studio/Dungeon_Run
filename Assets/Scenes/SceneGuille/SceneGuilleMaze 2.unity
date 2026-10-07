@@ -2830,6 +2830,7 @@ GameObject:
   - component: {fileID: 1798516007}
   - component: {fileID: 1798516006}
   - component: {fileID: 1798516005}
+  - component: {fileID: 1798516009}
   m_Layer: 0
   m_Name: MazeRuntime
   m_TagString: Untagged
@@ -2871,6 +2872,7 @@ MonoBehaviour:
   floorPrefab: {fileID: 4301138908738953265, guid: 6f7d6c039c364e340931e3d51efb8c3f, type: 3}
   wallPrefab: {fileID: 9076749486273345457, guid: e5b5068b1c6954845943b675795e3c30, type: 3}
   fogPrefab: {fileID: 8625411513241062711, guid: a2e3d6812f03ca64faa030071cc31420, type: 3}
+  useParticleFog: 1
   combatPrefab: {fileID: 7726554019437680023, guid: 6e903eeacca19e34ea5f67dd8fe094cf, type: 3}
   itemPrefab: {fileID: 228012754255586990, guid: 88e968b1d85777a4daf8594f5ab0836a, type: 3}
   eventPrefab: {fileID: 5313926059448801799, guid: e2d76088e6caced4eb636b9630f1289f, type: 3}
@@ -2936,6 +2938,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1798516009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798516004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52088d20266e4a11bc2a394279f2cf5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FogParticles
+  fogColor: {r: 0.65, g: 0.7, b: 0.75, a: 0.54901963}
+  puffSize: 3.2
+  height: 1.6
+  emitInterval: 0.06
+  emitChance: 1
+  lifetime: 1.2
 --- !u!1001 &1819163646
 PrefabInstance:
   m_ObjectHideFlags: 0
