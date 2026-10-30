@@ -1,0 +1,2402 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 10
+  m_Fog: 0
+  m_FogColor: {r: 0.025, g: 0.035, b: 0.055, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 2
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 1
+    m_PVRFilteringGaussRadiusAO: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 3
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    buildHeightMesh: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &443060770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443060773}
+  - component: {fileID: 443060772}
+  - component: {fileID: 443060771}
+  - component: {fileID: 443060774}
+  - component: {fileID: 443060775}
+  - component: {fileID: 443060776}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &443060771
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443060770}
+  m_Enabled: 1
+--- !u!20 &443060772
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443060770}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.025, g: 0.032, b: 0.05, a: 1}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &443060773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443060770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: 5, y: 12, z: -7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+--- !u!114 &443060774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443060770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: 1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
+--- !u!114 &443060775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443060770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a2d57f7c4a448fb41c62958c017906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowNode
+  offset: {x: 0, y: 12, z: -9}
+  smoothTime: 0.35
+--- !u!114 &443060776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443060770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3c160d139a33144a5ea99e4da50dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRunWorldStyleSettings
+  profile: {fileID: 11400000, guid: 5976c35aba4ab1c44b8bc6e4052d4706, type: 2}
+--- !u!1 &503629738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503629740}
+  - component: {fileID: 503629739}
+  - component: {fileID: 503629741}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &503629739
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503629738}
+  m_Enabled: 1
+  serializedVersion: 12
+  m_Type: 1
+  m_Color: {r: 0.64, g: 0.71, b: 0.85, a: 1}
+  m_Intensity: 0.32
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize2D: {x: 0.5, y: 0.5}
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
+--- !u!4 &503629740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503629738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &503629741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503629738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
+--- !u!4 &680975828 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+  m_PrefabInstance: {fileID: 1696432858}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1202863394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1202863396}
+  - component: {fileID: 1202863395}
+  - component: {fileID: 1202863397}
+  - component: {fileID: 1202863398}
+  m_Layer: 0
+  m_Name: DungeonDataProbe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1202863395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202863394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d6b19ca26235340b31290e8ec8a970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonDataProbe
+  enableFullPrototype: 1
+  settings:
+    seed: 12345
+    extraConnections: 1
+    cellSize: 1
+    avatarRadius: 0.35
+    clearance: 0.1
+    minimumOpeningCells: 1
+    minimumRoomSide: 7
+    maximumRoomSide: 11
+  preset: {fileID: 11400000, guid: f2149e317176a404987362e1e6792088, type: 2}
+  roomOrigin: {x: 0, y: 0}
+  quarterTurns: 0
+  generatedFloor:
+    objects: []
+    seed: 12345
+    cellSize: 1
+    corridorBuildAttempts: 0
+    keyRoomId: -1
+    keyCell: {x: 0, y: 0}
+    regions:
+    - x: 0
+      y: 0
+      width: 19
+      height: 18
+    - x: 19
+      y: 0
+      width: 19
+      height: 18
+    - x: 38
+      y: 0
+      width: 14
+      height: 18
+    - x: 0
+      y: 18
+      width: 13
+      height: 21
+    - x: 13
+      y: 18
+      width: 13
+      height: 21
+    - x: 26
+      y: 18
+      width: 26
+      height: 21
+    rooms:
+    - id: 0
+      bounds:
+        x: 3
+        y: 5
+        width: 7
+        height: 11
+      distanceFromStart: -1
+      hasReservedCenter: 0
+      reservedCenter: {x: 0, y: 0}
+      type: 0
+      doorCandidates:
+      - startCell: {x: 3, y: 5}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 6}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 7}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 8}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 9}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 10}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 11}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 12}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 13}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 14}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 3, y: 15}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 8, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 7, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 6, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 5, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 4, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 3, y: 15}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 9, y: 5}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 6}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 7}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 8}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 9}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 10}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 11}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 12}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 13}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 14}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 15}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 9, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 8, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 7, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 6, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 5, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 4, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 3, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+    - id: 1
+      bounds:
+        x: 30
+        y: 4
+        width: 7
+        height: 7
+      distanceFromStart: -1
+      hasReservedCenter: 0
+      reservedCenter: {x: 0, y: 0}
+      type: 0
+      doorCandidates:
+      - startCell: {x: 35, y: 9}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 35, y: 8}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 35, y: 6}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 35, y: 5}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 36, y: 7}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 31, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 32, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 33, y: 4}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 34, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 35, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 30, y: 7}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 31, y: 9}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 31, y: 8}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 31, y: 6}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 31, y: 5}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 31, y: 9}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 32, y: 9}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 33, y: 10}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 34, y: 9}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 35, y: 9}
+        outward: {x: 0, y: 1}
+        width: 1
+    - id: 2
+      bounds:
+        x: 39
+        y: 5
+        width: 11
+        height: 7
+      distanceFromStart: -1
+      hasReservedCenter: 0
+      reservedCenter: {x: 0, y: 0}
+      type: 0
+      doorCandidates:
+      - startCell: {x: 49, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 48, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 47, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 46, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 45, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 44, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 43, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 42, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 41, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 40, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 39, y: 5}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 39, y: 11}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 39, y: 10}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 39, y: 9}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 39, y: 8}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 39, y: 7}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 39, y: 6}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 39, y: 5}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 48, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 47, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 46, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 45, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 44, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 43, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 42, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 41, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 40, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 39, y: 11}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 49, y: 11}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 10}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 9}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 8}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 7}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 6}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 49, y: 5}
+        outward: {x: 1, y: 0}
+        width: 1
+    - id: 3
+      bounds:
+        x: 4
+        y: 28
+        width: 7
+        height: 7
+      distanceFromStart: -1
+      hasReservedCenter: 0
+      reservedCenter: {x: 0, y: 0}
+      type: 0
+      doorCandidates:
+      - startCell: {x: 4, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 5, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 6, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 7, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 8, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 9, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 10, y: 34}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 10, y: 28}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 10, y: 29}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 10, y: 30}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 10, y: 31}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 10, y: 32}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 10, y: 33}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 10, y: 34}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 5, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 6, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 7, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 8, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 9, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 10, y: 28}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 4, y: 28}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 29}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 30}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 31}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 32}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 33}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 4, y: 34}
+        outward: {x: -1, y: 0}
+        width: 1
+    - id: 4
+      bounds:
+        x: 15
+        y: 25
+        width: 7
+        height: 7
+      distanceFromStart: -1
+      hasReservedCenter: 0
+      reservedCenter: {x: 0, y: 0}
+      type: 0
+      doorCandidates:
+      - startCell: {x: 15, y: 25}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 15, y: 26}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 15, y: 27}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 15, y: 28}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 15, y: 29}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 15, y: 30}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 15, y: 31}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 20, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 19, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 18, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 17, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 16, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 15, y: 31}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 21, y: 25}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 26}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 27}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 28}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 29}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 30}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 31}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 21, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 20, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 19, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 18, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 17, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 16, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 15, y: 25}
+        outward: {x: 0, y: -1}
+        width: 1
+    - id: 5
+      bounds:
+        x: 37
+        y: 24
+        width: 7
+        height: 7
+      distanceFromStart: -1
+      hasReservedCenter: 0
+      reservedCenter: {x: 0, y: 0}
+      type: 0
+      doorCandidates:
+      - startCell: {x: 37, y: 24}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 37, y: 25}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 37, y: 26}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 37, y: 27}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 37, y: 28}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 37, y: 29}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 37, y: 30}
+        outward: {x: -1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 42, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 41, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 40, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 39, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 38, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 37, y: 30}
+        outward: {x: 0, y: 1}
+        width: 1
+      - startCell: {x: 43, y: 24}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 25}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 26}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 27}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 28}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 29}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 30}
+        outward: {x: 1, y: 0}
+        width: 1
+      - startCell: {x: 43, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 42, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 41, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 40, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 39, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 38, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+      - startCell: {x: 37, y: 24}
+        outward: {x: 0, y: -1}
+        width: 1
+    cells:
+    - coordinate: {x: 9, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 9, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 8, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 7, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 6, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 5, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 4, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 5}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 6}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 7}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 8}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 9}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 10}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 11}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 12}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 13}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 14}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 3, y: 15}
+      roomId: 0
+      occupancy: 0
+    - coordinate: {x: 30, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 31, y: 9}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 31, y: 8}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 31, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 31, y: 6}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 31, y: 5}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 32, y: 9}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 32, y: 8}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 32, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 32, y: 6}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 32, y: 5}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 10}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 9}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 8}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 6}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 5}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 33, y: 4}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 34, y: 9}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 34, y: 8}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 34, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 34, y: 6}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 34, y: 5}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 35, y: 9}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 35, y: 8}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 35, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 35, y: 6}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 35, y: 5}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 36, y: 7}
+      roomId: 1
+      occupancy: 0
+    - coordinate: {x: 49, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 11}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 49, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 10}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 49, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 9}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 49, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 8}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 49, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 7}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 49, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 6}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 49, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 48, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 47, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 46, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 45, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 44, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 43, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 42, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 41, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 40, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 39, y: 5}
+      roomId: 2
+      occupancy: 0
+    - coordinate: {x: 4, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 28}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 4, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 29}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 4, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 30}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 4, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 31}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 4, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 32}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 4, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 33}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 4, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 5, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 6, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 7, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 8, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 9, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 10, y: 34}
+      roomId: 3
+      occupancy: 0
+    - coordinate: {x: 21, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 21, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 21, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 21, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 21, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 21, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 21, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 20, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 19, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 18, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 17, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 16, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 25}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 26}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 27}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 28}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 29}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 30}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 15, y: 31}
+      roomId: 4
+      occupancy: 0
+    - coordinate: {x: 43, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 43, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 43, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 43, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 43, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 43, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 43, y: 30}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 42, y: 30}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 41, y: 30}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 40, y: 30}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 39, y: 30}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 38, y: 30}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 24}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 25}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 26}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 27}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 28}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 29}
+      roomId: 5
+      occupancy: 0
+    - coordinate: {x: 37, y: 30}
+      roomId: 5
+      occupancy: 0
+    plannedConnections:
+    - roomA: 0
+      roomB: 3
+    - roomA: 3
+      roomB: 4
+    - roomA: 4
+      roomB: 5
+    - roomA: 5
+      roomB: 2
+    - roomA: 2
+      roomB: 1
+    corridors: []
+  roomView: {fileID: 1202863397}
+  chestRoomCount: 1
+  healingRoomCount: 1
+  upgradeRoomCount: 1
+  eventRoomCount: 1
+  useBsp: 1
+  roomPresets:
+  - {fileID: 11400000, guid: 707d63b2a4d0c95408f365032ecb9ae4, type: 2}
+  - {fileID: 11400000, guid: f2149e317176a404987362e1e6792088, type: 2}
+  - {fileID: 11400000, guid: ddc087178b8d10c41b272e5d17edae59, type: 2}
+  bspArea: {x: 52, y: 39}
+  minimumRegionSide: 13
+  roomCount: 6
+  roomMargin: 1
+  connectionToPreview: 0
+  corridorPreview:
+    roomA: 0
+    roomB: 0
+    doorA:
+      startCell: {x: 0, y: 0}
+      outward: {x: 0, y: 0}
+      width: 0
+    doorB:
+      startCell: {x: 0, y: 0}
+      outward: {x: 0, y: 0}
+      width: 0
+    cells: []
+  buildCorridors: 1
+  maximumCorridorAttempts: 8
+  navigationStartRoom: 0
+  navigationDestinationRoom: 1
+  previewNavigationOnClick: 1
+  navigationCamera: {fileID: 443060772}
+  avatarMove: {fileID: 1474725052}
+  combatProbability: 0.6
+--- !u!4 &1202863396
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202863394}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202863397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202863394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdcfbb0501add340a6c0a616482e2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRoomView
+  floorPrefab: {fileID: 4301138908738953265, guid: 6f7d6c039c364e340931e3d51efb8c3f, type: 3}
+  wallPrefab: {fileID: 9076749486273345457, guid: e5b5068b1c6954845943b675795e3c30, type: 3}
+--- !u!114 &1202863398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202863394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d288e14a413033248914339aed747df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonRunController
+  minimumRooms: 6
+  maximumRooms: 8
+  roomsPerFloor: 1
+  roomLimit: 16
+  initialBossChance: 0.1
+  bossChanceIncrease: 0.08
+  maximumBossChance: 0.65
+  resetChanceAfterBoss: 1
+  decorationPerRoom: 3
+  maximumEnemiesPerRoom: 3
+  enablePrototypeEncounterResolution: 1
+  chestPrefab: {fileID: 228012754255586990, guid: 88e968b1d85777a4daf8594f5ab0836a, type: 3}
+  altarPrefab: {fileID: 5313926059448801799, guid: e2d76088e6caced4eb636b9630f1289f, type: 3}
+  upgradePrefab: {fileID: 1956472461458741896, guid: bb9fcfb60ec2ce349a096a691235b702, type: 3}
+  pillarPrefab: {fileID: 3937574797272060137, guid: 0d47c3cfbf41cde41a43eeb5646de245, type: 3}
+  enemyPrefab: {fileID: 2666065646292679050, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+  enableAtmosphere: 1
+--- !u!1 &1453435043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453435045}
+  - component: {fileID: 1453435044}
+  m_Layer: 0
+  m_Name: BSPLayoutProbe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1453435044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453435043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4b819c5196bfe4c88f0912b84a8c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BSPLayoutProbe
+  seed: 12345
+  areaSize: {x: 52, y: 39}
+  minimumSide: 13
+  targetCount: 6
+  regions:
+  - x: 0
+    y: 0
+    width: 19
+    height: 18
+  - x: 19
+    y: 0
+    width: 19
+    height: 18
+  - x: 38
+    y: 0
+    width: 14
+    height: 18
+  - x: 0
+    y: 18
+    width: 13
+    height: 21
+  - x: 13
+    y: 18
+    width: 13
+    height: 21
+  - x: 26
+    y: 18
+    width: 26
+    height: 21
+--- !u!4 &1453435045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453435043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.76985, y: 0.27009, z: 3.20249}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1474725051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474725054}
+  - component: {fileID: 1474725053}
+  - component: {fileID: 1474725052}
+  m_Layer: 2
+  m_Name: DungeonAvatar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1474725052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474725051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59dfef7c5208fa14baee3005406e1993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonAvatarMove
+  visual: {fileID: 680975828}
+  cameraFollow: {fileID: 443060775}
+  moveSpeed: 3.5
+  turnSpeed: 720
+  bodyHeight: 1.8
+  simplifyRoutes: 1
+--- !u!143 &1474725053
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474725051}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1474725054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474725051}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 680975828}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1696432858
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1474725054}
+    m_Modifications:
+    - target: {fileID: 2666065646292679050, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_Name
+      value: PF_MazeTraveler
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468036011144405406, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 443060773}
+  - {fileID: 503629740}
+  - {fileID: 1202863396}
+  - {fileID: 1453435045}
+  - {fileID: 1474725054}

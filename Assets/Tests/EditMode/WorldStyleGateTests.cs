@@ -30,6 +30,7 @@ public sealed class WorldStyleGateTests
 
     [TestCase("SceneVictorLab", true)]
     [TestCase("SceneVictor", true)]
+    [TestCase("SceneGuilleDungeon", true)]
     [TestCase("SceneVictor-back1", false)]
     [TestCase("", false)]
     [TestCase(null, false)]

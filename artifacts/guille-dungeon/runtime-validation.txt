@@ -1,0 +1,1 @@
+PASS: 10 real movement/interactions; three descents including provisional boss; floor 4; content, atmosphere and torch cleanup.
