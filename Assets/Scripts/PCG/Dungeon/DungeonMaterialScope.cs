@@ -16,7 +16,11 @@ public sealed class DungeonMaterialScope : MonoBehaviour
                 if(!variants.TryGetValue(source,out var variant))
                 {
                     variant=new Material(source){name=source.name+" (Guille floor)"};
-                    variant.SetFloat("_AmbientStrength",.55f);variant.enableInstancing=true;variants.Add(source,variant);
+                    variant.SetFloat("_AmbientStrength",.025f);
+                    var bands=variant.GetVector("_BandLevels");bands.x=.002f;bands.y=.055f;
+                    variant.SetVector("_BandLevels",bands);
+                    if(variant.HasProperty("_RimStrength"))variant.SetFloat("_RimStrength",0);
+                    variant.enableInstancing=true;variants.Add(source,variant);
                 }
                 materials[i]=variant;
             }

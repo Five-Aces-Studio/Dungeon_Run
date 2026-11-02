@@ -1,1 +1,1 @@
-Rooms: 16; smoothed frame time: 100,04 ms. Editor frame: 5889 draw calls; 5542 batches; 883703 triangles. Not a standalone performance benchmark.
+Rooms: 6; smoothed frame time: 105,93 ms. Editor frame: 3634 draw calls; 3491 batches; 562132 triangles. Not a standalone performance benchmark.

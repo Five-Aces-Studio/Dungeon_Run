@@ -21,6 +21,7 @@ public sealed class DungeonRunController : MonoBehaviour
     public bool enablePrototypeEncounterResolution = true;
     public GameObject chestPrefab, altarPrefab, upgradePrefab, pillarPrefab, enemyPrefab;
     public bool enableAtmosphere = true;
+    public DungeonAtmosphere.Settings atmosphereSettings = new DungeonAtmosphere.Settings();
     public DungeonRunState State { get; private set; }
     public DungeonFloorData Floor { get; private set; }
     public string LastMessage { get; private set; } = "";
@@ -100,7 +101,7 @@ public sealed class DungeonRunController : MonoBehaviour
             newContent.ValidatePhysicalAccess(probe.Avatar, prepared);
 
             var newAtmosphere = staging.Root.AddComponent<DungeonAtmosphere>();
-            newAtmosphere.Initialize(prepared, probe.Avatar.transform, pillarPrefab, enableAtmosphere);
+            newAtmosphere.Initialize(prepared, probe.Avatar.transform, pillarPrefab, enableAtmosphere, atmosphereSettings);
 
             var installedRoot = staging.ReleaseRoot();
             probe.View.AdoptRoot(installedRoot, prepared);
@@ -238,7 +239,7 @@ public sealed class DungeonRunController : MonoBehaviour
             return;
         }
         GUI.Box(new Rect(16,16,440,72), $"PISO {State.floorNumber}  ·  {(State.isBossFloor ? "JEFE PROVISIONAL" : "EXPLORACIÓN")}\n" +
-            $"Llave: {(State.hasKey ? "sí" : "no")}   |   Escaleras: {(State.doorsOpen ? "abiertas" : "cerradas")}\nClic para caminar · E para interactuar · Encuentros de prueba");
+            $"Llave: {(State.hasKey ? "sí" : "no")}   |   Escaleras: {(State.doorsOpen ? "abiertas" : "cerradas")}\n{probe.Avatar.MovementHint} · E para interactuar · Encuentros de prueba");
         if (target != null) GUI.Box(new Rect(Screen.width/2-185,Screen.height-85,370,40), "[E] " + Label(target.kind));
         if (Time.unscaledTime < messageUntil) GUI.Box(new Rect(16,96,590,55),LastMessage);
     }

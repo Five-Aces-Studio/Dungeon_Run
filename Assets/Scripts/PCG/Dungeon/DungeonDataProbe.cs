@@ -154,7 +154,7 @@ public sealed class DungeonDataProbe : MonoBehaviour
             return;
         }
 
-        if (avatarMove != null && (!avatarMove.IsReady || avatarMove.IsMoving))
+        if (avatarMove != null && (!avatarMove.AcceptsClickMovement || !avatarMove.IsReady || avatarMove.IsMoving))
         {
             return;
         }

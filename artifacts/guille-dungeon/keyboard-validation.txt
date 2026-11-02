@@ -1,0 +1,1 @@
+PASS: synthetic Input System keyboard; W/S/A/D camera directions; normalized diagonal; key release; click-only mode; floor boundary; device and settings restored.

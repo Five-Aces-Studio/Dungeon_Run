@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.008, g: 0.01, b: 0.015, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -158,7 +158,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.025, g: 0.032, b: 0.05, a: 1}
+  m_BackGroundColor: {r: 0.003, g: 0.004, b: 0.007, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -314,7 +314,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.64, g: 0.71, b: 0.85, a: 1}
-  m_Intensity: 0.32
+  m_Intensity: 0.015
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2184,6 +2184,16 @@ MonoBehaviour:
   pillarPrefab: {fileID: 3937574797272060137, guid: 0d47c3cfbf41cde41a43eeb5646de245, type: 3}
   enemyPrefab: {fileID: 2666065646292679050, guid: 4031dcafceba8e44aa0e4765ca59b0b5, type: 3}
   enableAtmosphere: 1
+  atmosphereSettings:
+    mistOpacity: 0.1
+    mistSize: 1.6
+    mistHeight: 0.45
+    exteriorFogShader: {fileID: 4800000, guid: 16dbad4a0cad9304bb6af619fe69cb81, type: 3}
+    exteriorFogColor: {r: 0.16, g: 0.2, b: 0.24, a: 1}
+    exteriorFogSpeed: 0.65
+    exteriorFogBrightness: 0.22
+    torchRange: 5
+    torchIntensity: 9
 --- !u!1 &1453435043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,6 +2297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dfef7c5208fa14baee3005406e1993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonAvatarMove
+  movementControl: 2
+  movementCamera: {fileID: 0}
   visual: {fileID: 680975828}
   cameraFollow: {fileID: 443060775}
   moveSpeed: 3.5

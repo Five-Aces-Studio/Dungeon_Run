@@ -32,6 +32,8 @@ public static class GuilleDungeonValidation
             {
                 case "setup": Setup();break;
                 case "refresh": AssetDatabase.Refresh();break;
+                case "darkness": ConfigureDarkness();break;
+                case "wasd_test": StartKeyboardTest();break;
                 case "validate": ValidateData();break;
                 case "play": EditorApplication.isPlaying=true;break;
                 case "stop": EditorApplication.isPlaying=false;break;
@@ -76,7 +78,7 @@ public static class GuilleDungeonValidation
         if(AssetDatabase.LoadAssetAtPath<DungeonRunWorldStyleProfile>(profilePath)==null)
             AssetDatabase.CopyAsset("Assets/Settings/AcrylicV3/DungeonRun_World_AcrylicSoft.asset",profilePath);
         var profile=AssetDatabase.LoadAssetAtPath<DungeonRunWorldStyleProfile>(profilePath);
-        profile.paintStrength=.35f;profile.pixelInfluence=.18f;profile.shadowLift=.08f;profile.hazeStrength=.08f;EditorUtility.SetDirty(profile);
+        profile.paintStrength=.35f;profile.pixelInfluence=.18f;profile.shadowLift=0;profile.hazeStrength=0;EditorUtility.SetDirty(profile);
         var style=camera.GetComponent<DungeonRunWorldStyleSettings>();if(style==null)style=Undo.AddComponent<DungeonRunWorldStyleSettings>(camera.gameObject);
         style.profile=profile;EditorUtility.SetDirty(style);
         var pipeline=UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline;
@@ -90,8 +92,24 @@ public static class GuilleDungeonValidation
         EditorUtility.SetDirty(camera);
         // Only this dedicated scene's directional light is changed, no shared materials/profiles.
         foreach(var light in UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None))
-            if(light.type==LightType.Directional){Undo.RecordObject(light,"Dungeon lighting");light.intensity=.32f;light.color=new Color(.64f,.71f,.85f);}
+            if(light.type==LightType.Directional){Undo.RecordObject(light,"Dungeon lighting");light.intensity=.015f;light.color=new Color(.64f,.71f,.85f);}
+        ConfigureDarkness();
         AssetDatabase.SaveAssets();EditorUtility.SetDirty(run);EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+    }
+    private static void ConfigureDarkness()
+    {
+        Require(!EditorApplication.isPlaying,"Stop Play Mode before configuring lighting");
+        Require(SceneManager.GetActiveScene().path==ScenePath,"Open SceneGuilleDungeon first");
+        var camera=Camera.main;Undo.RecordObject(camera,"Dungeon darkness");
+        camera.backgroundColor=new Color(.003f,.004f,.007f);
+        RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Flat;
+        RenderSettings.ambientLight=new Color(.008f,.01f,.015f);RenderSettings.reflectionIntensity=0;
+        foreach(var lamp in UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None))
+            if(lamp.type==LightType.Directional){Undo.RecordObject(lamp,"Dungeon darkness");lamp.intensity=.015f;EditorUtility.SetDirty(lamp);}
+        var profile=AssetDatabase.LoadAssetAtPath<DungeonRunWorldStyleProfile>("Assets/Settings/Dungeon/GuilleWorldStyle.asset");
+        profile.shadowLift=0;profile.hazeStrength=0;EditorUtility.SetDirty(profile);
+        EditorUtility.SetDirty(camera);AssetDatabase.SaveAssets();
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
     }
     [MenuItem("Tools/Guille Dungeon/Validate deterministic data")]
     public static void ValidateData()
@@ -126,6 +144,72 @@ public static class GuilleDungeonValidation
         Directory.CreateDirectory(Folder);File.WriteAllText(Path.Combine(Folder,"data-validation.txt"),$"PASS: {passed} seeds; {controlled} controlled layout failures. Determinism, source isolation, footprints, gates, key, approaches, boss state and duplicate interactions.");
     }
     private static void Require(bool condition,string message){if(!condition)throw new InvalidOperationException(message);}
+    private static UnityEngine.InputSystem.Keyboard testKeyboard;
+    private static DungeonAvatarMove keyboardAvatar;
+    private static int keyboardPhase, previousControl;
+    private static float keyboardSince, cardinalDistance;
+    private static Vector3 keyboardStart;
+    private static bool keyboardBackground;
+    private static void StartKeyboardTest()
+    {
+        Require(EditorApplication.isPlaying,"Keyboard test requires Play Mode");
+        keyboardAvatar=UnityEngine.Object.FindFirstObjectByType<DungeonAvatarMove>();
+        Require(keyboardAvatar.IsReady&&!keyboardAvatar.IsMoving,"Avatar must be ready and idle");
+        var so=new SerializedObject(keyboardAvatar);previousControl=so.FindProperty("movementControl").enumValueIndex;
+        so.FindProperty("movementControl").enumValueIndex=1;so.ApplyModifiedProperties();
+        keyboardBackground=Application.runInBackground;Application.runInBackground=true;
+        testKeyboard=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Keyboard>();
+        keyboardPhase=0;BeginKeyboardPhase();EditorApplication.update+=KeyboardTick;
+    }
+    private static void BeginKeyboardPhase()
+    {
+        var keys=new[]{UnityEngine.InputSystem.Key.W,UnityEngine.InputSystem.Key.S,UnityEngine.InputSystem.Key.D,UnityEngine.InputSystem.Key.A};
+        var state=keyboardPhase<4?new UnityEngine.InputSystem.LowLevel.KeyboardState(keys[keyboardPhase]):
+            keyboardPhase==4?new UnityEngine.InputSystem.LowLevel.KeyboardState(keys[0],keys[2]):
+            keyboardPhase==6?new UnityEngine.InputSystem.LowLevel.KeyboardState(keys[0]):new UnityEngine.InputSystem.LowLevel.KeyboardState();
+        if(keyboardPhase==6)
+        {var so=new SerializedObject(keyboardAvatar);so.FindProperty("movementControl").enumValueIndex=0;so.ApplyModifiedProperties();}
+        UnityEngine.InputSystem.InputSystem.QueueStateEvent(testKeyboard,state);
+        keyboardSince=Time.time;keyboardStart=keyboardAvatar.transform.position;
+    }
+    private static void KeyboardTick()
+    {
+        try
+        {
+            Require(EditorApplication.isPlaying,"Keyboard test interrupted");EditorApplication.QueuePlayerLoopUpdate();
+            if(Time.time-keyboardSince<.4f)return;
+            Vector3 delta=keyboardAvatar.transform.position-keyboardStart;
+            var forward=Vector3.ProjectOnPlane(Camera.main.transform.forward,Vector3.up).normalized;
+            var right=Vector3.Cross(Vector3.up,forward);
+            if(keyboardPhase<4)
+            {
+                var directions=new[]{forward,-forward,right,-right};
+                Require(Vector3.Dot(delta,directions[keyboardPhase])>.5f,"WASD direction failed: "+keyboardPhase);
+                if(keyboardPhase==0)cardinalDistance=delta.magnitude;
+            }
+            else if(keyboardPhase==4)
+            {
+                Require(Vector3.Dot(delta,forward)>.3f&&Vector3.Dot(delta,right)>.3f,"Diagonal direction failed");
+                Require(delta.magnitude<cardinalDistance*1.25f,"Diagonal movement is faster");
+            }
+            else Require(delta.magnitude<.12f&&!keyboardAvatar.IsMoving,"Idle/click-only mode moved with WASD");
+            keyboardPhase++;
+            if(keyboardPhase<7){BeginKeyboardPhase();return;}
+            // Attempt to cross the floor boundary: no teleporting off the navigation grid.
+            var method=typeof(DungeonAvatarMove).GetMethod("TryKeyboardStep",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);
+            Require(!(bool)method.Invoke(keyboardAvatar,new object[]{Vector3.right*10000}),"Escaped floor boundary");
+            FinishKeyboardTest();
+            File.WriteAllText(Path.Combine(Folder,"keyboard-validation.txt"),"PASS: synthetic Input System keyboard; W/S/A/D camera directions; normalized diagonal; key release; click-only mode; floor boundary; device and settings restored.");
+        }
+        catch(Exception e){FinishKeyboardTest();File.WriteAllText(Path.Combine(Folder,"keyboard-validation.txt"),"FAIL: "+e);Debug.LogException(e);}
+    }
+    private static void FinishKeyboardTest()
+    {
+        EditorApplication.update-=KeyboardTick;
+        if(testKeyboard!=null){UnityEngine.InputSystem.InputSystem.RemoveDevice(testKeyboard);testKeyboard=null;}
+        if(keyboardAvatar!=null){var so=new SerializedObject(keyboardAvatar);so.FindProperty("movementControl").enumValueIndex=previousControl;so.ApplyModifiedProperties();}
+        Application.runInBackground=keyboardBackground;
+    }
     private static TestRunnerApi testApi;
     private static void RunTests()
     {

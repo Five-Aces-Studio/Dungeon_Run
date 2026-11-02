@@ -6,6 +6,16 @@ La autorización del usuario para aplicar y terminar los cambios sustituye el fl
 
 Abrir `Assets/Scenes/SceneGuille/SceneGuilleDungeon.unity` y entrar en Play. Clic en el suelo para caminar; **E** junto a un objeto para interactuar. Encontrar la llave, abrir una puerta de las escaleras y bajar. Cada enemigo se resuelve individualmente en el modo de prueba.
 
+En **DungeonAvatar > DungeonAvatarMove > Movement Control** se puede elegir `Click`, `WASD` o `Click And WASD`. Se conserva `Click` como valor inicial. WASD usa una acción `Vector2` del Input System moderno y mueve respecto a la cámara; una diagonal tiene la misma velocidad que un eje. En modo combinado, pulsar WASD cancela la ruta de clic. Las colisiones, animación y cambios de habitación siguen usando el mismo controlador. `Movement Camera` es opcional: si queda vacío se usa la cámara principal.
+
+La ambientación oscura se configura en esta escena y en su perfil independiente. Se reducen luz direccional, ambiente, banda mínima del material y aclarado de sombras del posprocesado. En **DungeonDataProbe > DungeonRunController > Atmosphere Settings** están `Mist Opacity`, `Mist Size`, `Mist Height`, `Torch Range` y `Torch Intensity`. Configurarlos antes de Play o regenerar el piso para aplicar todos los cambios. La niebla cubre las casillas cercanas con partículas que aparecen y desaparecen gradualmente; no es niebla de descubrimiento.
+
+La bruma **interior** es sutil: opacidad 0,10, tamaño 1,6 y altura 0,45. El **exterior** tiene un fondo denso de nubes animadas, con color independiente (`Exterior Fog Color`). El shader `SH_Guille_ExteriorFog.shader` se representa debajo del suelo, sin colisiones ni luz: la geometría oculta ese fondo y evita cubrir el interior con niebla densa. Es un fondo procedural para la cámara elevada, no un volumen físico de niebla. Su objeto y material pertenecen al piso y se eliminan al sustituirlo.
+
+`Exterior Fog Speed` controla la velocidad del exterior (0,65 por defecto; 0 detiene la animación). Este valor y `Exterior Fog Color` se pueden ajustar durante Play. El fondo combina tres capas suaves con velocidades distintas y deformación continua, evitando que parezca una textura rígida que se desliza. Su movimiento se verificó con 30 capturas a cámara fija; vista animada en `artifacts/guille-dungeon/exterior-fog-motion.gif`.
+
+`Exterior Fog Brightness` regula por separado la visibilidad de esas masas (0,22 por defecto, ajustable en Play). La calibración actual mantiene el fondo casi negro con bancos amplios apenas visibles; no añade luces al escenario. La captura actual de luminosidad es `artifacts/guille-dungeon/faint-exterior-fog.png`; el GIF anterior documenta el movimiento con el brillo antiguo.
+
 `DungeonRunController` permite configurar habitaciones, crecimiento, límite, contenido, ambientación y probabilidad de jefe. Los valores iniciales son de prueba: 6–8 habitaciones, crecimiento de una por piso, límite 16; probabilidad inicial 10 %, incremento 8 puntos porcentuales y tope 65 %.
 
 La tirada se realiza una sola vez al recoger la llave y se conserva en `DungeonRunState`. El piso de jefe usa la misma generación BSP, contiene un encuentro marcado como provisional y exige resolverlo, recoger la llave y abrir la salida. El siguiente piso es normal. El reinicio de probabilidad tras el jefe es configurable y está activado inicialmente. No hay guardado en disco.
@@ -16,7 +26,7 @@ La tirada se realiza una sola vez al recoger la llave y se conserva en `DungeonR
 - `DungeonContentView` representa objetos y colisiones; valida además los accesos con el volumen físico del avatar.
 - `DungeonRunController` coordina las interacciones y prepara el siguiente piso antes de sustituir el actual. Un fallo recuperable conserva el anterior.
 - `DungeonRunState` guarda únicamente datos de exploración, sin referencias a objetos de la escena que se destruyen.
-- `DungeonAtmosphere` mantiene la antorcha del jugador, encendido de antorchas de pared con comprobación de obstrucción y niebla tenue. Como máximo activa cuatro luces de pared cercanas; el estado de encendido persiste durante el piso.
+- `DungeonAtmosphere` mantiene la antorcha del jugador, encendido de antorchas de pared con comprobación de obstrucción, bruma interior sutil y fondo exterior de niebla densa. Como máximo activa cuatro luces de pared cercanas; el estado de encendido persiste durante el piso.
 - `DungeonMaterialScope` crea variantes locales de materiales y las elimina con el piso. `GuilleWorldStyle.asset` es un perfil independiente. La habilitación en `WorldStyleGate` se limita a añadir esta escena.
 
 Piensa en la transición como preparar una maqueta nueva en otra mesa: primero se monta y se comprueba que el personaje cabe; después se retira la maqueta anterior.
@@ -31,6 +41,8 @@ Con `enablePrototypeEncounterResolution` activo, E resuelve el encuentro de prue
 
 Comandos: `setup`, `refresh`, `validate`, `tests`, `play`, `stop`, `status`, `smoke`, `large`, `capture_base`, `capture`. Esperar el resultado y la finalización de cada operación antes de enviar otra. `smoke` requiere Play: fuerza temporalmente la probabilidad de jefe y acelera al avatar para recorrer tres descensos con navegación real; salir de Play restaura los valores de escena. `large` reinicia temporalmente la partida con 16 habitaciones para revisar el máximo configurado. `refresh` importa cambios de scripts sin depender del foco de la ventana.
 
+`darkness` aplica los ajustes de iluminación a la escena de Guille fuera de Play. `wasd_test` prueba un teclado virtual del Input System en Play: cuatro direcciones, diagonal normalizada, soltar teclas, modo solo clic y rechazo de un desplazamiento fuera del piso. Restaura el dispositivo y la configuración al terminar; resultado en `keyboard-validation.txt`.
+
 Los resultados se escriben en `data-validation.txt`, `runtime-validation.txt`, `world-style-tests.xml` y capturas PNG dentro de `artifacts/guille-dungeon`. La validación de datos comprueba 24 semillas, determinismo, aislamiento del piso original, ocupación, llave, bloqueo de escaleras, accesos y estado de jefe. Las capturas de cámara no incluyen el HUD; `game-view.png` sí lo incluye y puede mostrar gizmos del Editor.
 
 ## Límites del prototipo
@@ -38,6 +50,8 @@ Los resultados se escriben en `data-validation.txt`, `runtime-validation.txt`, `
 El jefe usa una representación y resolución de prueba. No se implementan aquí combate, recompensas definitivas, guardado ni WFC. Decoración e interacciones usan huellas de una casilla. Los contadores de render se recogen en el Editor y no acreditan el presupuesto de una build final; queda pendiente el perfilado en hardware objetivo. Los menús históricos del probe orientados a distancias estructurales deben usarse antes de poblar el piso, ya que las puertas y objetos cambian su transitabilidad.
 
 ## Evidencia de esta entrega
+
+Actualización del 2 de noviembre: prueba de teclado virtual aprobada, regresión de tres descensos aprobada y capturas de la ambientación oscura inspeccionadas en dos pisos. La niebla es de partículas, no volumétrica; su calibración visual puede ajustarse con los parámetros del Inspector.
 
 - Datos: 24 semillas válidas, sin fallos de generación en la muestra.
 - Edit Mode: 17 tests de `WorldStyleGateTests` aprobados.

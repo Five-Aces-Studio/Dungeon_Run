@@ -1,10 +1,20 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public sealed class DungeonAvatarMove : MonoBehaviour
 {
+    public enum MovementControl { Click, WASD, ClickAndWASD }
+    [Header("Input System")]
+    [SerializeField] private MovementControl movementControl = MovementControl.Click;
+    [SerializeField] private Camera movementCamera;
+    public bool AcceptsClickMovement => movementControl != MovementControl.WASD;
+    public string MovementHint => movementControl == MovementControl.Click ? "Clic para caminar" :
+        movementControl == MovementControl.WASD ? "WASD para caminar" : "Clic o WASD para caminar";
+    private InputAction keyboardMove;
+    private bool keyboardMoving;
     [SerializeField] private Transform visual;
     [SerializeField] private CameraFollowNode cameraFollow;
 
@@ -32,7 +42,7 @@ public sealed class DungeonAvatarMove : MonoBehaviour
 
     public bool IsReady => floorData != null && isActiveAndEnabled && characterController.enabled;
 
-    public bool IsMoving => route != null;
+    public bool IsMoving => route != null || keyboardMoving;
 
     public Vector2Int CurrentCell
     {
@@ -174,6 +184,17 @@ public sealed class DungeonAvatarMove : MonoBehaviour
 
     private void Update()
     {
+        if (!IsReady || Time.deltaTime <= 0f) return;
+        keyboardMoving = false;
+        Vector2 input = movementControl == MovementControl.Click ? Vector2.zero : keyboardMove.ReadValue<Vector2>();
+        if (input.sqrMagnitude > .001f)
+        {
+            StopMovement(); // Keyboard input takes over an active click route.
+            MoveWithKeyboard(input);
+            return;
+        }
+        if (movementControl == MovementControl.WASD && route != null) StopMovement();
+        if (route == null) SetRunning(false);
         if (!IsReady || route == null || Time.deltaTime <= 0f) return;
 
         Vector3 delta = Vector3.zero;
@@ -246,6 +267,7 @@ public sealed class DungeonAvatarMove : MonoBehaviour
 
     private void StopMovement()
     {
+        keyboardMoving = false;
         route = null;
         routeIndex = 0;
         stalledTime = 0f;
@@ -399,7 +421,60 @@ public sealed class DungeonAvatarMove : MonoBehaviour
 
     private void OnDisable()
     {
+        keyboardMove?.Disable();
         ResetNavigation();
+    }
+
+    private void OnEnable()
+    {
+        if (keyboardMove == null)
+        {
+            keyboardMove = new InputAction("Dungeon WASD", InputActionType.Value, expectedControlType: "Vector2");
+            keyboardMove.AddCompositeBinding("2DVector")
+                .With("Up", "<Keyboard>/w").With("Down", "<Keyboard>/s")
+                .With("Left", "<Keyboard>/a").With("Right", "<Keyboard>/d");
+        }
+        keyboardMove.Enable();
+    }
+
+    private void OnDestroy() { keyboardMove?.Dispose(); }
+
+    private void MoveWithKeyboard(Vector2 input)
+    {
+        var camera = movementCamera != null ? movementCamera : Camera.main;
+        Vector3 forward = camera != null ? Vector3.ProjectOnPlane(camera.transform.forward, Vector3.up).normalized : Vector3.forward;
+        if (forward.sqrMagnitude < .001f) forward = Vector3.forward;
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
+        Vector3 direction = Vector3.ClampMagnitude(right * input.x + forward * input.y, 1f);
+        Vector3 before = transform.position;
+        float distance = moveSpeed * Mathf.Min(Time.deltaTime, .1f);
+        int steps = Mathf.Max(1, Mathf.CeilToInt(distance / (floorData.cellSize * .2f)));
+        Vector3 step = direction * (distance / steps);
+        for (int i = 0; i < steps; i++)
+        {
+            if (!TryKeyboardStep(step))
+            {
+                // Slide along the free axis when approaching a wall diagonally.
+                TryKeyboardStep(new Vector3(step.x, 0, 0));
+                TryKeyboardStep(new Vector3(0, 0, step.z));
+            }
+        }
+        keyboardMoving = (transform.position - before).sqrMagnitude > .0000001f;
+        SetRunning(keyboardMoving);
+        if (keyboardMoving)
+            visual.rotation = Quaternion.RotateTowards(visual.rotation, Quaternion.LookRotation(direction), turnSpeed * Time.deltaTime);
+        RefreshCurrentRoom();
+    }
+
+    private bool TryKeyboardStep(Vector3 motion)
+    {
+        if (motion.sqrMagnitude < .0000001f) return false;
+        Vector3 destination = transform.position + motion;
+        Vector2Int cell = new Vector2Int(Mathf.RoundToInt(destination.x / floorData.cellSize), Mathf.RoundToInt(destination.z / floorData.cellSize));
+        if (!floorData.cells.Exists(c => c.coordinate == cell && (c.occupancy & CellOccupancy.Blocked) == 0) ||
+            !CanTravelWorld(transform.position, destination)) return false;
+        characterController.Move(motion);
+        return true;
     }
 
     private List<Vector2Int> SimplifyPath(List<Vector2Int> original)

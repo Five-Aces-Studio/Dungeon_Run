@@ -24,13 +24,13 @@ MonoBehaviour:
   paletteStrength: 0.3
   saturation: 1.05
   contrast: 1.1
-  shadowLift: 0.08
+  shadowLift: 0
   coolShadowColor: {r: 0.14, g: 0.24, b: 0.28, a: 1}
   quantizationStrength: 0.06
   colorLevels: 64
   ditherStrength: 0.04
   distanceDesaturation: 0.4
-  hazeStrength: 0.08
+  hazeStrength: 0
   albedoVariation: 0.4
   colorVariation: 0.85
   terminatorBreakup: 0.58
